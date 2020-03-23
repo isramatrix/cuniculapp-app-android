@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "202623521735",
+    "firebase_url": "https://cuniculapp.firebaseio.com",
+    "project_id": "cuniculapp",
+    "storage_bucket": "cuniculapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:202623521735:android:a809d4fdddac5cd2bcbfe2",
+        "android_client_info": {
+          "package_name": "upv.cuniculappteam.cuniculapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "202623521735-ktiv8epto3i5g6p6p4cqoqgagujnb6am.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDdq1xiED5oEH7rR4ChWoIsxOzQ9CvV-no"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "202623521735-ktiv8epto3i5g6p6p4cqoqgagujnb6am.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
