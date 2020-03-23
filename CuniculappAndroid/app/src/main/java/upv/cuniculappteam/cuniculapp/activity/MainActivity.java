@@ -1,8 +1,10 @@
-package upv.cuniculappteam.cuniculapp;
+package upv.cuniculappteam.cuniculapp.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import upv.cuniculappteam.cuniculapp.R;
 
 public class MainActivity extends AppCompatActivity {
 
