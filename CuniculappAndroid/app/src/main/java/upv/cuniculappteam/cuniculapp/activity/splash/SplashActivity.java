@@ -1,4 +1,4 @@
-package upv.cuniculappteam.cuniculapp.activity;
+package upv.cuniculappteam.cuniculapp.activity.splash;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import upv.cuniculappteam.cuniculapp.R;
+import upv.cuniculappteam.cuniculapp.activity.main.MainActivity;
 import upv.cuniculappteam.cuniculapp.logic.firebase.Firebase;
 
 public class SplashActivity extends AppCompatActivity {
@@ -57,6 +58,6 @@ public class SplashActivity extends AppCompatActivity {
 
     private void switchActivity()
     {
-        startActivity(new Intent(this, SplashActivity.class));
+        startActivity(new Intent(this, MainActivity.class));
     }
 }
