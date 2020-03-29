@@ -9,7 +9,7 @@
         android:title="Settings" />
     <item
         android:id="@+id/main_cycles"
-        android:title="Item" />
+        android:title="Ciclos" />
     <item
         android:id="@+id/main_calendar"
         android:title="Calendar" />
