@@ -8,15 +8,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import upv.cuniculappteam.cuniculapp.R;
-import upv.cuniculappteam.cuniculapp.viewmodel.TaskViewModel;
+import upv.cuniculappteam.cuniculapp.viewmodel.LaborViewModel;
 
 public class LaborFragment extends Fragment
 {
-    private TaskViewModel tasks;
+    private LaborViewModel tasks;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -26,7 +25,7 @@ public class LaborFragment extends Fragment
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        tasks = ViewModelProviders.of(this).get(TaskViewModel.class);
+        tasks = ViewModelProviders.of(this).get(LaborViewModel.class);
     }
 
     @Override

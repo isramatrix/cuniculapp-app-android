@@ -2,6 +2,9 @@ package upv.cuniculappteam.cuniculapp.logic.firebase;
 
 import android.content.Context;
 
+import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -20,16 +23,13 @@ public class Database
         firestore = FirebaseFirestore.getInstance();
     }
 
-    /// EJEMPLO DE USO: NO USAR ///
-
-    public <T extends Serializable> Task<T> fetch(String id, final Class<T> type)
+    public <T, S extends T> Task<S> fetch(String id, final Class<? extends T> type)
     {
         return firestore.collection("users").document(id).get().continueWith(
                 (result) -> {
-                    if (result.isSuccessful() && result.getResult() != null)
-                        return (T) result.getResult().toObject(type);
-
-                    else if (result.getException() != null)
+                    if (result.isSuccessful() && result.getResult() != null) {
+                        return (S) result.getResult().toObject(type);
+                    } else if (result.getException() != null)
                         throw result.getException();
 
                     else throw new NullPointerException();
@@ -37,9 +37,9 @@ public class Database
         );
     }
 
-    public <T extends Serializable> Task<DocumentReference> add(T obj)
+    public <T extends Serializable> Task<Void> add(T obj)
     {
-        return firestore.collection("users").add(obj);
+        return firestore.collection("users").add(obj).continueWith(task -> null);
     }
 
     public <T extends Serializable> Task<Void> add(String id, T obj)
