@@ -1,17 +1,15 @@
-package upv.cuniculappteam.cuniculapp.model;
+package upv.cuniculappteam.cuniculapp.model.utils;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.gson.Gson;
 
-import java.util.Arrays;
-
 public class TraceableCreator<T extends Traceable> implements Parcelable.Creator<T>
 {
     private Class<T> type;
 
-    TraceableCreator(Class<T> type)
+    public TraceableCreator(Class<T> type)
     {
         this.type = type;
     }

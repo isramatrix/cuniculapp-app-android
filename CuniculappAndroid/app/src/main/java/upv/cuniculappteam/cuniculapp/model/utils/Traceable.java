@@ -1,4 +1,4 @@
-package upv.cuniculappteam.cuniculapp.model;
+package upv.cuniculappteam.cuniculapp.model.utils;
 
 import android.os.Parcel;
 import android.os.Parcelable;
