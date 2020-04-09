@@ -1,7 +1,5 @@
 package upv.cuniculappteam.cuniculapp.model.labors;
 
-import android.os.Parcelable;
-
 import java.util.Date;
 
 import upv.cuniculappteam.cuniculapp.model.Cycle;

@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Cuniculapp</string>
+
+    <!-- Cycles Fragment -->
+    <string name="farm_jails">Nº Jaulas</string>
+    <string name="farm_cycles">Nº Ciclos</string>
+    <string name="farm_location">Localización</string>
+
+
+
 </resources>

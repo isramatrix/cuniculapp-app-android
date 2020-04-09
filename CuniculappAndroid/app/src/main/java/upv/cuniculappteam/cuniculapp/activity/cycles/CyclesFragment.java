@@ -1,6 +1,8 @@
 package upv.cuniculappteam.cuniculapp.activity.cycles;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +11,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import upv.cuniculappteam.cuniculapp.R;
-import upv.cuniculappteam.cuniculapp.viewmodel.LaborViewModel;
+import upv.cuniculappteam.cuniculapp.activity.cycles.farms.FarmActivity;
+import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
+import upv.cuniculappteam.cuniculapp.view.Adapter;
+import upv.cuniculappteam.cuniculapp.viewmodel.FarmViewModel;
 
-public class CyclesFragment extends Fragment
+public class CyclesFragment extends Fragment implements Adapter.OnItemClickListener<Farm>
 {
-    private LaborViewModel tasks;
+    private FarmViewModel farms;
+
+    private FarmAdapter adapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -23,33 +32,32 @@ public class CyclesFragment extends Fragment
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        tasks = ViewModelProviders.of(this).get(LaborViewModel.class);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        farms = ViewModelProviders.of(this).get(FarmViewModel.class);
+
+        // Se inicializa la vista de las granjas disponibles.
+        RecyclerView farmRecycler = view.findViewById(R.id.recycler_farm);
+        farmRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+        farmRecycler.setAdapter(adapter = new FarmAdapter());
+        adapter.setOnItemClickedListener(this);
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onHiddenChanged(boolean hidden)
+    {
+        super.onHiddenChanged(hidden);
+
+        // Se muestran los datos de las granjas disponibles.
+        if (!hidden) farms.getFarms().addOnSuccessListener(adapter::changeData);
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onItemClicked(Farm farm)
+    {
+        Intent intent = new Intent(getActivity(), FarmActivity.class);
+        intent.putExtra(FarmActivity.FARM_INTENT_KEY, (Parcelable) farm);
+        startActivity(intent);
     }
 }

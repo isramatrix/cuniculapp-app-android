@@ -74,8 +74,8 @@ public class MainActivity extends AppCompatActivity implements
 
     private void initializeFragment()
     {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         Fragment fragment;
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
         for (Integer id : fragments.keySet())
         {
