@@ -1,4 +1,4 @@
-package upv.cuniculappteam.cuniculapp.activity.cycles;
+package upv.cuniculappteam.cuniculapp.activity.farms;
 
 import android.view.View;
 import android.widget.TextView;
@@ -10,11 +10,11 @@ import upv.cuniculappteam.cuniculapp.R;
 import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
 import upv.cuniculappteam.cuniculapp.view.Adapter;
 
-public class FarmAdapter extends Adapter<Farm>
+public class FarmsAdapter extends Adapter<Farm>
 {
-    FarmAdapter() { super(new ArrayList<>()); }
+    FarmsAdapter() { super(new ArrayList<>()); }
 
-    FarmAdapter(List<Farm> items) { super(items); }
+    FarmsAdapter(List<Farm> items) { super(items); }
 
     @Override
     public int getLayout() { return R.layout.recycler_farm; }

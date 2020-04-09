@@ -1,4 +1,4 @@
-package upv.cuniculappteam.cuniculapp.activity.splash;
+package upv.cuniculappteam.cuniculapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import upv.cuniculappteam.cuniculapp.R;
-import upv.cuniculappteam.cuniculapp.activity.main.MainActivity;
 import upv.cuniculappteam.cuniculapp.logic.firebase.Firebase;
 
 public class SplashActivity extends AppCompatActivity {

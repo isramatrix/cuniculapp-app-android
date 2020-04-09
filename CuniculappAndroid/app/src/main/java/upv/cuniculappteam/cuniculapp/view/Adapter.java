@@ -8,6 +8,7 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import upv.cuniculappteam.cuniculapp.model.utils.Traceable;
@@ -17,6 +18,8 @@ public abstract class Adapter<T extends Traceable> extends RecyclerView.Adapter<
     private List<T> items;
 
     private OnItemClickListener<T> listener;
+
+    public Adapter() { this.items = new ArrayList<>(); }
 
     public Adapter(List<T> items) { super(); this.items = items; }
 

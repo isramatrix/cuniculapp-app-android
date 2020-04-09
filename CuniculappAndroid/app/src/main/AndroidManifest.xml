@@ -9,14 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.splash.SplashActivity"></activity>
-        <activity android:name=".activity.main.MainActivity">
+        <activity android:name=".activity.SplashActivity"></activity>
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.farms.main.FarmActivity" />
+        <activity android:name=".activity.farms.cycles.CycleActivity" />
+        <activity android:name=".activity.farms.replacements.ReplacementActivity" />
     </application>
 
 </manifest>

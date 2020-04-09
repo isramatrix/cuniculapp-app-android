@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Cuniculapp</string>
 
+    <!-- Main Concepts -->
+    <string name="main_replacement">Reposición</string>
+    <string name="main_cycles">Ciclos</string>
+
     <!-- Cycles Fragment -->
     <string name="farm_jails">Nº Jaulas</string>
     <string name="farm_cycles">Nº Ciclos</string>

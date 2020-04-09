@@ -1,4 +1,4 @@
-package upv.cuniculappteam.cuniculapp.activity.main;
+package upv.cuniculappteam.cuniculapp.activity;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
@@ -16,7 +16,7 @@ import java.util.Map;
 
 import upv.cuniculappteam.cuniculapp.R;
 import upv.cuniculappteam.cuniculapp.activity.calendar.CalendarFragment;
-import upv.cuniculappteam.cuniculapp.activity.cycles.CyclesFragment;
+import upv.cuniculappteam.cuniculapp.activity.farms.FarmsFragment;
 import upv.cuniculappteam.cuniculapp.activity.labor.LaborFragment;
 import upv.cuniculappteam.cuniculapp.activity.settings.SettingsFragment;
 
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements
     private static final Map<Integer, Fragment> fragments = new HashMap<>();
     static {
         fragments.put(R.id.main_calendar, new CalendarFragment());
-        fragments.put(R.id.main_cycles, new CyclesFragment());
+        fragments.put(R.id.main_cycles, new FarmsFragment());
         fragments.put(R.id.main_labor, new LaborFragment());
         fragments.put(R.id.main_settings, new SettingsFragment());
     }

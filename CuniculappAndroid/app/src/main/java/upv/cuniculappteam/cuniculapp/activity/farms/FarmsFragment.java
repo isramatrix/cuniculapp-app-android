@@ -1,4 +1,4 @@
-package upv.cuniculappteam.cuniculapp.activity.cycles;
+package upv.cuniculappteam.cuniculapp.activity.farms;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,20 +15,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import upv.cuniculappteam.cuniculapp.R;
-import upv.cuniculappteam.cuniculapp.activity.cycles.farms.FarmActivity;
+import upv.cuniculappteam.cuniculapp.activity.farms.main.FarmActivity;
 import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
 import upv.cuniculappteam.cuniculapp.view.Adapter;
 import upv.cuniculappteam.cuniculapp.viewmodel.FarmViewModel;
 
-public class CyclesFragment extends Fragment implements Adapter.OnItemClickListener<Farm>
+public class FarmsFragment extends Fragment implements Adapter.OnItemClickListener<Farm>
 {
     private FarmViewModel farms;
 
-    private FarmAdapter adapter;
+    private FarmsAdapter adapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_cycles, container, false);
+        return inflater.inflate(R.layout.fragment_farms, container, false);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class CyclesFragment extends Fragment implements Adapter.OnItemClickListe
         // Se inicializa la vista de las granjas disponibles.
         RecyclerView farmRecycler = view.findViewById(R.id.recycler_farm);
         farmRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-        farmRecycler.setAdapter(adapter = new FarmAdapter());
+        farmRecycler.setAdapter(adapter = new FarmsAdapter());
         adapter.setOnItemClickedListener(this);
     }
 

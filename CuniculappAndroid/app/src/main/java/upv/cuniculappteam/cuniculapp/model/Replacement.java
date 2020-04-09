@@ -1,5 +1,6 @@
-package upv.cuniculappteam.cuniculapp.model.facilities;
+package upv.cuniculappteam.cuniculapp.model;
 
+import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
 import upv.cuniculappteam.cuniculapp.model.utils.Traceable;
 import upv.cuniculappteam.cuniculapp.model.utils.TraceableCreator;
 
