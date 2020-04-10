@@ -48,6 +48,10 @@ public class CyclesFragment extends FarmFragment implements
         RecyclerView replacementRecylcer = view.findViewById(R.id.recycler_cycles);
         replacementRecylcer.setLayoutManager(new LinearLayoutManager(getContext()));
         replacementRecylcer.setAdapter(adapter = new CyclesAdapter());
+
+        // Se muestran los datos de las granjas disponibles.
+        cycles.getCycles(farm).addOnSuccessListener(adapter::changeData);
+
         adapter.setOnItemClickedListener(this);
     }
 
@@ -59,14 +63,6 @@ public class CyclesFragment extends FarmFragment implements
         startActivity(intent);
     }
 
-    @Override
-    public void onHiddenChanged(boolean hidden)
-    {
-        super.onHiddenChanged(hidden);
-
-        // Se muestran los datos de las granjas disponibles.
-        if (!hidden) cycles.getCycles(farm).addOnSuccessListener(adapter::changeData);
-    }
 
     @Override
     int getFragmentName() { return R.string.main_cycles; }

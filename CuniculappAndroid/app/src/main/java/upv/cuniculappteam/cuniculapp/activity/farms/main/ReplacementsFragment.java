@@ -47,6 +47,10 @@ public class ReplacementsFragment extends FarmFragment implements
         RecyclerView replacementRecylcer = view.findViewById(R.id.recycler_replacements);
         replacementRecylcer.setLayoutManager(new LinearLayoutManager(getContext()));
         replacementRecylcer.setAdapter(adapter = new ReplacementsAdapter());
+
+        // Se muestran los datos de las granjas disponibles.
+        replacements.getReplacements(farm).addOnSuccessListener(adapter::changeData);
+
         adapter.setOnItemClickedListener(this);
     }
 
@@ -56,15 +60,6 @@ public class ReplacementsFragment extends FarmFragment implements
         Intent intent = new Intent(getActivity(), ReplacementActivity.class);
         intent.putExtra(ReplacementActivity.REPLACEMENT_INTENT_KEY, (Parcelable) replacement);
         startActivity(intent);
-    }
-
-    @Override
-    public void onHiddenChanged(boolean hidden)
-    {
-        super.onHiddenChanged(hidden);
-
-        // Se muestran los datos de las granjas disponibles.
-        if (!hidden) replacements.getReplacements(farm).addOnSuccessListener(adapter::changeData);
     }
 
     @Override

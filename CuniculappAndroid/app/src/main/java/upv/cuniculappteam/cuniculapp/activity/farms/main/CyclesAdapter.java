@@ -1,6 +1,7 @@
 package upv.cuniculappteam.cuniculapp.activity.farms.main;
 
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -20,9 +21,9 @@ public class CyclesAdapter extends Adapter<Cycle>
     }
 
     @Override
-    public void onBindView(View view, Cycle item)
+    public void onBindView(View view, Cycle cycle)
     {
-
-
+        TextView nameText = view.findViewById(R.id.cycle_name_text);
+        nameText.setText(cycle.getName());
     }
 }

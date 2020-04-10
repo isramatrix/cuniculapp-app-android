@@ -15,6 +15,22 @@ public class CycleViewModel extends ViewModel
 {
     public Task<List<Cycle>> getCycles(Farm farm)
     {
-        return Tasks.call(ArrayList::new);
+        return Tasks.call(() -> {
+
+            List<Cycle> cycles = new ArrayList<>();
+            Cycle c;
+
+            c = new Cycle();
+            c.setName("cicloA");
+            cycles.add(c);
+            c = new Cycle();
+            c.setName("cicloF");
+            cycles.add(c);
+            c = new Cycle();
+            c.setName("cicloFA");
+            cycles.add(c);
+
+            return cycles;
+        });
     }
 }

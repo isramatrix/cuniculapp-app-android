@@ -14,7 +14,7 @@ public class Cycle extends Traceable
 
     private Integer id;
 
-    private Integer name;
+    private String name;
 
     private State state;
 
@@ -30,11 +30,11 @@ public class Cycle extends Traceable
         this.id = id;
     }
 
-    public Integer getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(Integer name) {
+    public void setName(String name) {
         this.name = name;
     }
 

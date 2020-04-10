@@ -10,6 +10,16 @@
     <string name="farm_cycles">Nº Ciclos</string>
     <string name="farm_location">Localización</string>
 
-
+    <!-- Replacement Fragment -->
+    <string name="replacement_days">Días</string>
+    <string name="replacement_rabbits">Nº Conejas</string>
+    <string name="replacement_age">Edad</string>
+    <string name="replacement_jails">Jaulas</string>
+    <string name="replacement_jails_add">Añadir</string>
+    <string name="replacement_jails_remove">Quitar</string>
+    <string name="replacement_timeline">Evolución</string>
+    <string name="replacement_timeline_changes">Cambios</string>
+    <string name="replacement_timeline_reason">Motivo</string>
+    <string name="replacement_timeline_date">Fecha</string>
 
 </resources>
