@@ -18,6 +18,7 @@ import upv.cuniculappteam.cuniculapp.R;
 import upv.cuniculappteam.cuniculapp.activity.farms.main.FarmActivity;
 import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
 import upv.cuniculappteam.cuniculapp.view.Adapter;
+import upv.cuniculappteam.cuniculapp.view.farms.FarmsAdapter;
 import upv.cuniculappteam.cuniculapp.viewmodel.FarmViewModel;
 
 public class FarmsFragment extends Fragment implements Adapter.OnItemClickListener<Farm>

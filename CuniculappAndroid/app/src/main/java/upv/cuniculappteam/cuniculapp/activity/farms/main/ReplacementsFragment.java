@@ -9,19 +9,20 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import upv.cuniculappteam.cuniculapp.R;
+import upv.cuniculappteam.cuniculapp.activity.utils.NamedFragment;
 import upv.cuniculappteam.cuniculapp.activity.farms.replacements.ReplacementActivity;
 import upv.cuniculappteam.cuniculapp.model.Replacement;
 import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
 import upv.cuniculappteam.cuniculapp.view.Adapter;
+import upv.cuniculappteam.cuniculapp.view.farms.ReplacementsAdapter;
 import upv.cuniculappteam.cuniculapp.viewmodel.ReplacementViewModel;
 
-public class ReplacementsFragment extends FarmFragment implements
+public class ReplacementsFragment extends NamedFragment implements
         Adapter.OnItemClickListener<Replacement>
 {
     private final Farm farm;
@@ -63,5 +64,5 @@ public class ReplacementsFragment extends FarmFragment implements
     }
 
     @Override
-    int getFragmentName() { return R.string.main_replacement; }
+    public int getFragmentName() { return R.string.main_replacement; }
 }

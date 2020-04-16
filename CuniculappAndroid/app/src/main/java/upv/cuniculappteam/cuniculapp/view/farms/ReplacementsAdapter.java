@@ -1,4 +1,4 @@
-package upv.cuniculappteam.cuniculapp.activity.farms.main;
+package upv.cuniculappteam.cuniculapp.view.farms;
 
 import android.view.View;
 import android.widget.TextView;
@@ -11,9 +11,9 @@ import upv.cuniculappteam.cuniculapp.view.Adapter;
 
 public class ReplacementsAdapter extends Adapter<Replacement>
 {
-    ReplacementsAdapter() { }
+    public ReplacementsAdapter() { }
 
-    ReplacementsAdapter(List<Replacement> items) { super(items); }
+    public ReplacementsAdapter(List<Replacement> items) { super(items); }
 
     @Override
     public int getLayout() {

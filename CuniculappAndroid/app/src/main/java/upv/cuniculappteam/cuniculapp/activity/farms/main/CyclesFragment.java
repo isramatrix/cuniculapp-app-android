@@ -9,20 +9,21 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import upv.cuniculappteam.cuniculapp.R;
+import upv.cuniculappteam.cuniculapp.activity.utils.NamedFragment;
 import upv.cuniculappteam.cuniculapp.activity.farms.cycles.CycleActivity;
 import upv.cuniculappteam.cuniculapp.activity.farms.replacements.ReplacementActivity;
 import upv.cuniculappteam.cuniculapp.model.Cycle;
 import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
 import upv.cuniculappteam.cuniculapp.view.Adapter;
+import upv.cuniculappteam.cuniculapp.view.farms.CyclesAdapter;
 import upv.cuniculappteam.cuniculapp.viewmodel.CycleViewModel;
 
-public class CyclesFragment extends FarmFragment implements
+public class CyclesFragment extends NamedFragment implements
         Adapter.OnItemClickListener<Cycle>
 {
     private CycleViewModel cycles;
@@ -65,5 +66,5 @@ public class CyclesFragment extends FarmFragment implements
 
 
     @Override
-    int getFragmentName() { return R.string.main_cycles; }
+    public int getFragmentName() { return R.string.main_cycles; }
 }

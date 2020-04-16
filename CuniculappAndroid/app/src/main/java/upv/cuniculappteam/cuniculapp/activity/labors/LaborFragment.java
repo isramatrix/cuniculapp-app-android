@@ -1,4 +1,4 @@
-package upv.cuniculappteam.cuniculapp.activity.labor;
+package upv.cuniculappteam.cuniculapp.activity.labors;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

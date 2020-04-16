@@ -1,4 +1,4 @@
-package upv.cuniculappteam.cuniculapp.activity.farms.main;
+package upv.cuniculappteam.cuniculapp.view.farms;
 
 import android.view.View;
 import android.widget.TextView;

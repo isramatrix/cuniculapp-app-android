@@ -4,6 +4,8 @@
     <!-- Main Concepts -->
     <string name="main_replacement">Reposición</string>
     <string name="main_cycles">Ciclos</string>
+    <string name="main_rabbits">Conejos</string>
+    <string name="main_events">Eventos</string>
 
     <!-- Cycles Fragment -->
     <string name="farm_jails">Nº Jaulas</string>
@@ -21,5 +23,34 @@
     <string name="replacement_timeline_changes">Cambios</string>
     <string name="replacement_timeline_reason">Motivo</string>
     <string name="replacement_timeline_date">Fecha</string>
+
+    <!-- Events Fragment -->
+    <string name="events_insemination">Inseminación</string>
+    <string name="events_insemination_date">Fecha</string>
+    <string name="events_insemination_amount">Inseminadas</string>
+
+    <string name="events_palpation">Palpación</string>
+    <string name="events_palpation_date">Fecha</string>
+    <string name="events_palpation_pregnant">Preñadas</string>
+    <string name="events_palpation_failed">Fallidas</string>
+    <string name="events_palpation_fr">FR</string>
+
+    <string name="events_births">Partos</string>
+    <string name="events_births_date">Fecha</string>
+    <string name="events_births_amount">Partos</string>
+    <string name="events_births_alive">Nacidos vivos</string>
+    <string name="events_births_dead">Nacidos muertos</string>
+    <string name="events_births_average">Promedio</string>
+
+    <string name="events_sales">Ventas</string>
+    <string name="events_sales_date">Fecha</string>
+    <string name="events_sales_amount">Vendidos</string>
+    <string name="events_sales_prize">Precio Venta</string>
+    <string name="events_sales_size">Peso Promedio</string>
+    <string name="events_sales_feed">Coste Pienso</string>
+    <string name="events_sales_ic">IC</string>
+    <string name="events_sales_kg_ia">KG por IA</string>
+
+
 
 </resources>

@@ -17,7 +17,7 @@ import java.util.Map;
 import upv.cuniculappteam.cuniculapp.R;
 import upv.cuniculappteam.cuniculapp.activity.calendar.CalendarFragment;
 import upv.cuniculappteam.cuniculapp.activity.farms.FarmsFragment;
-import upv.cuniculappteam.cuniculapp.activity.labor.LaborFragment;
+import upv.cuniculappteam.cuniculapp.activity.labors.LaborFragment;
 import upv.cuniculappteam.cuniculapp.activity.settings.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity implements

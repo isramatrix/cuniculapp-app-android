@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import upv.cuniculappteam.cuniculapp.R;
+import upv.cuniculappteam.cuniculapp.activity.utils.NamedFragment;
 import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
 
 public class FarmActivity extends AppCompatActivity
@@ -46,7 +47,7 @@ public class FarmActivity extends AppCompatActivity
 
     class FarmAdapter extends FragmentPagerAdapter
     {
-        private final List<FarmFragment> fragments;
+        private final List<NamedFragment> fragments;
 
         FarmAdapter(Farm farm)
         {
