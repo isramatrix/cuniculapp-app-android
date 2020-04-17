@@ -30,7 +30,7 @@ public class FarmActivity extends AppCompatActivity
         setContentView(R.layout.activity_farm);
 
         Farm farm = getIntent().getParcelableExtra(FARM_INTENT_KEY);
-        if (farm == null) return;
+        if (farm == null) { finish(); return; }
 
         // Indica el nombre de la granja que se está gestionando.
         TextView farmTitle = findViewById(R.id.farm_title);

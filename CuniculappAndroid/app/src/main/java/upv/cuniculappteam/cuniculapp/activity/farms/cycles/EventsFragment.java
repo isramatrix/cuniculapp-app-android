@@ -33,10 +33,9 @@ public class EventsFragment extends NamedFragment
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        super.onViewCreated(this.view = view, savedInstanceState);
 
         this.events = ViewModelProviders.of(this).get(EventViewModel.class);
-        this.view = view;
 
         // Se muestran los datos de los eventos asociados al ciclo.
         events.getEvent(cycle).addOnSuccessListener(this::showBirthsData);

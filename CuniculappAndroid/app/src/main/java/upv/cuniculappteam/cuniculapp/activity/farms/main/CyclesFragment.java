@@ -60,7 +60,7 @@ public class CyclesFragment extends NamedFragment implements
     public void onItemClicked(Cycle cycle)
     {
         Intent intent = new Intent(getActivity(), CycleActivity.class);
-        intent.putExtra(ReplacementActivity.REPLACEMENT_INTENT_KEY, (Parcelable) cycle);
+        intent.putExtra(CycleActivity.CYCLE_INTENT_KEY, (Parcelable) cycle);
         startActivity(intent);
     }
 

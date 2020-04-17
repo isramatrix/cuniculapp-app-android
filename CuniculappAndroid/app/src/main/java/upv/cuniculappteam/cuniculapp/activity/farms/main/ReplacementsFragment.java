@@ -52,6 +52,7 @@ public class ReplacementsFragment extends NamedFragment implements
         // Se muestran los datos de las granjas disponibles.
         replacements.getReplacements(farm).addOnSuccessListener(adapter::changeData);
 
+        // Muestra la actividad de información de Reemplazo cuando se selecciona uno.
         adapter.setOnItemClickedListener(this);
     }
 

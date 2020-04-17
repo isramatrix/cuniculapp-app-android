@@ -30,7 +30,7 @@ public class CycleActivity extends AppCompatActivity
         setContentView(R.layout.activity_cycle);
 
         Cycle cycle = getIntent().getParcelableExtra(CYCLE_INTENT_KEY);
-        if (cycle == null) return;
+        if (cycle == null) { finish(); return; }
 
         // Indica el nombre del ciclo que se está gestionando.
         TextView farmTitle = findViewById(R.id.cycle_title);

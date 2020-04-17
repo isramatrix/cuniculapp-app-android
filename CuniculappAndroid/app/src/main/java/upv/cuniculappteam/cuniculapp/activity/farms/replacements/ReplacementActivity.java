@@ -23,6 +23,7 @@ public class ReplacementActivity extends AppCompatActivity
         setContentView(R.layout.activity_replacement);
 
         Replacement replacement = getIntent().getParcelableExtra(REPLACEMENT_INTENT_KEY);
+        if (replacement == null) { finish(); return; }
 
         TextView daysText = findViewById(R.id.replacement_days_text);
         daysText.setText(replacement.getDays().toString());
