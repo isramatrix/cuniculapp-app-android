@@ -1,16 +1,14 @@
-package upv.cuniculappteam.cuniculapp.activity.farms;
+package upv.cuniculappteam.cuniculapp.activity.utils;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.CallSuper;
+import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -18,59 +16,49 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.Task;
+
 import java.util.Collection;
+import java.util.List;
 
 import upv.cuniculappteam.cuniculapp.R;
-import upv.cuniculappteam.cuniculapp.activity.farms.main.FarmActivity;
-import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
+import upv.cuniculappteam.cuniculapp.model.utils.Traceable;
 import upv.cuniculappteam.cuniculapp.view.utils.recycler.Adapter;
-import upv.cuniculappteam.cuniculapp.view.utils.dialog.DialogForResult.Header;
-import upv.cuniculappteam.cuniculapp.view.farms.FarmsAdapter;
-import upv.cuniculappteam.cuniculapp.view.farms.dialogs.FarmDialog;
 import upv.cuniculappteam.cuniculapp.view.utils.recycler.SelectableAdapter;
-import upv.cuniculappteam.cuniculapp.viewmodel.FarmViewModel;
 
-public class FarmsFragment extends Fragment implements
-        Adapter.OnItemClickListener<Farm>,
-        SelectableAdapter.SelectionLifecycleObserver<Farm>
+public abstract class ModelLifecycleFragment<T extends Traceable> extends Fragment implements
+        SelectableAdapter.SelectionLifecycleObserver<T>,
+        Adapter.OnItemClickListener<T>
 {
-    private static final String ADD_FARM_TAG = "FarmDialog";
-
-    private FarmViewModel farms;
-
-    private FarmsAdapter adapter;
+    private static final String MODEL_LIFECYCLE_ADD_TAG = "ModelLifecycleDialog";
 
     private Menu menu;
 
+    private SelectableAdapter<T> adapter;
+
     private TextView deletionCount;
 
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
-    {
-        setHasOptionsMenu(true);
-        return inflater.inflate(R.layout.fragment_farms, container, false);
-    }
-
     /**
-     * Inicializa las vistas del fragmento de las granjas.
+     * Inicializa las vistas del fragmento de los ciclos de una granja.
      *
      * @param view La vista raíz del fragmento.
      * @param savedInstanceState El estado de la instancia de la aplicación.
      */
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+    {
         super.onViewCreated(view, savedInstanceState);
 
-        farms = ViewModelProviders.of(this).get(FarmViewModel.class);
+        // Se inicializa la vista de los ciclos creadas.
+        RecyclerView replacementRecylcer = view.findViewById(getAdapterId());
+        replacementRecylcer.setLayoutManager(new LinearLayoutManager(getContext()));
+        replacementRecylcer.setAdapter(adapter = getAdapter());
 
-        // Se inicializa la vista de las granjas disponibles.
-        RecyclerView farmRecycler = view.findViewById(R.id.recycler_farm);
-        farmRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
-        farmRecycler.setAdapter(adapter = new FarmsAdapter());
+        // Se muestran los datos de las granjas disponibles.
+        getAdapterData().addOnSuccessListener(adapter::changeData);
 
         // Se inicializa la lógica del adaptador que muestra las granjas.
         adapter.setOnItemClickedListener(this);
@@ -78,31 +66,34 @@ public class FarmsFragment extends Fragment implements
     }
 
     /**
-     * Actualiza los datos de las granjas disponibles cuando reaparece en primer
-     * plano el fragmento que muestra las granjas.
+     * Actualiza los elementos que se muestran el el adaptador de elementos.
      *
-     * @param hidden El estado de visibilidad del fragmento (<code>false</code> =
-     *               está visible y debe actualizarse).
+     * @param items Los elementos a mostrar.
+     */
+    public void updateItems(List<T> items) { adapter.changeData(items); }
+
+    /**
+     * Reinicia el estado de multiselección del adaptador seleccionable cuando el
+     * fragmento actual pasa a un estado inactivo.
+     *
+     * @param hidden El estado de visibilidad del fragmento.
      */
     @Override
     public void onHiddenChanged(boolean hidden)
     {
         super.onHiddenChanged(hidden);
 
-        // Se muestran los datos de las granjas disponibles.
-        if (!hidden) farms.getFarms().addOnSuccessListener(adapter::changeData);
-
         // En caso de ocultarse, deshabilita la multiselección del adaptador.
-        else adapter.setSelectionMode(false);
+        if (hidden) adapter.setSelectionMode(false);
     }
 
     /**
-     * Infla la vista del menú cabecera con los botones para añadir y quitar granjas.
+     * Infla la vista del menú cabecera con los botones para añadir y quitar objetos del reciclable.
      *
      * @param menu El menú cabecera.
      * @param inflater El objeto mediador para inflar la vista de menú.
      */
-    @Override
+    @Override @CallSuper
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater)
     {
         super.onCreateOptionsMenu(this.menu = menu, inflater);
@@ -110,41 +101,27 @@ public class FarmsFragment extends Fragment implements
     }
 
     /**
-     * Maneja el control de la vista de reciclaje para cambiar de actividad cuando
-     * una granja concreta ha sido seleccionada.
-     *
-     * @param farm La granja seleccionada.
-     */
-    @Override
-    public void onItemClicked(Farm farm)
-    {
-        Intent intent = new Intent(getActivity(), FarmActivity.class);
-        intent.putExtra(FarmActivity.FARM_INTENT_KEY, (Parcelable) farm);
-        startActivity(intent);
-    }
-
-    /**
-     * Maneja el control de la vista de menú para añadir o quitar una granja en
+     * Maneja el control de la vista de menú para añadir o quitar una objeto reciclable en
      * función del botón de menú seleccionado.
      *
      * @param item El botón de menú seleccionado.
      * @return Si el control ha sido manejado correctamente.
      */
-    @Override
+    @Override @CallSuper
     public boolean onOptionsItemSelected(@NonNull MenuItem item)
     {
         switch (item.getItemId())
         {
-            // Si se quiere añadir una granja, muestra un diálogo con los datos a introducir.
+            // Si se quiere añadir una elemento, muestra un diálogo con los datos a introducir.
             case R.id.action_add: showAddDialog(); return true;
 
-            // Si se quiere eliminar las granjas, cambia el estado del adaptador a multiselección.
+            // Si se quiere eliminar elementos, cambia el estado del adaptador a multiselección.
             case R.id.action_remove: adapter.setSelectionMode(true); return true;
 
-            // Si se quiere confirmar el borrado de granjas, muestra un diálogo de confirmación.
+            // Si se quiere confirmar el borrado de elementos, muestra un diálogo de confirmación.
             case R.id.action_count: showConfirmDeletionDialog(); return true;
 
-            // Si se quiere salir del modo de borrado de granjas, cambia el estado de multiseleción.
+            // Si se quiere salir del modo de borrado de elementos, cambia el estado de multiseleción.
             case R.id.action_clear: adapter.setSelectionMode(false); return true;
 
             // En caso contrario, el control no ha sido manejado.
@@ -153,18 +130,18 @@ public class FarmsFragment extends Fragment implements
     }
 
     /**
-     * Crea y muestra un diálogo específico para introducir los datos de una nueva granja.
+     * Crea y muestra un diálogo específico para introducir los datos de un nuevo elemento.
      */
     private void showAddDialog()
     {
-        DialogFragment dialog = new FarmDialog(Header.ADD, farms::addFarm);
+        DialogFragment dialog = getAddDialog();
 
         if (getFragmentManager() != null)
-            dialog.show(getFragmentManager(), ADD_FARM_TAG);
+            dialog.show(getFragmentManager(), MODEL_LIFECYCLE_ADD_TAG);
     }
 
     /**
-     * Crea y muestra un diálogo específico para confirmar el borrado de granjas.
+     * Crea y muestra un diálogo específico para confirmar el borrado de elementos.
      */
     private void showConfirmDeletionDialog()
     {
@@ -182,7 +159,7 @@ public class FarmsFragment extends Fragment implements
     }
 
     /**
-     * Crea y muestra un diálogo específico que informa que el borrado de granjas no ha
+     * Crea y muestra un diálogo específico que informa que el borrado de elementos no ha
      * podido ser efectuado.
      */
     private void showFailedDeletionDialog()
@@ -191,23 +168,21 @@ public class FarmsFragment extends Fragment implements
     }
 
     /**
-     * Borra las granjas seleccionadas y actualiza los datos a mostrar en la vista del adaptador.
+     * Borra los elementos seleccionadas y actualiza los datos a mostrar en la vista del adaptador.
      *
-     * @param deletionFarms Las granjas a borrar.
+     * @param items Las elementos a borrar.
      */
-    private void deleteSelected(Collection<Farm> deletionFarms)
+    private void deleteSelected(Collection<T> items)
     {
-        farms.deleteFarms(deletionFarms).addOnSuccessListener(
-                (v) -> farms.getFarms().addOnSuccessListener(adapter::changeData)
-        ).addOnFailureListener(
-                (v) -> showFailedDeletionDialog()
-        );
+        onDeleteSelected(items)
+            .addOnSuccessListener(adapter::changeData)
+            .addOnFailureListener((v) -> showFailedDeletionDialog());
 
         adapter.setSelectionMode(false);
     }
 
     /**
-     * Cuando la multiselección de las granjas disponibles se inicia, se muestra el menú
+     * Cuando la multiselección de elemnetos disponibles se inicia, se muestra el menú
      * auxiliar para borrar las granjas seleccionadas.
      */
     @Override
@@ -236,26 +211,26 @@ public class FarmsFragment extends Fragment implements
     }
 
     /**
-     * Cuando un elemento de la multiselección de granjas se selecciona, actializa el
+     * Cuando un elemento de la multiselección se selecciona, actializa el
      * conteo de granjas seleccionadas del menú de borrado de granjas.
      *
-     * @param item La granja seleccioanda.
+     * @param item El elemento seleccioanda.
      */
     @Override
-    public void onItemSelected(Farm item)
+    public void onItemSelected(T item)
     {
         if (deletionCount != null)
             deletionCount.setText(String.valueOf(adapter.getSelectedItems().size()));
     }
 
     /**
-     * Cuando un elemento de la multiselección de granjas se elimina, actializa el
-     * conteo de granjas seleccionadas del menú de borrado de granjas.
+     * Cuando un elemento de la multiselección se elimina, actializa el
+     * conteo de elementos seleccionadas del menú de borrado de elementos.
      *
-     * @param item La granja seleccioanda.
+     * @param item El elemento seleccioanda.
      */
     @Override
-    public void onItemRemoved(Farm item)
+    public void onItemRemoved(T item)
     {
         if (deletionCount != null)
             deletionCount.setText(String.valueOf(adapter.getSelectedItems().size()));
@@ -263,7 +238,7 @@ public class FarmsFragment extends Fragment implements
 
     /**
      * Cuando la multiselección de las granjas disponibles finaliza, se oculta el menú
-     * auxiliar para borrar las granjas seleccionadas.
+     * auxiliar para borrar los elementos seleccionadas.
      */
     @Override
     public void onSelectionFinished()
@@ -278,4 +253,54 @@ public class FarmsFragment extends Fragment implements
         menu.clear();
         activity.getMenuInflater().inflate(R.menu.action_manage_items, menu);
     }
+
+    /**
+     * Maneja el control de la vista de reciclaje para ejecurar una acción cuando
+     * un elemento concreta ha sido seleccionado.
+     *
+     * @param item El elemento seleccionado.
+     */
+    @Override
+    public abstract void onItemClicked(T item);
+
+    /**
+     * Obtiene una instancia concreta del adaptador principal del fragmento que muestra
+     * los elementos seleccionables.
+     *
+     * @return Una instancia de un adaptador multiselección
+     */
+    public abstract SelectableAdapter<T> getAdapter();
+
+    /**
+     * Obtiene el identificador del recurso de la vista de reciclaje donde se muestran los
+     * elementos del fragmento.
+     *
+     * @return El identificador del recurso.
+     */
+    public abstract @IdRes int getAdapterId();
+
+    /**
+     * Obtiene una tarea programada de la que se obtienen los elementos a mostrar en el
+     * adaptador de elementos principal del fragmento.
+     *
+     * @return Una tarea para obtener elementos.
+     */
+    public abstract Task<List<T>> getAdapterData();
+
+    /**
+     * Obtiene una tarea programada en la que se eliminan los elementos seleccionados del
+     * adaptador de elementos principal del fragmento.
+     *
+     * @param items Los elementos a eliminar.
+     * @return La tarea en la que se eliminan dichos elementos.
+     */
+    public abstract Task<List<T>> onDeleteSelected(Collection<T> items);
+
+    /**
+     * Obtiene una instancia de un diálogo donde se recogen los atributos de un nuevo elemento
+     * a añadir en el adaptador de elementos principal del fragmento.
+     *
+     * @return Una instancia de un diálogo.
+     */
+    public abstract DialogFragment getAddDialog();
 }

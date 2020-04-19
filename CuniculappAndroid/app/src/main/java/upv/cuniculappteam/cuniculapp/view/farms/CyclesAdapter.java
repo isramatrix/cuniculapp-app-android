@@ -8,10 +8,13 @@ import java.util.List;
 import upv.cuniculappteam.cuniculapp.R;
 import upv.cuniculappteam.cuniculapp.model.Cycle;
 import upv.cuniculappteam.cuniculapp.view.utils.recycler.Adapter;
+import upv.cuniculappteam.cuniculapp.view.utils.recycler.SelectableAdapter;
 
-public class CyclesAdapter extends Adapter<Cycle>
+public class CyclesAdapter extends SelectableAdapter<Cycle>
 {
-    public CyclesAdapter() { }
+    public CyclesAdapter() {
+        super();
+    }
 
     public CyclesAdapter(List<Cycle> items) { super(items); }
 
@@ -23,6 +26,8 @@ public class CyclesAdapter extends Adapter<Cycle>
     @Override
     public void onBindView(View view, Cycle cycle)
     {
+        super.onBindView(view, cycle);
+
         TextView nameText = view.findViewById(R.id.cycle_name_text);
         nameText.setText(cycle.getName());
     }

@@ -29,13 +29,15 @@ public abstract class Adapter<T extends Traceable> extends RecyclerView.Adapter<
 
     @NonNull
     @Override
-    public Holder<T> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public Holder<T> onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(getLayout(), parent, false);
         return new Holder<>(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull Holder<T> holder, int position) {
+    public void onBindViewHolder(@NonNull Holder<T> holder, int position)
+    {
         onBindView(holder.itemView, items.get(this.position = position));
         holder.itemView.setOnClickListener(this);
     }

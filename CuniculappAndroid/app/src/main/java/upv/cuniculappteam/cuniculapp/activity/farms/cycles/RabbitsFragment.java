@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import upv.cuniculappteam.cuniculapp.R;
@@ -22,7 +23,7 @@ import upv.cuniculappteam.cuniculapp.viewmodel.RabbitViewModel;
 
 import static upv.cuniculappteam.cuniculapp.view.utils.dialog.DialogForResult.*;
 
-public class RabbitsFragment extends NamedFragment
+public class RabbitsFragment extends Fragment implements NamedFragment
 {
     private final Cycle cycle;
 

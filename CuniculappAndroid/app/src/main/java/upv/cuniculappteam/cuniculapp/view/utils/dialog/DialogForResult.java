@@ -41,12 +41,13 @@ public abstract class DialogForResult<T> extends Dialog
         Button confirmButton = view.findViewById(R.id.rabbits_dialog_confirm);
         confirmButton.setOnClickListener(this::onConfirmClicked);
 
-        // Se muestra el título del diálogo a mostrar
+        // Se muestra el título del diálogo a mostrar.
         TextView headerText = view.findViewById(R.id.rabbits_dialog_header);
         headerText.setText(header.getText());
     }
 
-    private void onConfirmClicked(View view) {
+    private void onConfirmClicked(View view)
+    {
         dismiss();
         result.onAccept(getResult());
     }

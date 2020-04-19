@@ -61,7 +61,7 @@ public class CycleActivity extends AppCompatActivity
 
         @NonNull
         @Override
-        public Fragment getItem(int position) { return fragments.get(position); }
+        public Fragment getItem(int position) { return (Fragment) fragments.get(position); }
 
         @Override
         public int getCount() { return fragments.size(); }

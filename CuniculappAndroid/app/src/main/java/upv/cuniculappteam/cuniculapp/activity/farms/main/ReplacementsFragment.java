@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,7 +23,8 @@ import upv.cuniculappteam.cuniculapp.view.utils.recycler.Adapter;
 import upv.cuniculappteam.cuniculapp.view.farms.ReplacementsAdapter;
 import upv.cuniculappteam.cuniculapp.viewmodel.ReplacementViewModel;
 
-public class ReplacementsFragment extends NamedFragment implements
+public class ReplacementsFragment extends Fragment implements
+        NamedFragment,
         Adapter.OnItemClickListener<Replacement>
 {
     private final Farm farm;

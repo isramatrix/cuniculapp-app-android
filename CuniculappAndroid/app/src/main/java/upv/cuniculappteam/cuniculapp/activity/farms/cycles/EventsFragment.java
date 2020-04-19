@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import upv.cuniculappteam.cuniculapp.R;
@@ -16,7 +17,7 @@ import upv.cuniculappteam.cuniculapp.model.Cycle;
 import upv.cuniculappteam.cuniculapp.viewmodel.EventViewModel;
 import upv.cuniculappteam.cuniculapp.viewmodel.EventViewModel.Event;
 
-public class EventsFragment extends NamedFragment
+public class EventsFragment extends Fragment implements NamedFragment
 {
     private final Cycle cycle;
 

@@ -5,7 +5,10 @@ import android.view.View;
 
 import androidx.annotation.CallSuper;
 
+import com.google.common.collect.Lists;
+
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,9 +26,9 @@ public abstract class SelectableAdapter<T extends Traceable> extends Adapter<T> 
 
     private boolean isClickableMode = false;
 
-    public SelectableAdapter(List<T> items) {
-        super(items);
-    }
+    public SelectableAdapter() { super(); }
+
+    public SelectableAdapter(List<T> items) { super(items); }
 
     @Override @CallSuper
     public void onBindView(View view, T item)
@@ -90,7 +93,7 @@ public abstract class SelectableAdapter<T extends Traceable> extends Adapter<T> 
 
     public Collection<T> getSelectedItems()
     {
-        return selectedItems.values();
+        return Lists.newArrayList(selectedItems.values());
     }
 
     public void setSelectionLifecycleObserver(SelectionLifecycleObserver<T> observer)
