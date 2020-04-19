@@ -35,7 +35,9 @@
                 android:layout_weight="2"
                 android:autofillHints="false"
                 android:ems="10"
-                android:inputType="number" />
+                android:inputType="number"
+                android:selectAllOnFocus="true"
+                android:text="0" />
 
         </LinearLayout>
 
@@ -59,7 +61,9 @@
                 android:layout_weight="2"
                 android:autofillHints="false"
                 android:ems="10"
-                android:inputType="number" />
+                android:inputType="number"
+                android:selectAllOnFocus="true"
+                android:text="0" />
 
         </LinearLayout>
 
@@ -83,7 +87,9 @@
                 android:layout_weight="2"
                 android:autofillHints="false"
                 android:ems="10"
-                android:inputType="number" />
+                android:inputType="number"
+                android:selectAllOnFocus="true"
+                android:text="0" />
 
         </LinearLayout>
 
@@ -107,7 +113,9 @@
                 android:layout_weight="2"
                 android:autofillHints="false"
                 android:ems="10"
-                android:inputType="number" />
+                android:inputType="number"
+                android:selectAllOnFocus="true"
+                android:text="0" />
 
         </LinearLayout>
 
@@ -118,11 +126,12 @@
             android:orientation="horizontal">
 
             <RadioGroup
+                android:id="@+id/rabbits_dialog__rgroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <RadioButton
-                    android:id="@+id/radioButton2"
+                    android:id="@+id/rabbits_dialog_transfer_radio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
@@ -131,7 +140,7 @@
                     android:textSize="18sp" />
 
                 <RadioButton
-                    android:id="@+id/radioButton4"
+                    android:id="@+id/rabbits_dialog_death_radio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
@@ -140,7 +149,7 @@
                     android:textSize="18sp" />
 
                 <RadioButton
-                    android:id="@+id/radioButton3"
+                    android:id="@+id/rabbits_dialog_other_radio"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
@@ -171,7 +180,7 @@
                     android:textSize="18sp" />
 
                 <EditText
-                    android:id="@+id/editText2"
+                    android:id="@+id/rabbits_dialog_other_etext"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

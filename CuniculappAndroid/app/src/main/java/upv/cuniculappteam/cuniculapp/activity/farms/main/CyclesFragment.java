@@ -16,10 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import upv.cuniculappteam.cuniculapp.R;
 import upv.cuniculappteam.cuniculapp.activity.utils.NamedFragment;
 import upv.cuniculappteam.cuniculapp.activity.farms.cycles.CycleActivity;
-import upv.cuniculappteam.cuniculapp.activity.farms.replacements.ReplacementActivity;
 import upv.cuniculappteam.cuniculapp.model.Cycle;
 import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
-import upv.cuniculappteam.cuniculapp.view.Adapter;
+import upv.cuniculappteam.cuniculapp.view.utils.recycler.Adapter;
 import upv.cuniculappteam.cuniculapp.view.farms.CyclesAdapter;
 import upv.cuniculappteam.cuniculapp.viewmodel.CycleViewModel;
 

@@ -7,18 +7,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import upv.cuniculappteam.cuniculapp.R;
-import upv.cuniculappteam.cuniculapp.view.farms.dialogs.KittenDialog.KittenResult.Reason;
 
 import static upv.cuniculappteam.cuniculapp.view.farms.dialogs.KittenDialog.*;
 
-public class KittenDialog extends DialogForResult<KittenResult>
+public class KittenDialog extends RabbitDialog<Result>
 {
-    public KittenDialog(Header header, OnAcceptClickedListener<KittenResult> result) {
+    public KittenDialog(Header header, OnAcceptClickedListener<Result> result) {
         super(header, result);
     }
-
-    @Override
-    int getLayout() { return R.layout.dialog_kittens; }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
@@ -27,22 +23,23 @@ public class KittenDialog extends DialogForResult<KittenResult>
     }
 
     @Override
-    KittenResult getResult()
+    public Result getResult()
     {
-        return new KittenResult(0, Reason.DEAD, null);
+        return new Result(0, getSelectedReason(), getReasonMessage());
     }
 
-    public static class KittenResult
-    {
-        public enum Reason { DEAD, TRANSFER, OTHER }
+    @Override
+    public int getLayout() { return R.layout.dialog_kittens; }
 
+    public static class Result
+    {
         private final int amount;
 
         private final Reason reason;
 
         private final String notes;
 
-        KittenResult(int amount, Reason reason, String notes)
+        Result(int amount, Reason reason, String notes)
         {
             this.amount = amount;
             this.reason = reason;

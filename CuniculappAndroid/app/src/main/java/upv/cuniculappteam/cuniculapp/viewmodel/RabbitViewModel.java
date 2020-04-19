@@ -8,8 +8,9 @@ import com.google.android.gms.tasks.Tasks;
 import upv.cuniculappteam.cuniculapp.model.Cycle;
 import upv.cuniculappteam.cuniculapp.model.animals.Kitten;
 import upv.cuniculappteam.cuniculapp.model.animals.Mother;
-import upv.cuniculappteam.cuniculapp.view.farms.dialogs.KittenDialog.KittenResult;
-import upv.cuniculappteam.cuniculapp.view.farms.dialogs.MotherDialog.MotherResult;
+import upv.cuniculappteam.cuniculapp.view.farms.dialogs.KittenDialog;
+import upv.cuniculappteam.cuniculapp.view.farms.dialogs.MotherDialog;
+
 
 public class RabbitViewModel extends ViewModel
 {
@@ -23,24 +24,23 @@ public class RabbitViewModel extends ViewModel
         return Tasks.call(() -> null);
     }
 
-    public Task<Void> addMother(MotherResult result)
+    public Task<Void> addMother(MotherDialog.Result result)
     {
         return null;
     }
 
-    public Task<Void> removeMother(MotherResult result)
+    public Task<Void> removeMother(MotherDialog.Result result)
     {
         return null;
     }
 
-    public Task<Void> addKitten(KittenResult result)
+    public Task<Void> addKitten(KittenDialog.Result result)
     {
         return null;
     }
 
-    public Task<Void> removeKitten(KittenResult result)
+    public Task<Void> removeKitten(KittenDialog.Result result)
     {
         return null;
     }
-
 }

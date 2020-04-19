@@ -6,18 +6,20 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.Callable;
 
 import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
 import upv.cuniculappteam.cuniculapp.model.facilities.Location;
+import upv.cuniculappteam.cuniculapp.view.farms.dialogs.FarmDialog;
 
 public class FarmViewModel extends ViewModel
 {
     public Task<List<Farm>> getFarms()
     {
         return Tasks.call(() -> {
-                List<Farm> list = new ArrayList();
+                List<Farm> list = new ArrayList<>();
 
                 Farm f1 = new Farm();
                 f1.setName("Granjamiento");
@@ -34,5 +36,15 @@ public class FarmViewModel extends ViewModel
                 return list;
             }
         );
+    }
+
+    public Task<Void> addFarm(FarmDialog.Result result)
+    {
+        return null;
+    }
+
+    public Task<Void> deleteFarms(Collection<Farm> farms)
+    {
+        return Tasks.call(() -> null);
     }
 }

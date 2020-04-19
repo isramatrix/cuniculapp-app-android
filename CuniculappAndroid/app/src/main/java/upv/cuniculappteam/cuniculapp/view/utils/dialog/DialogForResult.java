@@ -1,58 +1,42 @@
-package upv.cuniculappteam.cuniculapp.view.farms.dialogs;
+package upv.cuniculappteam.cuniculapp.view.utils.dialog;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.annotation.LayoutRes;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
-import androidx.fragment.app.DialogFragment;
 
 import upv.cuniculappteam.cuniculapp.R;
 
-public abstract class DialogForResult<T> extends DialogFragment
+public abstract class DialogForResult<T> extends Dialog
 {
     public enum Header
     {
         ADD(R.string.rabbits_dialog_header_add),
         REMOVE(R.string.rabbits_dialog_header_remove);
 
-        private @StringRes int text;
+        private @StringRes
+        int text;
 
         Header(int text) { this.text = text; }
 
         public @StringRes int getText() { return text; }
     };
 
-    private final Header header;
-
     private final OnAcceptClickedListener<T> result;
 
-    DialogForResult(Header header, OnAcceptClickedListener<T> result)
-    {
-        this.result = result;
-        this.header = header;
-    }
+    private final Header header;
 
-    @Override @NonNull
-    public Dialog onCreateDialog(Bundle savedInstanceState)
+    public DialogForResult(Header header, OnAcceptClickedListener<T> result)
     {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        return builder.setView(getLayout()).create();
+        this.header = header;
+        this.result = result;
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+    public void onBindView(AlertDialog view)
     {
-        super.onViewCreated(view, savedInstanceState);
-
         // Se inicializa el comportamiento del botón para devolver el resultado.
         Button confirmButton = view.findViewById(R.id.rabbits_dialog_confirm);
         confirmButton.setOnClickListener(this::onConfirmClicked);
@@ -67,10 +51,7 @@ public abstract class DialogForResult<T> extends DialogFragment
         result.onAccept(getResult());
     }
 
-    abstract T getResult();
-
-    @LayoutRes
-    abstract int getLayout();
+    public abstract T getResult();
 
     public interface OnAcceptClickedListener<T> { void onAccept(T result); }
 

@@ -7,7 +7,7 @@ import java.util.List;
 
 import upv.cuniculappteam.cuniculapp.R;
 import upv.cuniculappteam.cuniculapp.model.Replacement;
-import upv.cuniculappteam.cuniculapp.view.Adapter;
+import upv.cuniculappteam.cuniculapp.view.utils.recycler.Adapter;
 
 public class ReplacementsAdapter extends Adapter<Replacement>
 {

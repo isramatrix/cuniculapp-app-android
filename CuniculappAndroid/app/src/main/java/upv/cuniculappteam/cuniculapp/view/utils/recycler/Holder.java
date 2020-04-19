@@ -1,4 +1,4 @@
-package upv.cuniculappteam.cuniculapp.view;
+package upv.cuniculappteam.cuniculapp.view.utils.recycler;
 
 import android.view.View;
 

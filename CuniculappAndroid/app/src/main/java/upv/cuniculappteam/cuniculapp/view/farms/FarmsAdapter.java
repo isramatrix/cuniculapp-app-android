@@ -8,9 +8,9 @@ import java.util.List;
 
 import upv.cuniculappteam.cuniculapp.R;
 import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
-import upv.cuniculappteam.cuniculapp.view.Adapter;
+import upv.cuniculappteam.cuniculapp.view.utils.recycler.SelectableAdapter;
 
-public class FarmsAdapter extends Adapter<Farm>
+public class FarmsAdapter extends SelectableAdapter<Farm>
 {
     public FarmsAdapter() { super(new ArrayList<>()); }
 
@@ -22,6 +22,8 @@ public class FarmsAdapter extends Adapter<Farm>
     @Override
     public void onBindView(View view, Farm farm)
     {
+        super.onBindView(view, farm);
+
         TextView farmTitleText = view.findViewById(R.id.farm_title);
         farmTitleText.setText(farm.getName());
 

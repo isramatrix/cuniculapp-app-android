@@ -7,7 +7,7 @@ import java.util.List;
 
 import upv.cuniculappteam.cuniculapp.R;
 import upv.cuniculappteam.cuniculapp.model.Cycle;
-import upv.cuniculappteam.cuniculapp.view.Adapter;
+import upv.cuniculappteam.cuniculapp.view.utils.recycler.Adapter;
 
 public class CyclesAdapter extends Adapter<Cycle>
 {

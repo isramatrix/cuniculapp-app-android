@@ -1,9 +1,10 @@
-package upv.cuniculappteam.cuniculapp.view;
+package upv.cuniculappteam.cuniculapp.view.utils.recycler;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.CallSuper;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,11 +14,14 @@ import java.util.List;
 
 import upv.cuniculappteam.cuniculapp.model.utils.Traceable;
 
-public abstract class Adapter<T extends Traceable> extends RecyclerView.Adapter<Holder<T>>
+public abstract class Adapter<T extends Traceable> extends RecyclerView.Adapter<Holder<T>> implements
+        View.OnClickListener
 {
     private List<T> items;
 
     private OnItemClickListener<T> listener;
+
+    private int position;
 
     public Adapter() { this.items = new ArrayList<>(); }
 
@@ -32,15 +36,19 @@ public abstract class Adapter<T extends Traceable> extends RecyclerView.Adapter<
 
     @Override
     public void onBindViewHolder(@NonNull Holder<T> holder, int position) {
-        onBindView(holder.itemView, items.get(position));
-        holder.itemView.setOnClickListener((view) -> {
-            if (listener != null) listener.onItemClicked(items.get(position));
-        });
+        onBindView(holder.itemView, items.get(this.position = position));
+        holder.itemView.setOnClickListener(this);
     }
 
     @Override
-    public int getItemCount() {
+    public final int getItemCount() {
         return items.size();
+    }
+
+    @Override @CallSuper
+    public void onClick(View view)
+    {
+        if (listener != null) listener.onItemClicked(items.get(position));
     }
 
     public void changeData(List<T> items)

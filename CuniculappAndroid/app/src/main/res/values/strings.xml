@@ -12,6 +12,11 @@
     <string name="farm_cycles">Nº Ciclos</string>
     <string name="farm_location">Localización</string>
 
+    <string name="farm_dialog_delete_header">Eliminar granjas</string>
+    <string name="farm_dialog_delete_text">¿Quieres eliminar las granjas seleccionadas? Esta acción no se puede deshacer.</string>
+    <string name="farm_dialog_delete_confirm">Sí</string>
+    <string name="farm_dialog_delete_dismiss">No</string>
+
     <!-- Replacement Fragment -->
     <string name="replacement_days">Días</string>
     <string name="replacement_rabbits">Nº Conejas</string>

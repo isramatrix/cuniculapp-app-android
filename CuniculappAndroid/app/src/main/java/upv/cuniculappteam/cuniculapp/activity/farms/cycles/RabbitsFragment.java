@@ -1,8 +1,5 @@
 package upv.cuniculappteam.cuniculapp.activity.farms.cycles;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +16,11 @@ import upv.cuniculappteam.cuniculapp.activity.utils.NamedFragment;
 import upv.cuniculappteam.cuniculapp.model.Cycle;
 import upv.cuniculappteam.cuniculapp.model.animals.Kitten;
 import upv.cuniculappteam.cuniculapp.model.animals.Mother;
-import upv.cuniculappteam.cuniculapp.view.farms.dialogs.DialogForResult;
-import upv.cuniculappteam.cuniculapp.view.farms.dialogs.DialogForResult.Header;
 import upv.cuniculappteam.cuniculapp.view.farms.dialogs.KittenDialog;
 import upv.cuniculappteam.cuniculapp.view.farms.dialogs.MotherDialog;
 import upv.cuniculappteam.cuniculapp.viewmodel.RabbitViewModel;
+
+import static upv.cuniculappteam.cuniculapp.view.utils.dialog.DialogForResult.*;
 
 public class RabbitsFragment extends NamedFragment
 {
