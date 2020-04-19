@@ -9,61 +9,127 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.Task;
+
+import java.util.Collection;
+import java.util.List;
+
 import upv.cuniculappteam.cuniculapp.R;
+import upv.cuniculappteam.cuniculapp.activity.utils.ModelLifecycleFragment;
 import upv.cuniculappteam.cuniculapp.activity.utils.NamedFragment;
 import upv.cuniculappteam.cuniculapp.activity.farms.replacements.ReplacementActivity;
 import upv.cuniculappteam.cuniculapp.model.Replacement;
 import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
+import upv.cuniculappteam.cuniculapp.view.farms.dialogs.ReplacementDialog;
+import upv.cuniculappteam.cuniculapp.view.utils.dialog.DialogForResult;
+import upv.cuniculappteam.cuniculapp.view.utils.dialog.DialogForResult.Header;
 import upv.cuniculappteam.cuniculapp.view.utils.recycler.Adapter;
 import upv.cuniculappteam.cuniculapp.view.farms.ReplacementsAdapter;
+import upv.cuniculappteam.cuniculapp.view.utils.recycler.SelectableAdapter;
 import upv.cuniculappteam.cuniculapp.viewmodel.ReplacementViewModel;
 
-public class ReplacementsFragment extends Fragment implements
-        NamedFragment,
-        Adapter.OnItemClickListener<Replacement>
+public class ReplacementsFragment extends ModelLifecycleFragment<Replacement> implements
+        NamedFragment
 {
     private final Farm farm;
 
     private ReplacementViewModel replacements;
 
-    private Adapter<Replacement> adapter;
-
     ReplacementsFragment(Farm farm) { this.farm = farm; }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         return inflater.inflate(R.layout.fragment_replacements, container, false);
     }
 
+    /**
+     * Inicializa las vistas del fragmento de las reposiciones de una granja.
+     *
+     * @param view La vista raíz del fragmento.
+     * @param savedInstanceState El estado de la instancia de la aplicación.
+     */
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+    {
         replacements = ViewModelProviders.of(this).get(ReplacementViewModel.class);
-
-        // Se inicializa la vista de las reposiciones creadas.
-        RecyclerView replacementRecylcer = view.findViewById(R.id.recycler_replacements);
-        replacementRecylcer.setLayoutManager(new LinearLayoutManager(getContext()));
-        replacementRecylcer.setAdapter(adapter = new ReplacementsAdapter());
-
-        // Se muestran los datos de las granjas disponibles.
-        replacements.getReplacements(farm).addOnSuccessListener(adapter::changeData);
-
-        // Muestra la actividad de información de Reemplazo cuando se selecciona uno.
-        adapter.setOnItemClickedListener(this);
+        super.onViewCreated(view, savedInstanceState);
     }
 
+    /**
+     * Maneja el control de la vista de reciclaje para cambiar de actividad cuando
+     * una reposición concreta ha sido seleccionada.
+     *
+     * @param replacement La reposición seleccionada.
+     */
     @Override
     public void onItemClicked(Replacement replacement)
     {
         Intent intent = new Intent(getActivity(), ReplacementActivity.class);
         intent.putExtra(ReplacementActivity.REPLACEMENT_INTENT_KEY, (Parcelable) replacement);
         startActivity(intent);
+    }
+
+    /**
+     * Obtiene una instancia concreta del adaptador principal del fragmento que muestra
+     * los elementos seleccionables.
+     *
+     * @return Una instancia de un adaptador multiselección.
+     */
+    @Override
+    public SelectableAdapter<Replacement> getAdapter() {
+        return new ReplacementsAdapter();
+    }
+
+    /**
+     * Obtiene el identificador del recurso de la vista de reciclaje donde se muestran los
+     * elementos del fragmento.
+     *
+     * @return El identificador del recurso.
+     */
+    @Override
+    public int getAdapterId() {
+        return R.id.recycler_replacements;
+    }
+
+    /**
+     * Obtiene una tarea programada de la que se obtienen los elementos a mostrar en el
+     * adaptador de elementos principal del fragmento.
+     *
+     * @return Una tarea para obtener elementos.
+     */
+    @Override
+    public Task<List<Replacement>> getAdapterData() {
+        return replacements.getReplacements(farm);
+    }
+
+    /**
+     * Obtiene una tarea programada en la que se eliminan los elementos seleccionados del
+     * adaptador de elementos principal del fragmento.
+     *
+     * @param deletionReplacements Los elementos a eliminar.
+     * @return La tarea en la que se eliminan dichos elementos.
+     */
+    @Override
+    public Task<List<Replacement>> onDeleteSelected(Collection<Replacement> deletionReplacements) {
+        return replacements.deleteReplacements(deletionReplacements);
+    }
+
+    /**
+     * Obtiene una instancia de un diálogo donde se recogen los atributos de un nuevo elemento
+     * a añadir en el adaptador de elementos principal del fragmento.
+     *
+     * @return Una instancia de un diálogo.
+     */
+    @Override
+    public DialogFragment getAddDialog() {
+        return new ReplacementDialog(Header.ADD, (r) -> replacements.addReplacement(r).addOnSuccessListener(this::updateItems) );
     }
 
     @Override

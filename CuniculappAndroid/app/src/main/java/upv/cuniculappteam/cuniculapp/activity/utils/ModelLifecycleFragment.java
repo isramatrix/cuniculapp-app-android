@@ -1,10 +1,12 @@
 package upv.cuniculappteam.cuniculapp.activity.utils;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.CallSuper;
@@ -50,17 +52,18 @@ public abstract class ModelLifecycleFragment<T extends Traceable> extends Fragme
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
+        setHasOptionsMenu(true);
         super.onViewCreated(view, savedInstanceState);
 
-        // Se inicializa la vista de los ciclos creadas.
+        // Se inicializa la vista de los elementos creadas.
         RecyclerView replacementRecylcer = view.findViewById(getAdapterId());
         replacementRecylcer.setLayoutManager(new LinearLayoutManager(getContext()));
         replacementRecylcer.setAdapter(adapter = getAdapter());
 
-        // Se muestran los datos de las granjas disponibles.
+        // Se muestran los datos de los elementos disponibles.
         getAdapterData().addOnSuccessListener(adapter::changeData);
 
-        // Se inicializa la lógica del adaptador que muestra las granjas.
+        // Se inicializa la lógica del adaptador que muestra los elementos.
         adapter.setOnItemClickedListener(this);
         adapter.setSelectionLifecycleObserver(this);
     }
@@ -78,7 +81,7 @@ public abstract class ModelLifecycleFragment<T extends Traceable> extends Fragme
      *
      * @param hidden El estado de visibilidad del fragmento.
      */
-    @Override
+    @Override @CallSuper
     public void onHiddenChanged(boolean hidden)
     {
         super.onHiddenChanged(hidden);

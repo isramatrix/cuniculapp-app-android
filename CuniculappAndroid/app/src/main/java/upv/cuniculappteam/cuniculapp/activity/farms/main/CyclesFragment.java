@@ -41,7 +41,6 @@ public class CyclesFragment extends ModelLifecycleFragment<Cycle> implements
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
-        setHasOptionsMenu(true);
         return inflater.inflate(R.layout.fragment_cycles, container, false);
     }
 

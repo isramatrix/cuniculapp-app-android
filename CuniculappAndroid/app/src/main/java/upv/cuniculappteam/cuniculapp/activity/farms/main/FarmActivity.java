@@ -20,9 +20,12 @@ import upv.cuniculappteam.cuniculapp.R;
 import upv.cuniculappteam.cuniculapp.activity.utils.NamedFragment;
 import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
 
-public class FarmActivity extends AppCompatActivity
+public class FarmActivity extends AppCompatActivity implements
+        ViewPager.OnPageChangeListener
 {
     public static final String FARM_INTENT_KEY = "farms";
+
+    private FarmAdapter adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -39,12 +42,55 @@ public class FarmActivity extends AppCompatActivity
 
         // Inicializa los atributos de la granja que se pueden gestionar.
         ViewPager farmPager = findViewById(R.id.farm_pager);
-        farmPager.setAdapter(new FarmAdapter(farm));
+        farmPager.setAdapter(adapter = new FarmAdapter(farm));
+        farmPager.addOnPageChangeListener(this);
 
         // Construye una vista deslizable de los atributos de la granja.
         TabLayout tabLayout = findViewById(R.id.farm_tab);
         tabLayout.setupWithViewPager(farmPager);
     }
+
+    /**
+     * This method will be invoked when the current page is scrolled, either as part
+     * of a programmatically initiated smooth scroll or a user initiated touch scroll.
+     *
+     * @param position             Position index of the first page currently being displayed.
+     *                             Page position+1 will be visible if positionOffset is nonzero.
+     * @param positionOffset       Value from [0, 1) indicating the offset from the page at position.
+     * @param positionOffsetPixels Value in pixels indicating the offset from position.
+     */
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
+
+    /**
+     * This method will be invoked when a new page becomes selected. Animation is not
+     * necessarily complete.
+     *
+     * @param position Position index of the new selected page.
+     */
+    @Override
+    public void onPageSelected(int position)
+    {
+        List<NamedFragment> fragments = adapter.fragments;
+
+        for (int i = 0; i < fragments.size(); i++) {
+            Fragment fragment = (Fragment) fragments.get(i);
+            fragment.onHiddenChanged(position != i);
+        }
+    }
+
+    /**
+     * Called when the scroll state changes. Useful for discovering when the user
+     * begins dragging, when the pager is automatically settling to the current page,
+     * or when it is fully stopped/idle.
+     *
+     * @param state The new scroll state.
+     * @see ViewPager#SCROLL_STATE_IDLE
+     * @see ViewPager#SCROLL_STATE_DRAGGING
+     * @see ViewPager#SCROLL_STATE_SETTLING
+     */
+    @Override
+    public void onPageScrollStateChanged(int state) { }
 
     class FarmAdapter extends FragmentPagerAdapter
     {

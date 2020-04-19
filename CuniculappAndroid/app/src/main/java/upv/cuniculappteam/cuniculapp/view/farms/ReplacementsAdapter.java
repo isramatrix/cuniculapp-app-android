@@ -8,8 +8,9 @@ import java.util.List;
 import upv.cuniculappteam.cuniculapp.R;
 import upv.cuniculappteam.cuniculapp.model.Replacement;
 import upv.cuniculappteam.cuniculapp.view.utils.recycler.Adapter;
+import upv.cuniculappteam.cuniculapp.view.utils.recycler.SelectableAdapter;
 
-public class ReplacementsAdapter extends Adapter<Replacement>
+public class ReplacementsAdapter extends SelectableAdapter<Replacement>
 {
     public ReplacementsAdapter() { }
 
@@ -23,6 +24,8 @@ public class ReplacementsAdapter extends Adapter<Replacement>
     @Override
     public void onBindView(View view, Replacement replacement)
     {
+        super.onBindView(view, replacement);
+
         TextView daysText = view.findViewById(R.id.replacement_days_text);
         daysText.setText(replacement.getDays().toString());
 

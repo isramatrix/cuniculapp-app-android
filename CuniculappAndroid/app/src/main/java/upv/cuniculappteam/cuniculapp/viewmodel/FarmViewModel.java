@@ -16,35 +16,41 @@ import upv.cuniculappteam.cuniculapp.view.farms.dialogs.FarmDialog;
 
 public class FarmViewModel extends ViewModel
 {
+    private List<Farm> farms = new ArrayList<>();
+
+    public FarmViewModel()
+    {
+        Farm f1 = new Farm();
+        f1.setName("Granjamiento");
+        f1.setJailsAmount(32);
+        f1.setLocalization(new Location());
+        farms.add(f1);
+
+        Farm f2 = new Farm();
+        f2.setName("Granjerina");
+        f2.setJailsAmount(17);
+        f2.setLocalization(new Location());
+        farms.add(f2);
+    }
+
     public Task<List<Farm>> getFarms()
     {
+        return Tasks.call(() -> farms);
+    }
+
+    public Task<List<Farm>> addFarm(FarmDialog.Result result)
+    {
         return Tasks.call(() -> {
-                List<Farm> list = new ArrayList<>();
-
-                Farm f1 = new Farm();
-                f1.setName("Granjamiento");
-                f1.setJailsAmount(32);
-                f1.setLocalization(new Location());
-                list.add(f1);
-
-                Farm f2 = new Farm();
-                f2.setName("Granjerina");
-                f2.setJailsAmount(17);
-                f2.setLocalization(new Location());
-                list.add(f2);
-
-                return list;
-            }
-        );
+            farms.add(new Farm());
+            return farms;
+        });
     }
 
-    public Task<Void> addFarm(FarmDialog.Result result)
+    public Task<List<Farm>> deleteFarms(Collection<Farm> farms)
     {
-        return null;
-    }
-
-    public Task<Void> deleteFarms(Collection<Farm> farms)
-    {
-        return Tasks.call(() -> null);
+        return Tasks.call(() -> {
+            this.farms.removeAll(farms);
+            return this.farms;
+        });
     }
 }
