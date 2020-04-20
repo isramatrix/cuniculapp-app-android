@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 
 import java.io.Serializable;
 
-public abstract class Traceable implements Serializable, Parcelable
+public abstract class Traceable extends Identifiable implements Serializable, Parcelable
 {
     @Override
     public final int describeContents() { return 0; }

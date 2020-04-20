@@ -11,8 +11,6 @@ public class Insemination extends Traceable
 {
     public static final Creator<Insemination> CREATOR = new TraceableCreator<>(Insemination.class);
 
-    private Integer id;
-
     private Date date;
 
     private Labor labor;
@@ -22,14 +20,6 @@ public class Insemination extends Traceable
     private Cycle cycle;
 
     public Insemination() { }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Date getDate() {
         return date;

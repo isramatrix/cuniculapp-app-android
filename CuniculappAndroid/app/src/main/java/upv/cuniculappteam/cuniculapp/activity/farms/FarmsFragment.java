@@ -21,7 +21,7 @@ import upv.cuniculappteam.cuniculapp.R;
 import upv.cuniculappteam.cuniculapp.activity.farms.main.FarmActivity;
 import upv.cuniculappteam.cuniculapp.activity.utils.ModelLifecycleFragment;
 import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
-import upv.cuniculappteam.cuniculapp.view.farms.FarmsAdapter;
+import upv.cuniculappteam.cuniculapp.view.farms.adapters.FarmsAdapter;
 import upv.cuniculappteam.cuniculapp.view.farms.dialogs.FarmDialog;
 import upv.cuniculappteam.cuniculapp.view.utils.dialog.DialogForResult.Header;
 import upv.cuniculappteam.cuniculapp.view.utils.recycler.SelectableAdapter;
@@ -132,7 +132,17 @@ public class FarmsFragment extends ModelLifecycleFragment<Farm>
      * @return Una instancia de un diálogo.
      */
     @Override
-    public DialogFragment getAddDialog() {
-        return new FarmDialog(Header.ADD, (r) -> farms.addFarm(r).addOnSuccessListener(this::updateItems));
+    public DialogFragment getAddDialog()
+    {
+        return new FarmDialog(Header.ADD, (r) -> farms.addFarm(makeFarm(r)).addOnSuccessListener(this::updateItems));
+    }
+
+    private Farm makeFarm(FarmDialog.Result result)
+    {
+        Farm farm = new Farm();
+        farm.setName(result.getName());
+        farm.setJailsAmount(result.getJailsAmount());
+        farm.setLocalization(result.getLocation());
+        return farm;
     }
 }

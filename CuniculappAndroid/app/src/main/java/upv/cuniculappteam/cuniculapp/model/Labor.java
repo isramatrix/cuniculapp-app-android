@@ -11,8 +11,6 @@ public class Labor extends Traceable
 
     public static final Creator<Labor> CREATOR = new TraceableCreator<>(Labor.class);
 
-    public String id;
-
     private User user;
 
     private String name;
@@ -103,14 +101,6 @@ public class Labor extends Traceable
 
     public void setState(State state) {
         this.state = state;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
 }

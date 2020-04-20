@@ -1,5 +1,7 @@
 package upv.cuniculappteam.cuniculapp.model.facilities;
 
+import androidx.annotation.StringRes;
+
 import upv.cuniculappteam.cuniculapp.model.User;
 import upv.cuniculappteam.cuniculapp.model.utils.Traceable;
 import upv.cuniculappteam.cuniculapp.model.utils.TraceableCreator;
@@ -8,13 +10,11 @@ public class Farm extends Traceable
 {
     public static final Creator<Farm> CREATOR = new TraceableCreator<>(Farm.class);
 
-    private Integer id;
-
     private String name;
 
     private Integer jailsAmount;
 
-    private Location localization;
+    private String localization;
 
     private Integer rabbitsGestatingAmount;
 
@@ -25,14 +25,6 @@ public class Farm extends Traceable
     private User user;
 
     public Farm() { }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -50,11 +42,11 @@ public class Farm extends Traceable
         this.jailsAmount = jailsAmount;
     }
 
-    public Location getLocalization() {
+    public String getLocalization() {
         return localization;
     }
 
-    public void setLocalization(Location localization) {
+    public void setLocalization(String localization) {
         this.localization = localization;
     }
 

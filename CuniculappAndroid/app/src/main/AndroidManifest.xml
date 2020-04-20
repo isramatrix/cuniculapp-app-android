@@ -11,13 +11,14 @@
         android:theme="@style/AppTheme">
 
         <!-- Common Activities -->
-        <activity android:name=".activity.SplashActivity" />
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.SplashActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".activity.MainActivity" />
 
         <!-- Farm Activities -->
         <activity android:name=".activity.farms.main.FarmActivity"

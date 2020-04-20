@@ -9,8 +9,6 @@ public class MotherChange extends Traceable
 {
     public static final Creator<MotherChange> CREATOR = new TraceableCreator<>(MotherChange.class);
 
-    private Integer id;
-
     private Integer amount;
 
     private Date date;
@@ -20,14 +18,6 @@ public class MotherChange extends Traceable
     private Mother mother;
 
     public MotherChange() {}
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Integer getAmount() {
         return amount;

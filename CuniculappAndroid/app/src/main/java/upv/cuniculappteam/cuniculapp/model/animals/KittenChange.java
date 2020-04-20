@@ -9,8 +9,6 @@ public class KittenChange extends Traceable
 {
     public static final Creator<KittenChange> CREATOR = new TraceableCreator<>(KittenChange.class);
 
-    private Integer id;
-
     private Integer maternalNestAmount;
 
     private Integer maternalFattenAmount;
@@ -26,14 +24,6 @@ public class KittenChange extends Traceable
     private Kitten kitten;
 
     public KittenChange() { }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Integer getMaternalNestAmount() {
         return maternalNestAmount;

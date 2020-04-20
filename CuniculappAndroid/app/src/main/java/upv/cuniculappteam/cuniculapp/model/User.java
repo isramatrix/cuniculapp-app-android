@@ -7,8 +7,6 @@ public class User extends Traceable
 {
     public static final Creator<User> CREATOR = new TraceableCreator<>(User.class);
 
-    private Integer id;
-
     private String name;
 
     private Boolean alertsOn;
@@ -20,14 +18,6 @@ public class User extends Traceable
     private Boolean dailySummary;
 
     public User() { }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

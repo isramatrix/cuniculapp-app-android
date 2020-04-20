@@ -11,8 +11,6 @@ public class Sale extends Traceable
 {
     public static final Creator<Sale> CREATOR = new TraceableCreator<>(Sale.class);
 
-    private Integer id;
-
     private Date date;
 
     private Labor labor;
@@ -26,14 +24,6 @@ public class Sale extends Traceable
     private Cycle cycle;
 
     public Sale() { }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Date getDate() {
         return date;

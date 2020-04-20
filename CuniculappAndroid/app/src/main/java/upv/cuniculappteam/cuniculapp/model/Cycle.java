@@ -12,8 +12,6 @@ public class Cycle extends Traceable
 
     public enum State { A, B, C }
 
-    private Integer id;
-
     private String name;
 
     private State state;
@@ -21,14 +19,6 @@ public class Cycle extends Traceable
     private Farm farm;
 
     public Cycle() { }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

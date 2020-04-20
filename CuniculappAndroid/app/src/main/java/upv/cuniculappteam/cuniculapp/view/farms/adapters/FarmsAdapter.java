@@ -1,4 +1,4 @@
-package upv.cuniculappteam.cuniculapp.view.farms;
+package upv.cuniculappteam.cuniculapp.view.farms.adapters;
 
 import android.view.View;
 import android.widget.TextView;

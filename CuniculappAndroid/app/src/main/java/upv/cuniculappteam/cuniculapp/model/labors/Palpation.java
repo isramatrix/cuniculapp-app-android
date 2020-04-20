@@ -11,8 +11,6 @@ public class Palpation extends Traceable
 {
     public static final Creator<Palpation> CREATOR = new TraceableCreator<>(Palpation.class);
 
-    private Integer id;
-
     private Date date;
 
     private Labor labor;
@@ -22,14 +20,6 @@ public class Palpation extends Traceable
     private Cycle cycle;
 
     public Palpation() { }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Date getDate() {
         return date;

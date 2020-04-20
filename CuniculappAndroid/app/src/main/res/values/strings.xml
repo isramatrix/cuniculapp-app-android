@@ -14,6 +14,7 @@
     <string name="dialog_delete_dismiss">No</string>
 
     <!-- Cycles Fragment -->
+    <string name="farm_name">Nombre</string>
     <string name="farm_jails">Nº Jaulas</string>
     <string name="farm_cycles">Nº Ciclos</string>
     <string name="farm_location">Localización</string>

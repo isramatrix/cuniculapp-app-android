@@ -11,8 +11,6 @@ public class Labour extends Traceable
 {
     public static final Creator<Labour> CREATOR = new TraceableCreator<>(Labour.class);
 
-    private Integer id;
-
     private Date date;
 
     private Labor labor;
@@ -26,14 +24,6 @@ public class Labour extends Traceable
     private Cycle cycle;
 
     public Labour() { }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Date getDate() {
         return date;

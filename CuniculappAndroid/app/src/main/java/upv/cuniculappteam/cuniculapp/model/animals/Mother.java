@@ -8,8 +8,6 @@ public class Mother extends Traceable
 {
     public static final Creator<Mother> CREATOR = new TraceableCreator<>(Mother.class);
 
-    private Integer id;
-
     private Integer alive;
 
     private Integer[] jails;
@@ -17,14 +15,6 @@ public class Mother extends Traceable
     private Cycle cycle;
 
     public Mother() { }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Integer getAlive() {
         return alive;

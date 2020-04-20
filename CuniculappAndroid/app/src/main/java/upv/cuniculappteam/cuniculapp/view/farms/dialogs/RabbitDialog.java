@@ -28,6 +28,8 @@ public abstract class RabbitDialog<T> extends DialogForResult<T>
         // Se inicializa el comportamiento del texto editable de otra razón.
         otherReasonText = view.findViewById(R.id.rabbits_dialog_other_etext);
         otherReasonText.setOnFocusChangeListener((v, f) -> { if (f) radioGroup.check(R.id.rabbits_dialog_other_radio); });
+
+        super.onBindView(view);
     }
 
     Reason getSelectedReason()

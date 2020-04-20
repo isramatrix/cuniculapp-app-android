@@ -2,9 +2,12 @@ package upv.cuniculappteam.cuniculapp.view.farms.dialogs;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import java.util.Collection;
 
 import upv.cuniculappteam.cuniculapp.R;
 
@@ -14,6 +17,11 @@ public class KittenDialog extends RabbitDialog<Result>
 {
     public KittenDialog(Header header, OnAcceptClickedListener<Result> result) {
         super(header, result);
+    }
+
+    @Override
+    public Collection<? extends EditText> getMandatoryFields() {
+        return null;
     }
 
     @Override

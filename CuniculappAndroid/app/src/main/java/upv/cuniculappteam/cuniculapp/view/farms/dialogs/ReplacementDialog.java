@@ -1,6 +1,11 @@
 package upv.cuniculappteam.cuniculapp.view.farms.dialogs;
 
 import android.app.AlertDialog;
+import android.widget.EditText;
+
+import com.google.common.collect.Lists;
+
+import java.util.Collection;
 
 import upv.cuniculappteam.cuniculapp.view.utils.dialog.DialogForResult;
 
@@ -15,6 +20,12 @@ public class ReplacementDialog extends DialogForResult<Result>
     @Override
     public void onBindView(AlertDialog view) {
         super.onBindView(view);
+    }
+
+    @Override
+    public Collection<? extends EditText> getMandatoryFields()
+    {
+        return Lists.newArrayList();
     }
 
     @Override

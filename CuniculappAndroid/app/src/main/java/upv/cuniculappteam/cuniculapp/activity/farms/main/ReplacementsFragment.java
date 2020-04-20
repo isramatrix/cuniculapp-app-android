@@ -10,10 +10,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.Task;
 
@@ -27,10 +24,8 @@ import upv.cuniculappteam.cuniculapp.activity.farms.replacements.ReplacementActi
 import upv.cuniculappteam.cuniculapp.model.Replacement;
 import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
 import upv.cuniculappteam.cuniculapp.view.farms.dialogs.ReplacementDialog;
-import upv.cuniculappteam.cuniculapp.view.utils.dialog.DialogForResult;
 import upv.cuniculappteam.cuniculapp.view.utils.dialog.DialogForResult.Header;
-import upv.cuniculappteam.cuniculapp.view.utils.recycler.Adapter;
-import upv.cuniculappteam.cuniculapp.view.farms.ReplacementsAdapter;
+import upv.cuniculappteam.cuniculapp.view.farms.adapters.ReplacementsAdapter;
 import upv.cuniculappteam.cuniculapp.view.utils.recycler.SelectableAdapter;
 import upv.cuniculappteam.cuniculapp.viewmodel.ReplacementViewModel;
 

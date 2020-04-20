@@ -3,9 +3,12 @@ package upv.cuniculappteam.cuniculapp.logic.firebase;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.StringRes;
 
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.Task;
+import com.google.common.collect.Lists;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -13,6 +16,10 @@ import com.google.gson.Gson;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+
+import upv.cuniculappteam.cuniculapp.model.utils.Identifiable;
+import upv.cuniculappteam.cuniculapp.model.utils.Traceable;
 
 public class Database
 {
@@ -23,12 +30,12 @@ public class Database
         firestore = FirebaseFirestore.getInstance();
     }
 
-    public <T, S extends T> Task<S> fetch(String id, final Class<? extends T> type)
+    public <T extends Serializable> Task<? extends T> fetch(String id, final Class<? extends T> type)
     {
-        return firestore.collection("users").document(id).get().continueWith(
+        return firestore.collection(type.getSimpleName()).document(id).get().continueWith(
                 (result) -> {
                     if (result.isSuccessful() && result.getResult() != null) {
-                        return (S) result.getResult().toObject(type);
+                        return result.getResult().toObject(type);
                     } else if (result.getException() != null)
                         throw result.getException();
 
@@ -37,18 +44,52 @@ public class Database
         );
     }
 
-    public <T extends Serializable> Task<Void> add(T obj)
+    public <T extends Serializable> Task<List<T>> fetchAll(final Class<T> type)
     {
-        return firestore.collection("users").add(obj).continueWith(task -> null);
+        return firestore.collection(type.getSimpleName()).get().continueWith(
+                (result) -> {
+                    if (result.isSuccessful() && result.getResult() != null) {
+                        return Lists.transform(result.getResult().getDocuments(), (doc) -> doc.toObject(type));
+                    } else if (result.getException() != null)
+                        throw result.getException();
+
+                    else throw new NullPointerException();
+                }
+        );
     }
 
-    public <T extends Serializable> Task<Void> add(String id, T obj)
+    public <T extends Serializable> Task<List<T>> fetchWhere(String field, Object value, final Class<T> type)
     {
-        return firestore.collection("users").document(id).set(obj);
+        return firestore.collection(type.getSimpleName()).whereEqualTo(field, value).get().continueWith(
+                (result) -> {
+                    if (result.isSuccessful() && result.getResult() != null) {
+                        return Lists.transform(result.getResult().getDocuments(), (doc) -> doc.toObject(type));
+                    } else if (result.getException() != null)
+                        throw result.getException();
+
+                    else throw new NullPointerException();
+                }
+        );
     }
 
-    public Task<Void> delete(String id)
+    public <T extends Identifiable & Serializable> Task<Void> add(Class<T> type, T obj)
     {
-        return firestore.collection("users").document(id).delete();
+        CollectionReference collection = firestore.collection(type.getSimpleName());
+        return collection.add(obj).continueWithTask(
+                (result) -> {
+                    if (result.isSuccessful() && result.getResult() != null) {
+                        obj.setId(result.getResult().getId());
+                        return collection.document(obj.getId()).set(obj);
+                    } else if (result.getException() != null)
+                        throw result.getException();
+
+                    else throw new NullPointerException();
+                }
+        );
+    }
+
+    public <T extends Identifiable & Serializable> Task<Void> delete(Class<T> type, T obj)
+    {
+        return firestore.collection(type.getSimpleName()).document(obj.getId()).delete();
     }
 }

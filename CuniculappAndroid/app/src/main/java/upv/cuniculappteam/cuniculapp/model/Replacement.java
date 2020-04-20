@@ -8,8 +8,6 @@ public class Replacement extends Traceable
 {
     public static final Creator<Replacement> CREATOR = new TraceableCreator<>(Replacement.class);
 
-    private Integer id;
-
     private Integer days;
 
     private Integer rabbitsAmount;
@@ -19,14 +17,6 @@ public class Replacement extends Traceable
     private Farm farm;
 
     public Replacement() { }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Integer getDays() {
         return days;

@@ -23,7 +23,7 @@ import upv.cuniculappteam.cuniculapp.activity.utils.ModelLifecycleFragment;
 import upv.cuniculappteam.cuniculapp.activity.utils.NamedFragment;
 import upv.cuniculappteam.cuniculapp.model.Cycle;
 import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
-import upv.cuniculappteam.cuniculapp.view.farms.CyclesAdapter;
+import upv.cuniculappteam.cuniculapp.view.farms.adapters.CyclesAdapter;
 import upv.cuniculappteam.cuniculapp.view.farms.dialogs.CycleDialog;
 import upv.cuniculappteam.cuniculapp.view.utils.dialog.DialogForResult.Header;
 import upv.cuniculappteam.cuniculapp.view.utils.recycler.SelectableAdapter;

@@ -15,12 +15,12 @@ public class LaborViewModel extends ViewModel
 {
     public Task<List<Labor>> getLabors()
     {
-        return Database.fetch("tasks", List.class);
+        return Database.fetchAll(Labor.class);
     }
 
-    public Task<Void> addLabor(Labor labor)
+    public Task<List<Labor>> addLabor(Labor labor)
     {
-        return Database.add(labor.getId(), labor);
+        return null;// Database.add(labor.getId(), labor);
     }
 
     public Task<Void> completeLabor(Labor labor)

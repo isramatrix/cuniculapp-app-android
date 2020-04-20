@@ -2,6 +2,8 @@ package upv.cuniculappteam.cuniculapp.logic.firebase;
 
 import android.content.Context;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public abstract class Firebase
 {
     public static Auth Auth;
