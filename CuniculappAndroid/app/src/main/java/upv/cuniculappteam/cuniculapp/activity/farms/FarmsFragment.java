@@ -134,7 +134,7 @@ public class FarmsFragment extends ModelLifecycleFragment<Farm>
     @Override
     public DialogFragment getAddDialog()
     {
-        return new FarmDialog(Header.ADD, (r) -> farms.addFarm(makeFarm(r)).addOnSuccessListener(this::updateItems));
+        return new FarmDialog(Header.ADD, (r) -> createItem(farms.addFarm(makeFarm(r))));
     }
 
     private Farm makeFarm(FarmDialog.Result result)

@@ -7,11 +7,14 @@
     <string name="main_rabbits">Conejos</string>
     <string name="main_events">Eventos</string>
 
-    <!-- ModelLifeCycle Fragments -->
+    <!-- Dialogs -->
     <string name="dialog_delete_header">Eliminar</string>
     <string name="dialog_delete_text">¿Quieres eliminar los elementos seleccionados? Esta acción no se puede deshacer.</string>
     <string name="dialog_delete_confirm">Sí</string>
     <string name="dialog_delete_dismiss">No</string>
+    <string name="dialog_error_header">Error</string>
+    <string name="dialog_error_text">Ha habido un error efectuando esta operación. Asegurate que tienes conexión a Internet e inténtalo de nuevo.</string>
+    <string name="dialog_error_confirm">OK</string>
 
     <!-- Cycles Fragment -->
     <string name="farm_name">Nombre</string>

@@ -28,6 +28,7 @@ import java.util.List;
 
 import upv.cuniculappteam.cuniculapp.R;
 import upv.cuniculappteam.cuniculapp.model.utils.Traceable;
+import upv.cuniculappteam.cuniculapp.view.utils.LoadingView;
 import upv.cuniculappteam.cuniculapp.view.utils.recycler.Adapter;
 import upv.cuniculappteam.cuniculapp.view.utils.recycler.SelectableAdapter;
 
@@ -165,9 +166,26 @@ public abstract class ModelLifecycleFragment<T extends Traceable> extends Fragme
      * Crea y muestra un diálogo específico que informa que el borrado de elementos no ha
      * podido ser efectuado.
      */
-    private void showFailedDeletionDialog()
+    private void showFailedDeletionDialog(Object... params)
     {
-        // TODO: Crear el diálogo.
+        if (getActivity() == null) return;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(R.string.dialog_error_header)
+                .setMessage(R.string.dialog_error_text)
+                .setPositiveButton(R.string.dialog_error_confirm, null);
+
+        builder.create().show();
+    }
+
+    protected void createItem(Task<List<T>> task)
+    {
+        LoadingView.show();
+
+        task
+                .addOnCompleteListener(LoadingView::hide)
+                .addOnSuccessListener(adapter::changeData)
+                .addOnFailureListener(this::showFailedDeletionDialog);
     }
 
     /**
@@ -177,9 +195,12 @@ public abstract class ModelLifecycleFragment<T extends Traceable> extends Fragme
      */
     private void deleteSelected(Collection<T> items)
     {
+        LoadingView.show();
+
         onDeleteSelected(items)
+            .addOnCompleteListener(LoadingView::hide)
             .addOnSuccessListener(adapter::changeData)
-            .addOnFailureListener((v) -> showFailedDeletionDialog());
+            .addOnFailureListener(this::showFailedDeletionDialog);
 
         adapter.setSelectionMode(false);
     }
