@@ -22,7 +22,7 @@ public class Farm extends Traceable
 
     private Integer[] rabbitsGestatingJails;
 
-    private User user;
+    private String user;
 
     public Farm() { }
 
@@ -74,11 +74,11 @@ public class Farm extends Traceable
         this.rabbitsGestatingJails = rabbitsGestatingJails;
     }
 
-    public User getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(String user) {
         this.user = user;
     }
 }

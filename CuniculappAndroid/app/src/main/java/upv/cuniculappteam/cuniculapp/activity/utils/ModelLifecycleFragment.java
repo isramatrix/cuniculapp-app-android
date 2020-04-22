@@ -1,12 +1,10 @@
 package upv.cuniculappteam.cuniculapp.activity.utils;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.CallSuper;
@@ -27,6 +25,7 @@ import java.util.Collection;
 import java.util.List;
 
 import upv.cuniculappteam.cuniculapp.R;
+import upv.cuniculappteam.cuniculapp.model.utils.Identifiable;
 import upv.cuniculappteam.cuniculapp.model.utils.Traceable;
 import upv.cuniculappteam.cuniculapp.view.utils.LoadingView;
 import upv.cuniculappteam.cuniculapp.view.utils.recycler.Adapter;
@@ -45,7 +44,7 @@ public abstract class ModelLifecycleFragment<T extends Traceable> extends Fragme
     private TextView deletionCount;
 
     /**
-     * Inicializa las vistas del fragmento de los ciclos de una granja.
+     * Inicializa las vistas del fragmento contenedor de elementos
      *
      * @param view La vista raíz del fragmento.
      * @param savedInstanceState El estado de la instancia de la aplicación.
@@ -62,7 +61,11 @@ public abstract class ModelLifecycleFragment<T extends Traceable> extends Fragme
         replacementRecylcer.setAdapter(adapter = getAdapter());
 
         // Se muestran los datos de los elementos disponibles.
-        getAdapterData().addOnSuccessListener(adapter::changeData);
+        if (getActivity() != null) LoadingView.show(getActivity());
+        getAdapterData()
+                .addOnCompleteListener(LoadingView::hide)
+                .addOnSuccessListener(adapter::changeData)
+                .addOnFailureListener(this::showFailedDialog);
 
         // Se inicializa la lógica del adaptador que muestra los elementos.
         adapter.setOnItemClickedListener(this);
@@ -74,7 +77,7 @@ public abstract class ModelLifecycleFragment<T extends Traceable> extends Fragme
      *
      * @param items Los elementos a mostrar.
      */
-    public void updateItems(List<T> items) { adapter.changeData(items); }
+    protected void updateItems(List<T> items) { adapter.changeData(items); }
 
     /**
      * Reinicia el estado de multiselección del adaptador seleccionable cuando el
@@ -163,15 +166,15 @@ public abstract class ModelLifecycleFragment<T extends Traceable> extends Fragme
     }
 
     /**
-     * Crea y muestra un diálogo específico que informa que el borrado de elementos no ha
-     * podido ser efectuado.
+     * Crea y muestra un diálogo específico que informa que alguna transacción de
+     * elementos no ha podido ser efectuada.
      */
-    private void showFailedDeletionDialog(Object... params)
+    private void showFailedDialog(Object... params)
     {
         if (getActivity() == null) return;
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle(R.string.dialog_error_header)
+        builder.setTitle(R.string.dialog_header_error)
                 .setMessage(R.string.dialog_error_text)
                 .setPositiveButton(R.string.dialog_error_confirm, null);
 
@@ -180,12 +183,13 @@ public abstract class ModelLifecycleFragment<T extends Traceable> extends Fragme
 
     protected void createItem(Task<List<T>> task)
     {
-        LoadingView.show();
+        if (getActivity() != null)
+            LoadingView.show(getActivity());
 
         task
                 .addOnCompleteListener(LoadingView::hide)
                 .addOnSuccessListener(adapter::changeData)
-                .addOnFailureListener(this::showFailedDeletionDialog);
+                .addOnFailureListener(this::showFailedDialog);
     }
 
     /**
@@ -195,12 +199,13 @@ public abstract class ModelLifecycleFragment<T extends Traceable> extends Fragme
      */
     private void deleteSelected(Collection<T> items)
     {
-        LoadingView.show();
+        if (getActivity() != null)
+            LoadingView.show(getActivity());
 
         onDeleteSelected(items)
             .addOnCompleteListener(LoadingView::hide)
             .addOnSuccessListener(adapter::changeData)
-            .addOnFailureListener(this::showFailedDeletionDialog);
+            .addOnFailureListener(this::showFailedDialog);
 
         adapter.setSelectionMode(false);
     }

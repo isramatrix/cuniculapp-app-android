@@ -24,15 +24,15 @@ public class FarmViewModel extends ViewModel
         return Firebase.Database.fetchAll(Farm.class);
     }
 
-    public Task<List<Farm>> addFarm(Farm farm)
+    public Task<Void> addFarm(Farm farm)
     {
-        return Firebase.Database.add(Farm.class, farm).continueWithTask(this::getFarms);
+        return Firebase.Database.add(Farm.class, farm);
     }
 
-    public Task<List<Farm>> deleteFarms(Collection<Farm> farms)
+    public Task<Void> deleteFarms(Collection<Farm> farms)
     {
         List<Task<?>> tasks = new ArrayList<>();
         for (Farm farm : farms) tasks.add(Firebase.Database.delete(Farm.class, farm));
-        return Tasks.whenAll(tasks).continueWithTask(this::getFarms);
+        return Tasks.whenAll(tasks);
     }
 }

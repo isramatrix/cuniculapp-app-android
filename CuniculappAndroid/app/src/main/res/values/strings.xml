@@ -8,19 +8,26 @@
     <string name="main_events">Eventos</string>
 
     <!-- Dialogs -->
+    <string name="dialog_header_add">Añadir</string>
+    <string name="dialog_header_remove">Quitar</string>
+    <string name="dialog_header_error">Error</string>
+
+    <string name="dialog_confirm">OK</string>
     <string name="dialog_delete_header">Eliminar</string>
     <string name="dialog_delete_text">¿Quieres eliminar los elementos seleccionados? Esta acción no se puede deshacer.</string>
     <string name="dialog_delete_confirm">Sí</string>
     <string name="dialog_delete_dismiss">No</string>
-    <string name="dialog_error_header">Error</string>
     <string name="dialog_error_text">Ha habido un error efectuando esta operación. Asegurate que tienes conexión a Internet e inténtalo de nuevo.</string>
     <string name="dialog_error_confirm">OK</string>
 
-    <!-- Cycles Fragment -->
+    <!-- Farm Fragment -->
     <string name="farm_name">Nombre</string>
     <string name="farm_jails">Nº Jaulas</string>
     <string name="farm_cycles">Nº Ciclos</string>
     <string name="farm_location">Localización</string>
+
+    <!-- Cycle Fragmen t-->
+    <string name="cycle_dialog_insemination_day">Día inseminación</string>
 
     <!-- Replacement Fragment -->
     <string name="replacement_days">Días</string>
@@ -75,7 +82,4 @@
     <string name="rabbits_dialog_reason_death">Muerte</string>
     <string name="rabbits_dialog_reason_other">Otro</string>
 
-    <string name="rabbits_dialog_header_add">Añadir</string>
-    <string name="rabbits_dialog_header_remove">Quitar</string>
-    <string name="rabbits_dialog_confirm">OK</string>
 </resources>

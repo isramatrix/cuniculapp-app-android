@@ -21,7 +21,7 @@ public class KittenChange extends Traceable
 
     private Date date;
 
-    private Kitten kitten;
+    private String kitten;
 
     public KittenChange() { }
 
@@ -73,11 +73,11 @@ public class KittenChange extends Traceable
         this.date = date;
     }
 
-    public Kitten getKitten() {
+    public String getKitten() {
         return kitten;
     }
 
-    public void setKitten(Kitten kitten) {
+    public void setKitten(String kitten) {
         this.kitten = kitten;
     }
 }

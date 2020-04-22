@@ -10,18 +10,20 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import upv.cuniculappteam.cuniculapp.model.utils.Traceable;
 
 public abstract class Adapter<T extends Traceable> extends RecyclerView.Adapter<Holder<T>> implements
         View.OnClickListener
 {
+    private Map<View, T> binds = new HashMap<>();
+
     private List<T> items;
 
     private OnItemClickListener<T> listener;
-
-    private int position;
 
     public Adapter() { this.items = new ArrayList<>(); }
 
@@ -38,7 +40,8 @@ public abstract class Adapter<T extends Traceable> extends RecyclerView.Adapter<
     @Override
     public void onBindViewHolder(@NonNull Holder<T> holder, int position)
     {
-        onBindView(holder.itemView, items.get(this.position = position));
+        binds.put(holder.itemView, items.get(position));
+        onBindView(holder.itemView, items.get(position));
         holder.itemView.setOnClickListener(this);
     }
 
@@ -50,7 +53,7 @@ public abstract class Adapter<T extends Traceable> extends RecyclerView.Adapter<
     @Override @CallSuper
     public void onClick(View view)
     {
-        if (listener != null) listener.onItemClicked(items.get(position));
+        if (listener != null) listener.onItemClicked(binds.get(view));
     }
 
     public void changeData(List<T> items)

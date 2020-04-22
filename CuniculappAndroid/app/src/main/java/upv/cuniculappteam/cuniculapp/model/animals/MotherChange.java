@@ -15,7 +15,7 @@ public class MotherChange extends Traceable
 
     private String reason;
 
-    private Mother mother;
+    private String mother;
 
     public MotherChange() {}
 
@@ -43,11 +43,11 @@ public class MotherChange extends Traceable
         this.reason = reason;
     }
 
-    public Mother getMother() {
+    public String getMother() {
         return mother;
     }
 
-    public void setMother(Mother mother) {
+    public void setMother(String mother) {
         this.mother = mother;
     }
 }

@@ -25,6 +25,7 @@ import upv.cuniculappteam.cuniculapp.model.Cycle;
 import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
 import upv.cuniculappteam.cuniculapp.view.farms.adapters.CyclesAdapter;
 import upv.cuniculappteam.cuniculapp.view.farms.dialogs.CycleDialog;
+import upv.cuniculappteam.cuniculapp.view.farms.dialogs.CycleDialog.Result;
 import upv.cuniculappteam.cuniculapp.view.utils.dialog.DialogForResult.Header;
 import upv.cuniculappteam.cuniculapp.view.utils.recycler.SelectableAdapter;
 import upv.cuniculappteam.cuniculapp.viewmodel.CycleViewModel;
@@ -97,26 +98,16 @@ public class CyclesFragment extends ModelLifecycleFragment<Cycle> implements
      * Obtiene una tarea programada en la que se eliminan los elementos seleccionados del
      * adaptador de elementos principal del fragmento.
      *
-     * @param deletionCycles Los elementos a eliminar.
+     * @param cycles Los elementos a eliminar.
      *
      * @return La tarea en la que se eliminan dichos elementos.
      */
     @Override
-    public Task<List<Cycle>> onDeleteSelected(Collection<Cycle> deletionCycles)
+    public Task<List<Cycle>> onDeleteSelected(Collection<Cycle> cycles)
     {
-        return cycles.deleteCycles(deletionCycles);
-    }
-
-    /**
-     * Obtiene una instancia de un diálogo donde se recogen los atributos de un nuevo elemento
-     * a añadir en el adaptador de elementos principal del fragmento.
-     *
-     * @return Una instancia de un diálogo.
-     */
-    @Override
-    public DialogFragment getAddDialog()
-    {
-        return new CycleDialog(Header.ADD, (r) -> cycles.addCycle(r).addOnSuccessListener(this::updateItems));
+        return this.cycles.deleteCycles(cycles).continueWithTask(
+                (t) -> this.cycles.getCycles(farm)
+        );
     }
 
     /**
@@ -131,6 +122,27 @@ public class CyclesFragment extends ModelLifecycleFragment<Cycle> implements
         Intent intent = new Intent(getActivity(), CycleActivity.class);
         intent.putExtra(CycleActivity.CYCLE_INTENT_KEY, (Parcelable) cycle);
         startActivity(intent);
+    }
+
+    /**
+     * Obtiene una instancia de un diálogo donde se recogen los atributos de un nuevo elemento
+     * a añadir en el adaptador de elementos principal del fragmento.
+     *
+     * @return Una instancia de un diálogo.
+     */
+    @Override
+    public DialogFragment getAddDialog()
+    {
+        return new CycleDialog(Header.ADD, (r) -> createItem(makeCycle(r)));
+    }
+
+    private Task<List<Cycle>> makeCycle(Result result)
+    {
+        Cycle cycle = new Cycle();
+        cycle.setName("¿?");
+        cycle.setFarm(farm.getId());
+
+        return cycles.addCycle(cycle).continueWithTask((t) -> cycles.getCycles(farm));
     }
 
     /**

@@ -23,40 +23,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="2"
-                android:gravity="center_vertical"
-                android:padding="8dp"
-                android:text="@string/farm_name"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/farm_dialog_name_etext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:autofillHints="false"
-                android:ems="10"
-                android:inputType="textCapSentences"
-                android:selectAllOnFocus="true" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:padding="8dp"
-                android:text="@string/farm_jails"
+                android:text="@string/replacement_rabbits"
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/farm_dialog_jails_etext"
+                android:id="@+id/replacement_dialog_rabbits_etext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -79,11 +53,11 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:padding="8dp"
-                android:text="@string/farm_location"
+                android:text="@string/replacement_days"
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/farm_dialog_location_etext"
+                android:id="@+id/replacement_dialog_days_etext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"

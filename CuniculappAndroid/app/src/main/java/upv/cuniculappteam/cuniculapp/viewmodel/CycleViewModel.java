@@ -9,46 +9,30 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import upv.cuniculappteam.cuniculapp.logic.firebase.Firebase;
 import upv.cuniculappteam.cuniculapp.model.Cycle;
+import upv.cuniculappteam.cuniculapp.model.Replacement;
 import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
 import upv.cuniculappteam.cuniculapp.view.farms.dialogs.CycleDialog;
 
 public class CycleViewModel extends ViewModel
 {
-    private List<Cycle> cycles = new ArrayList<>();
-
-    public CycleViewModel() {
-        super();
-        Cycle c;
-        c = new Cycle();
-        c.setName("cicloA");
-        cycles.add(c);
-        c = new Cycle();
-        c.setName("cicloF");
-        cycles.add(c);
-        c = new Cycle();
-        c.setName("cicloFA");
-        cycles.add(c);
-    }
 
     public Task<List<Cycle>> getCycles(Farm farm)
     {
-        return Tasks.call(() -> cycles );
+        return Firebase.Database.fetchWhere("farm", farm.getId(), Cycle.class);
     }
 
-    public Task<List<Cycle>> deleteCycles(Collection<Cycle> cycles)
+    public Task<Void> deleteCycles(Collection<Cycle> cycles)
     {
-        return Tasks.call(() -> {
-            this.cycles.removeAll(cycles);
-            return this.cycles;
-        });
+        List<Task<?>> tasks = new ArrayList<>();
+        for (Cycle cycle : cycles)
+            tasks.add(Firebase.Database.delete(Cycle.class, cycle));
+        return Tasks.whenAll(tasks);
     }
 
-    public Task<List<Cycle>> addCycle(CycleDialog.Result result)
+    public Task<Void> addCycle(Cycle cycle)
     {
-        return Tasks.call(() -> {
-            this.cycles.add(new Cycle());
-            return this.cycles;
-        });
+        return Firebase.Database.add(Cycle.class, cycle);
     }
 }

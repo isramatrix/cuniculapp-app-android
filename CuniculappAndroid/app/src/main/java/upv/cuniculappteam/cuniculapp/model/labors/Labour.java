@@ -13,7 +13,7 @@ public class Labour extends Traceable
 
     private Date date;
 
-    private Labor labor;
+    private String labor;
 
     private Integer mothersAmount;
 
@@ -21,7 +21,7 @@ public class Labour extends Traceable
 
     private Integer bornDead;
 
-    private Cycle cycle;
+    private String cycle;
 
     public Labour() { }
 
@@ -33,11 +33,11 @@ public class Labour extends Traceable
         this.date = date;
     }
 
-    public Labor getLabor() {
+    public String getLabor() {
         return labor;
     }
 
-    public void setLabor(Labor labor) {
+    public void setLabor(String labor) {
         this.labor = labor;
     }
 
@@ -65,11 +65,11 @@ public class Labour extends Traceable
         this.bornDead = bornDead;
     }
 
-    public Cycle getCycle() {
+    public String getCycle() {
         return cycle;
     }
 
-    public void setCycle(Cycle cycle) {
+    public void setCycle(String cycle) {
         this.cycle = cycle;
     }
 }

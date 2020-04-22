@@ -14,7 +14,7 @@ public class Replacement extends Traceable
 
     private Integer[] jails;
 
-    private Farm farm;
+    private String farm;
 
     public Replacement() { }
 
@@ -42,11 +42,11 @@ public class Replacement extends Traceable
         this.jails = jails;
     }
 
-    public Farm getFarm() {
+    public String getFarm() {
         return farm;
     }
 
-    public void setFarm(Farm farm) {
+    public void setFarm(String farm) {
         this.farm = farm;
     }
 }

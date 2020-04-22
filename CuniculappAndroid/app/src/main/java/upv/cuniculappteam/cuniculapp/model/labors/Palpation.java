@@ -13,11 +13,11 @@ public class Palpation extends Traceable
 
     private Date date;
 
-    private Labor labor;
+    private String labor;
 
     private Integer pregnantRabbits;
 
-    private Cycle cycle;
+    private String cycle;
 
     public Palpation() { }
 
@@ -29,11 +29,11 @@ public class Palpation extends Traceable
         this.date = date;
     }
 
-    public Labor getLabor() {
+    public String getLabor() {
         return labor;
     }
 
-    public void setLabor(Labor labor) {
+    public void setLabor(String labor) {
         this.labor = labor;
     }
 
@@ -45,11 +45,11 @@ public class Palpation extends Traceable
         this.pregnantRabbits = pregnantRabbits;
     }
 
-    public Cycle getCycle() {
+    public String getCycle() {
         return cycle;
     }
 
-    public void setCycle(Cycle cycle) {
+    public void setCycle(String cycle) {
         this.cycle = cycle;
     }
 }

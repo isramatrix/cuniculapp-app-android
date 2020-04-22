@@ -11,7 +11,7 @@ public class Labor extends Traceable
 
     public static final Creator<Labor> CREATOR = new TraceableCreator<>(Labor.class);
 
-    private User user;
+    private String user;
 
     private String name;
 
@@ -27,15 +27,15 @@ public class Labor extends Traceable
 
     private Integer icon;
 
-    private State state;
+    private String state;
 
     public Labor() { }
 
-    public User getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(String user) {
         this.user = user;
     }
 
@@ -95,11 +95,11 @@ public class Labor extends Traceable
         this.icon = icon;
     }
 
-    public State getState() {
+    public String getState() {
         return state;
     }
 
-    public void setState(State state) {
+    public void setState(String state) {
         this.state = state;
     }
 

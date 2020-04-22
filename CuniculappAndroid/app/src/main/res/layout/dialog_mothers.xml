@@ -123,7 +123,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="6dp"
-            android:text="@string/rabbits_dialog_confirm"
+            android:text="@string/dialog_confirm"
             tools:layout_editor_absoluteX="24dp"
             tools:layout_editor_absoluteY="52dp" />
 

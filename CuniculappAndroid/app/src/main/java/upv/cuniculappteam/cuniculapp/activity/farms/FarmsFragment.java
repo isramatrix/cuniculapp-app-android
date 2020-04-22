@@ -121,8 +121,11 @@ public class FarmsFragment extends ModelLifecycleFragment<Farm>
      * @return La tarea en la que se eliminan dichos elementos.
      */
     @Override
-    public Task<List<Farm>> onDeleteSelected(Collection<Farm> items) {
-        return farms.deleteFarms(items);
+    public Task<List<Farm>> onDeleteSelected(Collection<Farm> items)
+    {
+        return farms.deleteFarms(items).continueWithTask(
+                (t) -> farms.getFarms()
+        );
     }
 
     /**
@@ -134,15 +137,18 @@ public class FarmsFragment extends ModelLifecycleFragment<Farm>
     @Override
     public DialogFragment getAddDialog()
     {
-        return new FarmDialog(Header.ADD, (r) -> createItem(farms.addFarm(makeFarm(r))));
+        return new FarmDialog(Header.ADD, (r) -> createItem(makeFarm(r)));
     }
 
-    private Farm makeFarm(FarmDialog.Result result)
+    private Task<List<Farm>> makeFarm(FarmDialog.Result result)
     {
         Farm farm = new Farm();
         farm.setName(result.getName());
         farm.setJailsAmount(result.getJailsAmount());
         farm.setLocalization(result.getLocation());
-        return farm;
+
+        return farms.addFarm(farm).continueWithTask(
+                (t) -> farms.getFarms()
+        );
     }
 }

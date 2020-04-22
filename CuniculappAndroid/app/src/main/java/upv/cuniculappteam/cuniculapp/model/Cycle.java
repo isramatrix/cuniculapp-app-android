@@ -16,7 +16,7 @@ public class Cycle extends Traceable
 
     private State state;
 
-    private Farm farm;
+    private String farm;
 
     public Cycle() { }
 
@@ -36,11 +36,11 @@ public class Cycle extends Traceable
         this.state = state;
     }
 
-    public Farm getFarm() {
+    public String getFarm() {
         return farm;
     }
 
-    public void setFarm(Farm farm) {
+    public void setFarm(String farm) {
         this.farm = farm;
     }
 }

@@ -24,6 +24,7 @@ import upv.cuniculappteam.cuniculapp.activity.farms.replacements.ReplacementActi
 import upv.cuniculappteam.cuniculapp.model.Replacement;
 import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
 import upv.cuniculappteam.cuniculapp.view.farms.dialogs.ReplacementDialog;
+import upv.cuniculappteam.cuniculapp.view.farms.dialogs.ReplacementDialog.Result;
 import upv.cuniculappteam.cuniculapp.view.utils.dialog.DialogForResult.Header;
 import upv.cuniculappteam.cuniculapp.view.farms.adapters.ReplacementsAdapter;
 import upv.cuniculappteam.cuniculapp.view.utils.recycler.SelectableAdapter;
@@ -39,8 +40,8 @@ public class ReplacementsFragment extends ModelLifecycleFragment<Replacement> im
     ReplacementsFragment(Farm farm) { this.farm = farm; }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+    {
         return inflater.inflate(R.layout.fragment_replacements, container, false);
     }
 
@@ -108,12 +109,15 @@ public class ReplacementsFragment extends ModelLifecycleFragment<Replacement> im
      * Obtiene una tarea programada en la que se eliminan los elementos seleccionados del
      * adaptador de elementos principal del fragmento.
      *
-     * @param deletionReplacements Los elementos a eliminar.
+     * @param replacements Los elementos a eliminar.
      * @return La tarea en la que se eliminan dichos elementos.
      */
     @Override
-    public Task<List<Replacement>> onDeleteSelected(Collection<Replacement> deletionReplacements) {
-        return replacements.deleteReplacements(deletionReplacements);
+    public Task<List<Replacement>> onDeleteSelected(Collection<Replacement> replacements)
+    {
+        return this.replacements.deleteReplacements(replacements).continueWithTask(
+                (t) -> this.replacements.getReplacements(farm)
+        );
     }
 
     /**
@@ -124,7 +128,19 @@ public class ReplacementsFragment extends ModelLifecycleFragment<Replacement> im
      */
     @Override
     public DialogFragment getAddDialog() {
-        return new ReplacementDialog(Header.ADD, (r) -> replacements.addReplacement(r).addOnSuccessListener(this::updateItems) );
+        return new ReplacementDialog(Header.ADD, (r) -> createItem(makeReplacement(r)) );
+    }
+
+    private Task<List<Replacement>> makeReplacement(Result result)
+    {
+        Replacement replacement = new Replacement();
+        replacement.setDays(result.getDays());
+        replacement.setRabbitsAmount(result.getRabbits());
+        replacement.setFarm(farm.getId());
+
+        return replacements.addReplacement(replacement).continueWithTask(
+                (t) -> replacements.getReplacements(farm)
+        );
     }
 
     @Override

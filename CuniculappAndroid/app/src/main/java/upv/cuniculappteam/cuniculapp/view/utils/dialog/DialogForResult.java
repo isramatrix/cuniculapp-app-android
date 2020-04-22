@@ -11,8 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.CallSuper;
 import androidx.annotation.StringRes;
 
-import com.google.errorprone.annotations.DoNotCall;
-
 import java.util.Collection;
 
 import upv.cuniculappteam.cuniculapp.R;
@@ -20,8 +18,8 @@ import upv.cuniculappteam.cuniculapp.R;
 public abstract class DialogForResult<T> extends Dialog implements TextWatcher {
     public enum Header
     {
-        ADD(R.string.rabbits_dialog_header_add),
-        REMOVE(R.string.rabbits_dialog_header_remove);
+        ADD(R.string.dialog_header_add),
+        REMOVE(R.string.dialog_header_remove);
 
         private @StringRes
         int text;
