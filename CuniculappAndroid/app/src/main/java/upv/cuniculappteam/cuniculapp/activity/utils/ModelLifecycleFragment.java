@@ -112,6 +112,7 @@ public abstract class ModelLifecycleFragment<T extends Traceable> extends Fragme
      * función del botón de menú seleccionado.
      *
      * @param item El botón de menú seleccionado.
+     *
      * @return Si el control ha sido manejado correctamente.
      */
     @Override @CallSuper

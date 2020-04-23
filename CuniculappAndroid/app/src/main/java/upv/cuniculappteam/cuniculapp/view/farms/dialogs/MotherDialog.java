@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,31 +19,35 @@ import static upv.cuniculappteam.cuniculapp.view.farms.dialogs.MotherDialog.*;
 
 public class MotherDialog extends RabbitDialog<Result>
 {
-    public MotherDialog(Header header, OnAcceptClickedListener<Result> result) {
+    private EditText motherAmount;
+
+    public MotherDialog(Header header, OnAcceptClickedListener<Result> result)
+    {
         super(header, result);
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+    public void onBindView(AlertDialog view)
     {
-        super.onViewCreated(view, savedInstanceState);
-    }
+        motherAmount = view.findViewById(R.id.rabbits_dialog_mother_amount);
 
-    @Override
-    public void onBindView(AlertDialog view) {
         super.onBindView(view);
     }
 
     @Override
     public Collection<? extends EditText> getMandatoryFields()
     {
-        return Lists.newArrayList();
+        return Lists.newArrayList(motherAmount);
     }
 
     @Override
     public Result getResult()
     {
-        return new Result(0, getSelectedReason(), getReasonMessage());
+        return new Result(
+                Integer.parseInt(motherAmount.getText().toString()),
+                getSelectedReason(),
+                getReasonMessage()
+        );
     }
 
     @Override
@@ -56,7 +61,7 @@ public class MotherDialog extends RabbitDialog<Result>
 
         private final String notes;
 
-        Result(int amount, Reason reason, String notes)
+        private Result(int amount, Reason reason, String notes)
         {
             this.amount = amount;
             this.reason = reason;

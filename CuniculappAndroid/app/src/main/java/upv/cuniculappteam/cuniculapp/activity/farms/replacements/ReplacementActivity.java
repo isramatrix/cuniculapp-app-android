@@ -37,7 +37,6 @@ public class ReplacementActivity extends AppCompatActivity
         TableLayout timelineTable = findViewById(R.id.replacement_timeline_table);
         // TODO: Inlfar el contenido de esta vista.
 
-        findViewById(R.id.replacement_close_button).setOnClickListener((v) -> finish());
         findViewById(R.id.replacement_add_jail_button).setOnClickListener(this::addJail);
         findViewById(R.id.replacement_remove_jail_button).setOnClickListener(this::removeJail);
     }

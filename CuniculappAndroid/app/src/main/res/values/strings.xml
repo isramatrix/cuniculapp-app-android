@@ -7,6 +7,13 @@
     <string name="main_rabbits">Conejos</string>
     <string name="main_events">Eventos</string>
 
+    <!-- Menu Descriptions -->
+    <string name="menu_item_add">Añadir</string>
+    <string name="menu_item_remove">Eliminar</string>
+    <string name="menu_item_history">Histórico</string>
+    <string name="menu_item_count">Confirmar</string>
+    <string name="menu_item_clear">Deshacer</string>
+
     <!-- Dialogs -->
     <string name="dialog_header_add">Añadir</string>
     <string name="dialog_header_remove">Quitar</string>

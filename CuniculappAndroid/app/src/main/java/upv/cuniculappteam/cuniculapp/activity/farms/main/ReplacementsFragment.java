@@ -4,9 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -56,6 +60,53 @@ public class ReplacementsFragment extends ModelLifecycleFragment<Replacement> im
     {
         replacements = ViewModelProviders.of(this).get(ReplacementViewModel.class);
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    /**
+     * Infla la vista del menú cabecera con los botones para añadir, quitar y ver el
+     * histórico de los objetos de la vista de reciclable.
+     *
+     * @param menu El menú cabecera.
+     * @param inflater El objeto mediador para inflar la vista de menú.
+     */
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater)
+    {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+        inflater.inflate(R.menu.action_manage_items_history, menu);
+    }
+
+    /**
+     * Maneja el control de la vista de menú para añadir o quitar una objeto reciclable en
+     * función del botón de menú seleccionado.
+     *
+     * @param item El botón de menú seleccionado.
+     *
+     * @return Si el control ha sido manejado correctamente.
+     */
+    @Override @CallSuper
+    public boolean onOptionsItemSelected(@NonNull MenuItem item)
+    {
+        switch (item.getItemId()) {
+            // Si se quiere ver el histórico de reposiciones, cambia de actividad.
+            case R.id.action_history: showHistory(); return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     * Inicia una actividad de histórico para mostrar los reemplazos habidos en la
+     * Granja desde su existencia.
+     */
+    private void showHistory()
+    {
+        /* TODO:
+        Intent intent = new Intent(getActivity(), ReplacementHisActivity.class);
+        intent.putExtra(ReplacementActivity.REPLACEMENT_INTENT_KEY, (Parcelable) replacement);
+        startActivity(intent);
+        */
     }
 
     /**

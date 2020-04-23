@@ -17,8 +17,6 @@ import upv.cuniculappteam.cuniculapp.view.farms.dialogs.ReplacementDialog;
 
 public class ReplacementViewModel extends ViewModel
 {
-    private List<Replacement> replacements;
-
     public Task<List<Replacement>> getReplacements(Farm farm)
     {
         return Firebase.Database.fetchWhere("farm", farm.getId(), Replacement.class);
