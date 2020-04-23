@@ -29,6 +29,11 @@
 
         <activity android:name=".activity.farms.replacements.ReplacementActivity"
             android:parentActivityName=".activity.farms.main.FarmActivity"/>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
     </application>
 
 </manifest>

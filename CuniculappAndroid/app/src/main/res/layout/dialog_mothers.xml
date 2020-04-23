@@ -24,6 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:fontFamily="@font/roboto_medium"
                 android:gravity="center_vertical"
                 android:padding="8dp"
                 android:text="@string/rabbits_dialog_mother_amount"
