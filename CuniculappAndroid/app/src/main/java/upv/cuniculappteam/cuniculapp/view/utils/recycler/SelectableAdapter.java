@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.view.View;
 
 import androidx.annotation.CallSuper;
+import androidx.core.content.ContextCompat;
 
 import com.google.common.collect.Lists;
 
@@ -13,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import upv.cuniculappteam.cuniculapp.R;
 import upv.cuniculappteam.cuniculapp.model.utils.Traceable;
 
 public abstract class SelectableAdapter<T extends Traceable> extends Adapter<T> implements
@@ -66,7 +68,8 @@ public abstract class SelectableAdapter<T extends Traceable> extends Adapter<T> 
         // Si no estaba seleccionado, añade el objeto a la selección.
         } else {
             selectedItems.put(view, item);
-            view.setBackgroundColor(Color.CYAN);
+            int color = ContextCompat.getColor(view.getContext(), R.color.material_primary_light);
+            view.setBackgroundColor(color);
             if (observer != null) observer.onItemSelected(item);
         }
 

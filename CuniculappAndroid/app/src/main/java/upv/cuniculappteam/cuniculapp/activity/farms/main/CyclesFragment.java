@@ -22,6 +22,7 @@ import upv.cuniculappteam.cuniculapp.activity.farms.cycles.CycleActivity;
 import upv.cuniculappteam.cuniculapp.activity.utils.ModelLifecycleFragment;
 import upv.cuniculappteam.cuniculapp.activity.utils.NamedFragment;
 import upv.cuniculappteam.cuniculapp.model.Cycle;
+import upv.cuniculappteam.cuniculapp.model.Replacement;
 import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
 import upv.cuniculappteam.cuniculapp.view.farms.adapters.CyclesAdapter;
 import upv.cuniculappteam.cuniculapp.view.farms.dialogs.CycleDialog;
@@ -139,10 +140,12 @@ public class CyclesFragment extends ModelLifecycleFragment<Cycle> implements
     private Task<List<Cycle>> makeCycle(Result result)
     {
         Cycle cycle = new Cycle();
-        cycle.setName("¿?");
+        cycle.setDate(result.getDate());
         cycle.setFarm(farm.getId());
 
-        return cycles.addCycle(cycle).continueWithTask((t) -> cycles.getCycles(farm));
+        return cycles.addCycle(cycle).continueWithTask(
+                (t) -> cycles.getCycles(farm)
+        );
     }
 
     /**
