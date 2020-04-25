@@ -25,7 +25,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
 }
 
 dependencies {
@@ -35,7 +34,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
     // Para las analíticas de errores y rendimiento utilizando Firebase.
-    implementation 'com.google.firebase:firebase-analytics:17.2.3'
+    implementation 'com.google.firebase:firebase-analytics:17.3.0'
 
     // Para la autenticación de usuarios utilizando credenciales de Firebase.
     implementation 'com.google.firebase:firebase-auth:19.3.0'
@@ -44,7 +43,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:19.1.1'
 
     // Para llamadas a servios en la nube desplegados en Firebase.
-    implementation 'com.google.firebase:firebase-firestore:21.4.1'
+    implementation 'com.google.firebase:firebase-firestore:21.4.2'
 
     // Para automatización de mapeos de datos en formato JSON.
     implementation 'com.google.code.gson:gson:2.8.6'

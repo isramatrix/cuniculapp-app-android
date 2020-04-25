@@ -25,9 +25,9 @@ public class MainActivity extends AppCompatActivity implements
 {
     private static final Map<Integer, Fragment> fragments = new HashMap<>();
     static {
+        fragments.put(R.id.main_labor, new LaborFragment());
         fragments.put(R.id.main_calendar, new CalendarFragment());
         fragments.put(R.id.main_cycles, new FarmsFragment());
-        fragments.put(R.id.main_labor, new LaborFragment());
         fragments.put(R.id.main_settings, new SettingsFragment());
     }
 
