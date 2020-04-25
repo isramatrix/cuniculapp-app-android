@@ -16,6 +16,9 @@
     <string name="menu_item_history">Histórico</string>
     <string name="menu_item_count">Confirmar</string>
     <string name="menu_item_clear">Deshacer</string>
+    <string name="menu_item_sort">Ordenar</string>
+    <string name="menu_item_search">Buscar</string>
+    <string name="menu_item_archived">Archivados</string>
 
     <!-- Dialogs -->
     <string name="dialog_header_add">Añadir</string>

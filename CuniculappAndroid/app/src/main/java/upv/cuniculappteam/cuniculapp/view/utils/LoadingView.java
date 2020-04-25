@@ -8,12 +8,15 @@ import android.view.ViewGroup;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import java.time.LocalDate;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import upv.cuniculappteam.cuniculapp.R;
 
 public class LoadingView extends ConstraintLayout
 {
     private static LoadingView currentLoading;
+
+    private static AtomicInteger queue = new AtomicInteger(0);
 
     public LoadingView(Context context) {
         super(context);
@@ -29,7 +32,7 @@ public class LoadingView extends ConstraintLayout
 
     public static LoadingView show(Activity activity)
     {
-        if (currentLoading != null) return currentLoading;
+        if (queue.getAndIncrement() != 0) return currentLoading;
 
         return currentLoading = activity.getLayoutInflater().inflate(R.layout.dialog_loading,
                 (ViewGroup) activity.findViewById(android.R.id.content).getRootView()
@@ -38,9 +41,9 @@ public class LoadingView extends ConstraintLayout
 
     public static void hide(Object... params)
     {
-        if (currentLoading != null)
-            ((ViewGroup) currentLoading.getParent()).removeView(currentLoading);
+        if (queue.decrementAndGet() != 0) return;
 
+        ((ViewGroup) currentLoading.getParent()).removeView(currentLoading);
         currentLoading = null;
     }
 }

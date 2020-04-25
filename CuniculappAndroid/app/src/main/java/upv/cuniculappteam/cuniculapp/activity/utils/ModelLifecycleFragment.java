@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.CallSuper;
 import androidx.annotation.IdRes;
+import androidx.annotation.MenuRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
@@ -21,11 +22,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.Task;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import upv.cuniculappteam.cuniculapp.R;
-import upv.cuniculappteam.cuniculapp.model.utils.Identifiable;
 import upv.cuniculappteam.cuniculapp.model.utils.Traceable;
 import upv.cuniculappteam.cuniculapp.view.utils.LoadingView;
 import upv.cuniculappteam.cuniculapp.view.utils.recycler.Adapter;
@@ -36,6 +37,8 @@ public abstract class ModelLifecycleFragment<T extends Traceable> extends Fragme
         Adapter.OnItemClickListener<T>
 {
     private static final String MODEL_LIFECYCLE_ADD_TAG = "ModelLifecycleDialog";
+
+    private final List<MenuItem> removeMenuItems = new ArrayList<>();
 
     private Menu menu;
 
@@ -104,8 +107,25 @@ public abstract class ModelLifecycleFragment<T extends Traceable> extends Fragme
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater)
     {
         super.onCreateOptionsMenu(this.menu = menu, inflater);
-        inflater.inflate(R.menu.action_manage_items, menu);
+
+        // Añade las acciones de menú para controlar la selección de elementos y las mantiene ocultas.
+        inflater.inflate(R.menu.action_delete_items, menu);
+        for (int i = 0; i < menu.size(); i++) {
+            removeMenuItems.add(menu.getItem(i));
+            menu.getItem(i).setVisible(false);
+        }
+
+        // Añade las acciones de menú para añadir o eliminar elementos de la vista.
+        inflater.inflate(getMenuLayout(), menu);
     }
+
+    /**
+     * Obtiene el identificador del recurso de menú que debe ser inflado en la barra de acciones
+     * de la actividad actual.
+     *
+     * @return El identificador de recurso de menú
+     */
+    protected @MenuRes int getMenuLayout() { return R.menu.action_manage_items; }
 
     /**
      * Maneja el control de la vista de menú para añadir o quitar una objeto reciclable en
@@ -223,10 +243,10 @@ public abstract class ModelLifecycleFragment<T extends Traceable> extends Fragme
         ActionBar actionBar = activity != null ? activity.getSupportActionBar() : null;
         if (actionBar != null) actionBar.setDisplayShowTitleEnabled(false);
 
-        // Cambia la vista del menú de acciones.
+        // Cambia la vista del menú de acciones, guardando el menú anterior.
         if (menu == null || activity == null) return;
-        menu.clear();
-        activity.getMenuInflater().inflate(R.menu.action_delete_items, menu);
+        for (int i = 0; i < menu.size(); i++)
+            menu.getItem(i).setVisible(removeMenuItems.contains(menu.getItem(i)));
 
         // AVISO: Dado que el element 'action_count' es un layout y no un botón, se debe
         // manejar de manera explicita la llamada a la acción como un item de menú.
@@ -280,8 +300,8 @@ public abstract class ModelLifecycleFragment<T extends Traceable> extends Fragme
 
         // Cambia la vista del menú de acciones.
         if (menu == null || activity == null) return;
-        menu.clear();
-        activity.getMenuInflater().inflate(R.menu.action_manage_items, menu);
+        for (int i = 0; i < menu.size(); i++)
+            menu.getItem(i).setVisible(!removeMenuItems.contains(menu.getItem(i)));
     }
 
     /**

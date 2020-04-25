@@ -6,11 +6,11 @@
         android:id="@+id/action_count"
         android:title="@string/menu_item_count"
         app:actionLayout="@layout/menu_deletecount"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_clear"
         android:icon="@drawable/ic_clear_black_24dp"
         android:title="@string/menu_item_clear"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 </menu>

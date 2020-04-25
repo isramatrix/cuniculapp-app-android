@@ -33,6 +33,13 @@
         <activity android:name=".activity.farms.cycles.CycleHistoryActivity"
             android:parentActivityName=".activity.farms.cycles.CycleActivity"/>
 
+        <!-- Labor Activities -->
+        <activity android:name=".activity.labors.SearchLaborsActivity"
+            android:parentActivityName=".activity.MainActivity"/>
+
+        <activity android:name=".activity.labors.ArchivedLaborsActivity"
+            android:parentActivityName=".activity.MainActivity" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
