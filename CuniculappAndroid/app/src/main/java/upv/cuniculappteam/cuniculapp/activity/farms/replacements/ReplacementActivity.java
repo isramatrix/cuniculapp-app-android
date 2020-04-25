@@ -40,6 +40,9 @@ public class ReplacementActivity extends AppCompatActivity
         Replacement replacement = getIntent().getParcelableExtra(REPLACEMENT_INTENT_KEY);
         if (replacement == null) { finish(); return; }
 
+        // Indica el título de la actividad de la reposición que se está gestionando.
+        if (getSupportActionBar() != null) getSupportActionBar().setTitle(R.string.main_replacement);
+
         TextView daysText = findViewById(R.id.replacement_days_text);
         daysText.setText(replacement.getDays().toString());
 

@@ -37,8 +37,7 @@ public class FarmActivity extends AppCompatActivity implements
         if (farm == null) { finish(); return; }
 
         // Indica el nombre de la granja que se está gestionando.
-        TextView farmTitle = findViewById(R.id.farm_title);
-        farmTitle.setText(farm.getName());
+        if (getSupportActionBar() != null) getSupportActionBar().setTitle(farm.getName());
 
         // Inicializa los atributos de la granja que se pueden gestionar.
         ViewPager farmPager = findViewById(R.id.farm_pager);

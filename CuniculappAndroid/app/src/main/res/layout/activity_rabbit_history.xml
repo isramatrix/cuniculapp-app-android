@@ -15,15 +15,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingStart="12dp"
-            android:paddingEnd="12dp"
-            android:paddingBottom="12dp"
-            android:text="@string/rabbits_history"
-            android:textSize="24sp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

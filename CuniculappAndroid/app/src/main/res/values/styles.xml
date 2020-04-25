@@ -16,6 +16,10 @@
 
         <!-- Estilo principal de los botones de la aplicación -->
         <item name="buttonStyle">@style/AppTheme.Button</item>
+
+        <!-- Permite que la aplicación entre en modo stand-by para evitar pantallas de carga al iniciar -->
+        <item name="android:windowDisablePreview">true</item>
+
     </style>
 
     <style name="AppTheme.Button" parent="Widget.AppCompat.Button">

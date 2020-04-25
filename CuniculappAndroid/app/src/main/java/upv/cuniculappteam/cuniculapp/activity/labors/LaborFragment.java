@@ -123,8 +123,9 @@ public class LaborFragment extends ModelLifecycleFragment<Labor>
     }
 
     /**
-     * Evento ejecutado al ocultar una actividad hija en la que se controla el resultado que ha
-     * devuelto dicha actividad a la principal. En este caso, para los parámetros de búsqueda de tareas.
+     * Evento ejecutado al ocultar una actividad hija en la que se controla el resultado
+     * que ha devuelto dicha actividad a la principal. En este caso, para los
+     * parámetros de búsqueda de tareas.
      *
      * @param requestCode El código de petición del Intento lanzado por la Actividad.
      * @param resultCode El código de resultado devuelto por la Actividad hija ejecutada.
@@ -180,7 +181,10 @@ public class LaborFragment extends ModelLifecycleFragment<Labor>
      * @return El identificador del recurso.
      */
     @Override
-    public int getAdapterId() { return R.id.recycler_labors; }
+    public int getAdapterId()
+    {
+        return R.id.recycler_labors;
+    }
 
     /**
      * Obtiene una tarea programada de la que se obtienen los elementos a mostrar en el
@@ -214,5 +218,8 @@ public class LaborFragment extends ModelLifecycleFragment<Labor>
      * @return Una instancia de un diálogo.
      */
     @Override
-    public DialogFragment getAddDialog() { throw new IllegalAccessError(); }
+    public DialogFragment getAddDialog()
+    {
+        throw new IllegalAccessError();
+    }
 }

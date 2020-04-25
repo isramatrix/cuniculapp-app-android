@@ -37,8 +37,7 @@ public class CycleActivity extends AppCompatActivity implements
         if (cycle == null) { finish(); return; }
 
         // Indica el nombre del ciclo que se está gestionando.
-        TextView cycleTitle = findViewById(R.id.cycle_title);
-        cycleTitle.setText(cycle.getName(this));
+        if (getSupportActionBar() != null) getSupportActionBar().setTitle(cycle.getName(this));
 
         // Inicializa los atributos del ciclo que se pueden gestionar.
         ViewPager cyclePager = findViewById(R.id.cycle_pager);

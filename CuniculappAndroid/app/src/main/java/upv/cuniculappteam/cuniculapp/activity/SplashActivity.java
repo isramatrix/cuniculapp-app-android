@@ -2,6 +2,7 @@ package upv.cuniculappteam.cuniculapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,7 +11,9 @@ import upv.cuniculappteam.cuniculapp.logic.firebase.Firebase;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static final int MIN_SPLASH_TIME = 650;
+    private static final int MIN_SPLASH_TIME = 1200;
+
+    private static final int MIN_LOADING_TIME = 600;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +46,14 @@ public class SplashActivity extends AppCompatActivity {
         {
             try {
                 // Se espera un tiempo de simulación de carga de datos.
-                sleep(MIN_SPLASH_TIME);
+                sleep(MIN_LOADING_TIME);
 
-                // Se espera a que realimente termine la carga de datos.
+                // Muesta la animación de carga de datos.
+                runOnUiThread(() -> findViewById(R.id.splash_progress).setVisibility(View.VISIBLE));
+
+                sleep(MIN_SPLASH_TIME - MIN_LOADING_TIME);
+
+                // Se espera a que realmente termine la carga de datos.
                 thread.join();
             }
             catch (InterruptedException ignored) { }

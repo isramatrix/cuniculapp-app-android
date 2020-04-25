@@ -30,6 +30,9 @@ public class CycleHistoryActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rabbit_history);
 
+        // Indica el título de la actividad de la conejos que se está gestionando.
+        if (getSupportActionBar() != null) getSupportActionBar().setTitle(R.string.rabbits_history);
+
         this.mothers = getIntent().getParcelableArrayListExtra(MOTHERS_INTENT_KEY);
         if (this.mothers == null) { finish(); return; }
 
