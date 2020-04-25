@@ -7,7 +7,7 @@ import upv.cuniculappteam.cuniculapp.model.utils.TraceableCreator;
 
 public class Labor extends Traceable
 {
-    public enum State { A, B, C }
+    public enum State { TO_DO, DONE, ARCHIVED }
 
     public static final Creator<Labor> CREATOR = new TraceableCreator<>(Labor.class);
 

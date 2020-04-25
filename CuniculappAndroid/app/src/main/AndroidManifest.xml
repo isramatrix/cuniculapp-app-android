@@ -30,6 +30,9 @@
         <activity android:name=".activity.farms.replacements.ReplacementActivity"
             android:parentActivityName=".activity.farms.main.FarmActivity"/>
 
+        <activity android:name=".activity.farms.cycles.CycleHistoryActivity"
+            android:parentActivityName=".activity.farms.cycles.CycleActivity"/>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

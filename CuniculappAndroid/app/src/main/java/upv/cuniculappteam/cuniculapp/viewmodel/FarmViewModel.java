@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 
 import upv.cuniculappteam.cuniculapp.logic.firebase.Firebase;
+import upv.cuniculappteam.cuniculapp.model.animals.Kitten;
 import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
 import upv.cuniculappteam.cuniculapp.model.facilities.Location;
 import upv.cuniculappteam.cuniculapp.view.farms.dialogs.FarmDialog;

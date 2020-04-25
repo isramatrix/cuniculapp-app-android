@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
 
+import java.util.List;
+
 import upv.cuniculappteam.cuniculapp.model.Cycle;
 import upv.cuniculappteam.cuniculapp.model.animals.Kitten;
 import upv.cuniculappteam.cuniculapp.model.animals.Mother;
@@ -14,12 +16,12 @@ import upv.cuniculappteam.cuniculapp.view.farms.dialogs.MotherDialog;
 
 public class RabbitViewModel extends ViewModel
 {
-    public Task<Mother> getMothers(Cycle cycle)
+    public Task<List<Mother>> getMothers(Cycle cycle)
     {
         return Tasks.call(() -> null);
     }
 
-    public Task<Kitten> getKittens(Cycle cycle)
+    public Task<List<Kitten>> getKittens(Cycle cycle)
     {
         return Tasks.call(() -> null);
     }

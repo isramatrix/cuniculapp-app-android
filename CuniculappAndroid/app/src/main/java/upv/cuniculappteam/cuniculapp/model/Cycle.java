@@ -10,7 +10,7 @@ public class Cycle extends Traceable
 {
     public static final Parcelable.Creator<Cycle> CREATOR = new TraceableCreator<>(Cycle.class);
 
-    public enum State { A, B, C }
+    public enum State { IN_PROGRESS, EDITABLE, FINISHED }
 
     private String name;
 

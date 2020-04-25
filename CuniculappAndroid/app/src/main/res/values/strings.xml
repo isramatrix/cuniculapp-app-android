@@ -89,4 +89,13 @@
     <string name="rabbits_dialog_reason_death">Muerte</string>
     <string name="rabbits_dialog_reason_other">Otro</string>
 
+    <!-- Rabbits History Activity -->
+    <string name="rabbits_history">Datos Conejos</string>
+    <string name="rabbits_history_mother_initial">Madres Iniciales</string>
+    <string name="rabbits_history_mother_alive">Madres Vivas</string>
+    <string name="rabbits_history_kitten_maternal_initial">Maternales Iniciales</string>
+    <string name="rabbits_history_kitten_meet_initial">Cárnicos Iniciales</string>
+    <string name="rabbits_history_kitten_maternal_alive">Maternales Vivos</string>
+    <string name="rabbits_history_kitten_meet_alive">Cárnicos Vivos</string>
+
 </resources>

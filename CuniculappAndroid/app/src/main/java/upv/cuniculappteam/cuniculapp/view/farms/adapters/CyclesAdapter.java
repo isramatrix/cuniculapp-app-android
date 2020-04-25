@@ -28,6 +28,7 @@ public class CyclesAdapter extends SelectableAdapter<Cycle>
     {
         super.onBindView(view, cycle);
 
+        // TODO: Nombre Mes + Año + Id
         TextView nameText = view.findViewById(R.id.cycle_name_text);
         nameText.setText(cycle.getName());
     }

@@ -73,8 +73,7 @@ public class ReplacementsFragment extends ModelLifecycleFragment<Replacement> im
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater)
     {
         super.onCreateOptionsMenu(menu, inflater);
-        menu.clear();
-        inflater.inflate(R.menu.action_manage_items_history, menu);
+        inflater.inflate(R.menu.action_history_items, menu);
     }
 
     /**

@@ -4,7 +4,8 @@ import upv.cuniculappteam.cuniculapp.model.Cycle;
 import upv.cuniculappteam.cuniculapp.model.utils.Traceable;
 import upv.cuniculappteam.cuniculapp.model.utils.TraceableCreator;
 
-public class Mother extends Traceable
+public class
+Mother extends Traceable
 {
     public static final Creator<Mother> CREATOR = new TraceableCreator<>(Mother.class);
 
