@@ -1,9 +1,13 @@
 package upv.cuniculappteam.cuniculapp.activity.farms.cycles;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,6 +29,8 @@ public class EventsFragment extends Fragment implements NamedFragment
 
     private View view;
 
+    private Button saveButton;
+
     EventsFragment(Cycle cycle) { this.cycle = cycle; }
 
     @Override
@@ -33,13 +39,18 @@ public class EventsFragment extends Fragment implements NamedFragment
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
+    {
         super.onViewCreated(this.view = view, savedInstanceState);
 
         this.events = ViewModelProviders.of(this).get(EventViewModel.class);
 
         // Se muestran los datos de los eventos asociados al ciclo.
-        events.getEvent(cycle).addOnSuccessListener(this::showBirthsData);
+        events.getEvent(cycle).addOnSuccessListener(this::showData);
+
+        // Se inicializa el comportamiento del botón de guardado de eventos.
+        this.saveButton = view.findViewById(R.id.events_save_button);
+        saveButton.setOnClickListener(this::saveEvents);
     }
 
     private void showData(Event event)
@@ -52,68 +63,93 @@ public class EventsFragment extends Fragment implements NamedFragment
 
     private void showInseminationData(Event event)
     {
-        TextView date = view.findViewById(R.id.insemination_date_text);
+        EditText date = view.findViewById(R.id.insemination_date_text);
         date.setText(""); // TODO: Inflar el dato correspondiente.
 
-        TextView amount = view.findViewById(R.id.insemination_amount_text);
+        EditText amount = view.findViewById(R.id.insemination_amount_text);
         amount.setText(""); // TODO: Inflar el dato correspondiente.
     }
 
     private void showPalpationData(Event event)
     {
-        TextView date = view.findViewById(R.id.palpation_date_text);
+        EditText date = view.findViewById(R.id.palpation_date_text);
         date.setText(""); // TODO: Inflar el dato correspondiente.
 
-        TextView pregnant = view.findViewById(R.id.palpation_pregnant_text);
+        EditText pregnant = view.findViewById(R.id.palpation_pregnant_text);
         pregnant.setText(""); // TODO: Inflar el dato correspondiente.
 
-        TextView failed = view.findViewById(R.id.palpation_failed_text);
+        EditText failed = view.findViewById(R.id.palpation_failed_text);
         failed.setText(""); // TODO: Inflar el dato correspondiente.
 
-        TextView fr = view.findViewById(R.id.palpation_fr_text);
+        EditText fr = view.findViewById(R.id.palpation_fr_text);
         fr.setText(""); // TODO: Inflar el dato correspondiente.
     }
 
     private void showBirthsData(Event event)
     {
-        TextView date = view.findViewById(R.id.births_date_text);
+        EditText date = view.findViewById(R.id.births_date_text);
         date.setText(""); // TODO: Inflar el dato correspondiente.
 
-        TextView amount = view.findViewById(R.id.births_amount_text);
+        EditText amount = view.findViewById(R.id.births_amount_text);
         amount.setText(""); // TODO: Inflar el dato correspondiente.
 
-        TextView alive = view.findViewById(R.id.births_alive_text);
+        EditText alive = view.findViewById(R.id.births_alive_text);
         alive.setText(""); // TODO: Inflar el dato correspondiente.
 
-        TextView dead = view.findViewById(R.id.births_dead_text);
+        EditText dead = view.findViewById(R.id.births_dead_text);
         dead.setText(""); // TODO: Inflar el dato correspondiente.
 
-        TextView average = view.findViewById(R.id.births_average_text);
+        EditText average = view.findViewById(R.id.births_average_text);
         average.setText(""); // TODO: Inflar el dato correspondiente.
     }
 
     private void showSalesData(Event event)
     {
-        TextView date = view.findViewById(R.id.sales_date_text);
+        EditText date = view.findViewById(R.id.sales_date_text);
         date.setText(""); // TODO: Inflar el dato correspondiente.
 
-        TextView amount = view.findViewById(R.id.sales_amount_text);
+        EditText amount = view.findViewById(R.id.sales_amount_text);
         amount.setText(""); // TODO: Inflar el dato correspondiente.
 
-        TextView prize = view.findViewById(R.id.sales_prize_text);
+        EditText prize = view.findViewById(R.id.sales_prize_text);
         prize.setText(""); // TODO: Inflar el dato correspondiente.
 
-        TextView size = view.findViewById(R.id.sales_size_text);
+        EditText size = view.findViewById(R.id.sales_size_text);
         size.setText(""); // TODO: Inflar el dato correspondiente.
 
-        TextView feed = view.findViewById(R.id.sales_feed_text);
+        EditText feed = view.findViewById(R.id.sales_feed_text);
         feed.setText(""); // TODO: Inflar el dato correspondiente.
 
-        TextView ic = view.findViewById(R.id.sales_ic_text);
+        EditText ic = view.findViewById(R.id.sales_ic_text);
         ic.setText(""); // TODO: Inflar el dato correspondiente.
 
-        TextView kgIa = view.findViewById(R.id.sales_kg_ia_text);
+        EditText kgIa = view.findViewById(R.id.sales_kg_ia_text);
         kgIa.setText(""); // TODO: Inflar el dato correspondiente.
+    }
+
+    private void saveEvents(View view)
+    {
+        // TODO: Guardar cambios de eventos
+    }
+
+    /**
+     * Quita el foco de edición a la vista en la que está y cierra el teclado del modo
+     * de edición cuando el Fragmento de los Eventos pasa a modo oculto.
+     *
+     * @param hidden Si dicho fragmento cambia a modo oculto o modo visible.
+     */
+    @Override
+    public void onHiddenChanged(boolean hidden)
+    {
+        super.onHiddenChanged(hidden);
+        Context context = getContext();
+        saveButton.requestFocus();
+
+        if (context == null) return;
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+
+        if (imm == null) return;
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     @Override

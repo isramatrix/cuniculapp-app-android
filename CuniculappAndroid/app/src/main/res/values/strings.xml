@@ -100,5 +100,6 @@
     <string name="rabbits_history_kitten_meet_initial">Cárnicos Iniciales</string>
     <string name="rabbits_history_kitten_maternal_alive">Maternales Vivos</string>
     <string name="rabbits_history_kitten_meet_alive">Cárnicos Vivos</string>
+    <string name="main_save">Guardar</string>
 
 </resources>
