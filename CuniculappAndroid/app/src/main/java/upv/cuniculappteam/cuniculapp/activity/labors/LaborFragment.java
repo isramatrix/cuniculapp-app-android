@@ -2,6 +2,7 @@ package upv.cuniculappteam.cuniculapp.activity.labors;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,7 +13,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.gms.tasks.Task;
@@ -123,6 +123,45 @@ public class LaborFragment extends ModelLifecycleFragment<Labor>
     }
 
     /**
+     * Evento ejecutado al ocultar una actividad hija en la que se controla el resultado que ha
+     * devuelto dicha actividad a la principal. En este caso, para los parámetros de búsqueda de tareas.
+     *
+     * @param requestCode El código de petición del Intento lanzado por la Actividad.
+     * @param resultCode El código de resultado devuelto por la Actividad hija ejecutada.
+     * @param data Los datos devueltos por la Actividad hija ejecutada.
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode)
+        {
+            case SEARCH_REQUEST_CODE: applySearchFilters(resultCode, data); break;
+            default: return;
+        }
+    }
+
+    /**
+     * Aplica los parámetros de búsqueda devueltos por la Actividad de parámetros de búsqueda
+     * de tareasa la lista de tareas mostrada en esta Actividad.
+     *
+     * @param resultCode El código de resultado de la Actividad de parámetros de búsqueda.
+     * @param data Los parámetros de búsqueda devueltos.
+     */
+    private void applySearchFilters(int resultCode, @Nullable Intent data)
+    {
+        if (data == null) return;
+        Parcelable params = data.getParcelableExtra(SearchLaborsActivity.FILTER_PARAMS_PARCEL_KEY);
+
+        switch (resultCode)
+        {
+            case SearchLaborsActivity.RESULT_OK: return;
+            case SearchLaborsActivity.RESULT_CANCELED: return;
+        }
+    }
+
+    /**
      * Obtiene una instancia concreta del adaptador principal del fragmento que muestra
      * los elementos seleccionables.
      *
@@ -175,5 +214,5 @@ public class LaborFragment extends ModelLifecycleFragment<Labor>
      * @return Una instancia de un diálogo.
      */
     @Override
-    public DialogFragment getAddDialog() { return null; }
+    public DialogFragment getAddDialog() { throw new IllegalAccessError(); }
 }

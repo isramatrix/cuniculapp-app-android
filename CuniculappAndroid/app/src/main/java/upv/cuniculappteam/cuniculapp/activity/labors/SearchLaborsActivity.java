@@ -9,6 +9,8 @@ import upv.cuniculappteam.cuniculapp.R;
 
 public class SearchLaborsActivity extends AppCompatActivity
 {
+    public static final String FILTER_PARAMS_PARCEL_KEY = "labor_filters";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
