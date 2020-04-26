@@ -7,7 +7,25 @@ import upv.cuniculappteam.cuniculapp.model.utils.TraceableCreator;
 
 public class Labor extends Traceable
 {
+    public enum TaskType
+    {
+        INSEMINATION,
+        LABOUR,
+        SALE,
+        SET_UP_NESTS,
+        PHOTOPERIOD_START,
+        PHOTOPERIOD_END,
+        MOTHER_FEED_START,
+        FODDER_FEED_START,
+        RETIRE_FEED_START,
+        PALPABLE_RABBITS_START,
+        PALPABLE_RABBITS_FINISH,
+        USER_MADE
+    };
+
     public enum State { TO_DO, DONE, ARCHIVED }
+
+    public enum Priority { LOW, MEDIUM, HIGH }
 
     public static final Creator<Labor> CREATOR = new TraceableCreator<>(Labor.class);
 
@@ -21,13 +39,15 @@ public class Labor extends Traceable
 
     private Date finishedDate;
 
-    private Integer priority;
-
     private Boolean manual;
 
     private Integer icon;
 
-    private String state;
+    private State state;
+
+    private TaskType taskType;
+
+    private Priority priority;
 
     public Labor() { }
 
@@ -67,16 +87,28 @@ public class Labor extends Traceable
         return finishedDate;
     }
 
+    public boolean isFinished() { return finishedDate != null; }
+
     public void setFinishedDate(Date finishedDate) {
         this.finishedDate = finishedDate;
     }
 
-    public Integer getPriority() {
+    public void setNotFinished() { finishedDate = null; }
+
+    public Priority getPriority() {
         return priority;
     }
 
-    public void setPriority(Integer priority) {
+    public void setPriority(Priority priority) {
         this.priority = priority;
+    }
+
+    public TaskType getTaskType() {
+        return taskType;
+    }
+
+    public void setTaskType(TaskType taskType) {
+        this.taskType = taskType;
     }
 
     public Boolean getManual() {
@@ -95,7 +127,7 @@ public class Labor extends Traceable
         this.icon = icon;
     }
 
-    public String getState() {
+    public State getState() {
         return state;
     }
 

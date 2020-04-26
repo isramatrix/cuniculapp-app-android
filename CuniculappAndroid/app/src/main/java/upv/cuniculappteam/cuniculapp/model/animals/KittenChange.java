@@ -9,52 +9,32 @@ public class KittenChange extends Traceable
 {
     public static final Creator<KittenChange> CREATOR = new TraceableCreator<>(KittenChange.class);
 
-    private Integer maternalNestAmount;
+    private Integer maternalAmount;
 
-    private Integer maternalFattenAmount;
-
-    private Integer meatNestAmount;
-
-    private Integer meatFattenAmount;
+    private Integer meatAmount;
 
     private String reason;
 
     private Date date;
 
-    private String kitten;
+    private String kittens;
 
     public KittenChange() { }
 
-    public Integer getMaternalNestAmount() {
-        return maternalNestAmount;
+    public Integer getMaternalAmount() {
+        return maternalAmount;
     }
 
-    public void setMaternalNestAmount(Integer maternalNestAmount) {
-        this.maternalNestAmount = maternalNestAmount;
+    public void setMaternalAmount(Integer maternalNestAmount) {
+        this.maternalAmount = maternalNestAmount;
     }
 
-    public Integer getMaternalFattenAmount() {
-        return maternalFattenAmount;
+    public Integer getMeatAmount() {
+        return meatAmount;
     }
 
-    public void setMaternalFattenAmount(Integer maternalFattenAmount) {
-        this.maternalFattenAmount = maternalFattenAmount;
-    }
-
-    public Integer getMeatNestAmount() {
-        return meatNestAmount;
-    }
-
-    public void setMeatNestAmount(Integer meatNestAmount) {
-        this.meatNestAmount = meatNestAmount;
-    }
-
-    public Integer getMeatFattenAmount() {
-        return meatFattenAmount;
-    }
-
-    public void setMeatFattenAmount(Integer meatFattenAmount) {
-        this.meatFattenAmount = meatFattenAmount;
+    public void setMeatAmount(Integer meatAmount) {
+        this.meatAmount = meatAmount;
     }
 
     public String getReason() {
@@ -73,11 +53,11 @@ public class KittenChange extends Traceable
         this.date = date;
     }
 
-    public String getKitten() {
-        return kitten;
+    public String getKittens() {
+        return kittens;
     }
 
-    public void setKitten(String kitten) {
-        this.kitten = kitten;
+    public void setKittens(String kittens) {
+        this.kittens = kittens;
     }
 }
