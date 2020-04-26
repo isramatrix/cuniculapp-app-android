@@ -33,6 +33,21 @@
     <string name="dialog_error_text">Ha habido un error efectuando esta operación. Asegurate que tienes conexión a Internet e inténtalo de nuevo.</string>
     <string name="dialog_error_confirm">OK</string>
 
+    <!-- Labor Search Activity -->
+    <string name="labor_search_visualize">Visualizar</string>
+    <string name="labor_search_visualize_no_filters">Sin filtrar</string>
+    <string name="labor_search_visualize_archive">Pendientes de Archivar</string>
+    <string name="labor_search_visualize_manual">Creadas Manualmente</string>
+
+    <string name="labor_search_date">Fechas</string>
+    <string name="labor_search_date_start">Inicio</string>
+    <string name="labor_search_date_end">Fin</string>
+
+    <string name="labor_search_sort">Ordenación</string>
+    <string name="labor_search_sort_finished">Finalizadas Antes</string>
+    <string name="labor_search_sort_started">Iniciadas Antes</string>
+    <string name="labor_search_sort_priority">Prioridad</string>
+
     <!-- Farm Fragment -->
     <string name="farm_name">Nombre</string>
     <string name="farm_jails">Nº Jaulas</string>

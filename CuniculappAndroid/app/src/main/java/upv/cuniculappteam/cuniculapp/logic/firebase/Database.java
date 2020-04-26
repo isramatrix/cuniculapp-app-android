@@ -72,6 +72,11 @@ public class Database
         );
     }
 
+    public <T extends Identifiable & Serializable> Task<Void> update(final T value, final Class<T> type)
+    {
+        return firestore.collection(type.getSimpleName()).document(value.getId()).set(value);
+    }
+
     public <T extends Identifiable & Serializable> Task<Void> add(Class<T> type, T obj)
     {
         CollectionReference collection = firestore.collection(type.getSimpleName());
