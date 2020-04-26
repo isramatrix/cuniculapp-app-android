@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import upv.cuniculappteam.cuniculapp.logic.firebase.Firebase;
 import upv.cuniculappteam.cuniculapp.model.Labor;
 
 import static upv.cuniculappteam.cuniculapp.logic.firebase.Firebase.Database;
@@ -34,4 +35,5 @@ public class LaborViewModel extends ViewModel
     {
         return Tasks.call(ArrayList::new);
     }
+    Database.
 }
