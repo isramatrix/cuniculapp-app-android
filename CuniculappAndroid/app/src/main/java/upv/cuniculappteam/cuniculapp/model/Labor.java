@@ -99,7 +99,7 @@ public class Labor extends Traceable
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(State state) {
         this.state = state;
     }
 

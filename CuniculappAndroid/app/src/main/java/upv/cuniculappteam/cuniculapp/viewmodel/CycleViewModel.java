@@ -8,26 +8,22 @@ import com.google.android.gms.tasks.Tasks;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import upv.cuniculappteam.cuniculapp.logic.firebase.Firebase;
 import upv.cuniculappteam.cuniculapp.model.Cycle;
 import upv.cuniculappteam.cuniculapp.model.Labor;
-import upv.cuniculappteam.cuniculapp.model.Replacement;
 import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
 import upv.cuniculappteam.cuniculapp.model.labors.Insemination;
 import upv.cuniculappteam.cuniculapp.model.labors.Labour;
 import upv.cuniculappteam.cuniculapp.model.labors.Palpation;
 import upv.cuniculappteam.cuniculapp.model.labors.Sale;
-import upv.cuniculappteam.cuniculapp.view.farms.dialogs.CycleDialog;
 
 public class CycleViewModel extends ViewModel
 {
-
     public Task<List<Cycle>> getCycles(Farm farm)
     {
-        return Firebase.Database.fetchWhere("farmID", farm.getId(), Cycle.class);
+        return Firebase.Database.fetchWhere("farm", farm.getId(), Cycle.class);
     }
 
     public Task<Void> deleteCycles(Collection<Cycle> cycles)
@@ -143,24 +139,24 @@ public class CycleViewModel extends ViewModel
         Task<Void> saleTask = Firebase.Database.add(Labor.class, saleLabor);
 
         Insemination newInsemination = new Insemination();
-        newInsemination.setLaborID(inseminationLabor.getId());
-        newInsemination.setCycleID(cycle.getId());
+        newInsemination.setLabor(inseminationLabor.getId());
+        newInsemination.setCycle(cycle.getId());
         Task<Void> inseminationEventTask = Firebase.Database.add(Insemination.class, newInsemination);
 
         Palpation newPalpation = new Palpation();
-        newPalpation.setStartLaborID(palpableRabbitsStart.getId());
-        newPalpation.setFinishLaborID(palpableRabbitsFinish.getId());
-        newPalpation.setCycleID(cycle.getId());
+        newPalpation.setStartLabor(palpableRabbitsStart.getId());
+        newPalpation.setFinishLabor(palpableRabbitsFinish.getId());
+        newPalpation.setCycle(cycle.getId());
         Task<Void> palpationEventTask = Firebase.Database.add(Palpation.class, newPalpation);
 
         Labour newLabour = new Labour();
-        newLabour.setLaborID(labourLabor.getId());
-        newLabour.setCycleID(cycle.getId());
+        newLabour.setLabor(labourLabor.getId());
+        newLabour.setCycle(cycle.getId());
         Task<Void> labourEventTask = Firebase.Database.add(Labour.class, newLabour);
 
         Sale newSale = new Sale();
-        newSale.setLaborID(saleLabor.getId());
-        newSale.setCycleID(cycle.getId());
+        newSale.setLabor(saleLabor.getId());
+        newSale.setCycle(cycle.getId());
         Task<Void> saleEventTask = Firebase.Database.add(Sale.class, newSale);
 
         Task<Void> cycleTask = Firebase.Database.add(Cycle.class, cycle);

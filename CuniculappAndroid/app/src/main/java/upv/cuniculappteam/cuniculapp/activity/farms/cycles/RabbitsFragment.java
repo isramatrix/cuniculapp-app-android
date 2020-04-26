@@ -19,16 +19,20 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.gms.tasks.Task;
 import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import upv.cuniculappteam.cuniculapp.R;
 import upv.cuniculappteam.cuniculapp.activity.utils.NamedFragment;
 import upv.cuniculappteam.cuniculapp.model.Cycle;
 import upv.cuniculappteam.cuniculapp.model.animals.Kitten;
+import upv.cuniculappteam.cuniculapp.model.animals.KittenChange;
 import upv.cuniculappteam.cuniculapp.model.animals.Mother;
+import upv.cuniculappteam.cuniculapp.model.animals.MotherChange;
 import upv.cuniculappteam.cuniculapp.view.farms.dialogs.KittenDialog;
 import upv.cuniculappteam.cuniculapp.view.farms.dialogs.MotherDialog;
 import upv.cuniculappteam.cuniculapp.view.utils.LoadingView;
@@ -52,9 +56,9 @@ public class RabbitsFragment extends Fragment implements NamedFragment
 
     private View view;
 
-    private List<Kitten> kittens;
+    private Kitten kittens;
 
-    private List<Mother> mothers;
+    private Mother mothers;
 
     RabbitsFragment(Cycle cycle) { this.cycle = cycle; }
 
@@ -79,6 +83,21 @@ public class RabbitsFragment extends Fragment implements NamedFragment
         this.rabbits = ViewModelProviders.of(this).get(RabbitViewModel.class);
 
         // Se muestran los datos de los conejos asociados al ciclo.
+        updateView();
+
+        // Se inicializan los botones que lanzan las ventanas emergentes.
+        view.findViewById(R.id.rabbits_mother_add_button).setOnClickListener(this::openAddMother);
+        view.findViewById(R.id.rabbits_mother_remove_button).setOnClickListener(this::openRemoveMother);
+        view.findViewById(R.id.rabbits_kitten_add_button).setOnClickListener(this::openAddKitten);
+        view.findViewById(R.id.rabbits_kitten_remove_button).setOnClickListener(this::openRemoveKitten);
+    }
+
+    /**
+     * Realiza las llamadas al VM de conejos para actualizar la vista de los datos a visualizar en
+     * la actividad actual.
+     */
+    private void updateView(Object... params)
+    {
         LoadingView.show(getActivity());
         rabbits.getMothers(cycle)
                 .addOnCompleteListener(LoadingView::hide)
@@ -90,26 +109,20 @@ public class RabbitsFragment extends Fragment implements NamedFragment
                 .addOnCompleteListener(LoadingView::hide)
                 .addOnSuccessListener(this::showKittens)
                 .addOnFailureListener(this::showFailedDialog);
-
-        // Se inicializan los botones que lanzan las ventanas emergentes.
-        view.findViewById(R.id.rabbits_mother_add_button).setOnClickListener(this::openAddMother);
-        view.findViewById(R.id.rabbits_mother_remove_button).setOnClickListener(this::openRemoveMother);
-        view.findViewById(R.id.rabbits_kitten_add_button).setOnClickListener(this::openAddKitten);
-        view.findViewById(R.id.rabbits_kitten_remove_button).setOnClickListener(this::openRemoveKitten);
     }
 
     /**
      * Inicializa e infla los datos de vista sobre las madres pertenecientes al ciclo
      * que se está gestionando.
      *
-     * @param mothers La lista de madres del ciclo.
+     * @param mothers La instancia de madres del ciclo
      */
-    private void showMothers(List<Mother> mothers)
+    private void showMothers(Mother mothers)
     {
-        this.mothers = mothers != null ? mothers : new ArrayList<>();
+        this.mothers = mothers;
 
         TextView mothersAlive = view.findViewById(R.id.rabbits_mothers_alive_text);
-        mothersAlive.setText(""); // TODO: Inflar los datos de esta vista.
+        mothersAlive.setText(mothers.getAlive().toString());
 
         TableLayout jailsTable = view.findViewById(R.id.rabbits_mother_jails_table);
         // TODO: Inflar los datos de esta vista.
@@ -119,14 +132,14 @@ public class RabbitsFragment extends Fragment implements NamedFragment
      * Inicializa e infla los datos de vista sobre los gazapos pertenecientes al ciclo
      * que se está gestionando.
      *
-     * @param kittens La lista de gazapos del ciclo.
+     * @param kittens La instancia de gazapos del ciclo
      */
-    private void showKittens(List<Kitten> kittens)
+    private void showKittens(Kitten kittens)
     {
-        this.kittens = kittens != null ? kittens : new ArrayList<>();
+        this.kittens = kittens;
 
         TextView kittensAlive = view.findViewById(R.id.rabbits_kittens_alive_text);
-        kittensAlive.setText(""); // TODO: Inflar los datos de esta vista.
+        kittensAlive.setText(kittens.toString()); // TODO: Inflar los datos de esta vista.
 
         TableLayout jailsTable = view.findViewById(R.id.rabbits_kitten_jails_table);
         // TODO: Inflar los datos de esta vista.
@@ -175,8 +188,8 @@ public class RabbitsFragment extends Fragment implements NamedFragment
         if (mothers == null || kittens == null) return;
 
         Intent intent = new Intent(getActivity(), CycleHistoryActivity.class);
-        intent.putExtra(CycleHistoryActivity.MOTHERS_INTENT_KEY, Lists.newArrayList(mothers));
-        intent.putExtra(CycleHistoryActivity.KITTENS_INTENT_KEY, Lists.newArrayList(kittens));
+        intent.putExtra(CycleHistoryActivity.MOTHERS_INTENT_KEY, (Parcelable) mothers);
+        intent.putExtra(CycleHistoryActivity.KITTENS_INTENT_KEY, (Parcelable) kittens);
         startActivity(intent);
     }
 
@@ -202,7 +215,9 @@ public class RabbitsFragment extends Fragment implements NamedFragment
      */
     private void openAddMother(View view)
     {
-        MotherDialog dialog = new MotherDialog(Header.ADD, rabbits::addMother);
+        MotherDialog dialog = new MotherDialog(Header.ADD, (r) -> {
+            rabbits.addMother(makeMotherChange(r)).continueWith(this::updateView);
+        });
 
         if (getFragmentManager() != null)
             dialog.show(getFragmentManager(), ADD_MOTHER_TAG);
@@ -214,10 +229,22 @@ public class RabbitsFragment extends Fragment implements NamedFragment
      */
     private void openRemoveMother(View view)
     {
-        MotherDialog dialog = new MotherDialog(Header.REMOVE, rabbits::removeMother);
+        MotherDialog dialog = new MotherDialog(Header.REMOVE, (r) -> {
+            rabbits.removeMother(makeMotherChange(r)).continueWith(this::updateView);
+        });
 
         if (getFragmentManager() != null)
             dialog.show(getFragmentManager(), REMOVE_MOTHER_TAG);
+    }
+
+    private MotherChange makeMotherChange(MotherDialog.Result result)
+    {
+        MotherChange change = new MotherChange();
+        change.setAmount(change.getAmount());
+        change.setReason(result.getNotes());
+        change.setDate(new Date(System.currentTimeMillis()));
+        change.setMother(this.mothers.getId());
+        return change;
     }
 
     /**
@@ -226,7 +253,9 @@ public class RabbitsFragment extends Fragment implements NamedFragment
      */
     private void openAddKitten(View view)
     {
-        KittenDialog dialog = new KittenDialog(Header.ADD, rabbits::addKitten);
+        KittenDialog dialog = new KittenDialog(Header.ADD, (r) -> {
+            rabbits.addKitten(makeKittenChange(r)).continueWith(this::updateView);
+        });
 
         if (getFragmentManager() != null)
             dialog.show(getFragmentManager(), ADD_KITTEN_TAG);
@@ -238,12 +267,22 @@ public class RabbitsFragment extends Fragment implements NamedFragment
      */
     private void openRemoveKitten(View view)
     {
-        KittenDialog dialog = new KittenDialog(Header.REMOVE, rabbits::removeKitten);
+        KittenDialog dialog = new KittenDialog(Header.REMOVE, (r) -> {
+            rabbits.removeKitten(makeKittenChange(r)).continueWith(this::updateView);
+        });
 
         if (getFragmentManager() != null)
             dialog.show(getFragmentManager(), REMOVE_KITTEN_TAG);
     }
 
+    private KittenChange makeKittenChange(KittenDialog.Result result)
+    {
+        KittenChange change = new KittenChange();
+        change.setReason(result.getNotes());
+        change.setDate(new Date(System.currentTimeMillis()));
+        return change;
+    }
+    
     @Override
     public int getFragmentName() {
         return R.string.main_rabbits;
