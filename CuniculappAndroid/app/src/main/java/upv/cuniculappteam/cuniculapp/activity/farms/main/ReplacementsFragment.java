@@ -73,39 +73,6 @@ public class ReplacementsFragment extends ModelLifecycleFragment<Replacement> im
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater)
     {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.action_history_items, menu);
-    }
-
-    /**
-     * Maneja el control de la vista de menú para añadir o quitar una objeto reciclable en
-     * función del botón de menú seleccionado.
-     *
-     * @param item El botón de menú seleccionado.
-     *
-     * @return Si el control ha sido manejado correctamente.
-     */
-    @Override @CallSuper
-    public boolean onOptionsItemSelected(@NonNull MenuItem item)
-    {
-        switch (item.getItemId()) {
-            // Si se quiere ver el histórico de reposiciones, cambia de actividad.
-            case R.id.action_history: showHistory(); return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * Inicia una actividad de histórico para mostrar los reemplazos habidos en la
-     * Granja desde su existencia.
-     */
-    private void showHistory()
-    {
-        /* TODO:
-        Intent intent = new Intent(getActivity(), ReplacementHisActivity.class);
-        intent.putExtra(ReplacementActivity.REPLACEMENT_INTENT_KEY, (Parcelable) replacement);
-        startActivity(intent);
-        */
     }
 
     /**

@@ -21,6 +21,7 @@ import java.util.Collection;
 import java.util.List;
 
 import upv.cuniculappteam.cuniculapp.R;
+import upv.cuniculappteam.cuniculapp.activity.labors.SearchLaborsActivity.Result;
 import upv.cuniculappteam.cuniculapp.activity.utils.ModelLifecycleFragment;
 import upv.cuniculappteam.cuniculapp.model.Labor;
 import upv.cuniculappteam.cuniculapp.view.labors.LaborAdapter;
@@ -32,6 +33,8 @@ public class LaborFragment extends ModelLifecycleFragment<Labor>
     private static final int SEARCH_REQUEST_CODE = 184;
 
     private LaborViewModel tasks;
+
+    private Result filters;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -114,6 +117,7 @@ public class LaborFragment extends ModelLifecycleFragment<Labor>
     private void switchToSearch()
     {
         Intent intent = new Intent(getActivity(), SearchLaborsActivity.class);
+        if (filters != null) intent.putExtra(SearchLaborsActivity.FILTER_PARAMS_PARCEL_KEY, filters);
         startActivityForResult(intent, SEARCH_REQUEST_CODE);
     }
 
@@ -153,7 +157,7 @@ public class LaborFragment extends ModelLifecycleFragment<Labor>
     private void applySearchFilters(int resultCode, @Nullable Intent data)
     {
         if (data == null) return;
-        Parcelable params = data.getParcelableExtra(SearchLaborsActivity.FILTER_PARAMS_PARCEL_KEY);
+        this.filters = (Result) data.getSerializableExtra(SearchLaborsActivity.FILTER_PARAMS_PARCEL_KEY);
 
         switch (resultCode)
         {

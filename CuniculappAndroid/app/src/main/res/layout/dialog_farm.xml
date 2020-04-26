@@ -33,7 +33,33 @@
                 android:id="@+id/farm_dialog_name_etext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="1.25"
+                android:autofillHints="false"
+                android:ems="10"
+                android:inputType="textCapSentences"
+                android:selectAllOnFocus="true" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:padding="8dp"
+                android:text="@string/farm_location"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/farm_dialog_location_etext"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.25"
                 android:autofillHints="false"
                 android:ems="10"
                 android:inputType="textCapSentences"
@@ -57,33 +83,6 @@
 
             <EditText
                 android:id="@+id/farm_dialog_jails_etext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:autofillHints="false"
-                android:ems="10"
-                android:inputType="number"
-                android:selectAllOnFocus="true"
-                android:text="0" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:padding="8dp"
-                android:text="@string/farm_location"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/farm_dialog_location_etext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"

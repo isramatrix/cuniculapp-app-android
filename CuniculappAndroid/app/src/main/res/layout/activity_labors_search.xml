@@ -22,7 +22,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="@string/labor_search_visualize"
                 android:textSize="21sp"
                 android:textStyle="bold" />
 
@@ -33,25 +33,31 @@
                 android:padding="8dp">
 
                 <CheckBox
-                    android:id="@+id/checkBox"
+                    android:id="@+id/labors_visualize_unfinished"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:checked="true"
                     android:padding="8dp"
-                    android:text="CheckBox" />
+                    android:text="@string/labor_search_visualize_unfinished"
+                    android:textSize="18sp" />
 
                 <CheckBox
-                    android:id="@+id/checkBox2"
+                    android:id="@+id/labors_visualize_archived"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:checked="true"
                     android:padding="8dp"
-                    android:text="CheckBox" />
+                    android:text="@string/labor_search_visualize_archive"
+                    android:textSize="18sp" />
 
                 <CheckBox
-                    android:id="@+id/checkBox3"
+                    android:id="@+id/labors_visualize_manual"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:checked="true"
                     android:padding="8dp"
-                    android:text="CheckBox" />
+                    android:text="@string/labor_search_visualize_manual"
+                    android:textSize="18sp" />
             </LinearLayout>
 
             <View
@@ -66,7 +72,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="@string/labor_search_date"
                 android:textSize="21sp"
                 android:textStyle="bold" />
 
@@ -82,17 +88,28 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:padding="8dp"
-                    android:text="@string/rabbits_history_mother_alive"
+                    android:text="@string/labor_search_date_start"
                     android:textSize="18sp" />
 
-                <TextView
+                <upv.cuniculappteam.cuniculapp.view.utils.DateEditText
                     android:id="@+id/labors_date_start_text"
-                    tools:text="08/11/2020"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:editable="false"
+                    android:ems="7"
+                    android:focusable="true"
                     android:padding="8dp"
+                    android:textAlignment="center"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="08/11/2020" />
+
+                <ImageView
+                    android:id="@+id/labors_date_start_clear_button"
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/ic_clear_black_24dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -107,17 +124,28 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:padding="8dp"
-                    android:text="@string/rabbits_history_mother_alive"
+                    android:text="@string/labor_search_date_end"
                     android:textSize="18sp" />
 
-                <TextView
+                <upv.cuniculappteam.cuniculapp.view.utils.DateEditText
                     android:id="@+id/labors_date_end_text"
-                    tools:text="08/11/2020"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:editable="false"
+                    android:ems="7"
+                    android:focusable="true"
                     android:padding="8dp"
+                    android:textAlignment="center"
                     android:textSize="18sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    tools:text="08/11/2020" />
+
+                <ImageView
+                    android:id="@+id/labors_date_end_clear_button"
+                    android:layout_width="32dp"
+                    android:layout_height="match_parent"
+                    app:srcCompat="@drawable/ic_clear_black_24dp" />
             </LinearLayout>
 
             <View
@@ -132,35 +160,40 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="@string/labor_search_sort"
                 android:textSize="21sp"
                 android:textStyle="bold" />
 
             <RadioGroup
+                android:id="@+id/labor_sort_rgroup"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:checkedButton="@id/labor_sort_finished_radio"
                 android:padding="8dp">
 
                 <RadioButton
-                    android:id="@+id/radioButton"
+                    android:id="@+id/labor_sort_finished_radio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:text="RadioButton" />
+                    android:text="@string/labor_search_sort_finished"
+                    android:textSize="18sp" />
 
                 <RadioButton
-                    android:id="@+id/radioButton4"
+                    android:id="@+id/labor_sort_started_radio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:text="RadioButton" />
+                    android:text="@string/labor_search_sort_started"
+                    android:textSize="18sp" />
 
                 <RadioButton
-                    android:id="@+id/radioButton5"
+                    android:id="@+id/labor_sort_priority_radio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    android:text="RadioButton" />
+                    android:text="@string/labor_search_sort_priority"
+                    android:textSize="18sp" />
 
             </RadioGroup>
 
