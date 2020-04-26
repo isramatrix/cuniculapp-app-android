@@ -51,6 +51,11 @@ public class LaborViewModel extends ViewModel
         return taskDone;
     }
 
+    public Task<Void> updateLabor(Labor labor)
+    {
+        return Database.update(labor, Labor.class);
+    }
+
     public Task<Void> completeLabor(Labor labor)
     {
         if (!labor.isFinished()) labor.setFinishedDate(new Date());
@@ -63,7 +68,7 @@ public class LaborViewModel extends ViewModel
         return Database.update(labor, Labor.class);
     }
 
-    public Task<Void> UndoLabor(Labor labor)
+    public Task<Void> undoLabor(Labor labor)
     {
         if (labor.getState() == Labor.State.DONE) labor.setState(Labor.State.TO_DO);
         return Database.update(labor, Labor.class);

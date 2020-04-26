@@ -18,8 +18,6 @@ import upv.cuniculappteam.cuniculapp.view.farms.dialogs.FarmDialog;
 
 public class FarmViewModel extends ViewModel
 {
-    private Task<List<Farm>> getFarms(Object... params) { return getFarms(); }
-
     public Task<List<Farm>> getFarms()
     {
         return Firebase.Database.fetchAll(Farm.class);
@@ -28,6 +26,11 @@ public class FarmViewModel extends ViewModel
     public Task<Void> addFarm(Farm farm)
     {
         return Firebase.Database.add(Farm.class, farm);
+    }
+
+    public Task<Void> updateFarm(Farm farm)
+    {
+        return Firebase.Database.update(farm, Farm.class);
     }
 
     public Task<Void> deleteFarms(Collection<Farm> farms)

@@ -15,7 +15,7 @@ public class Labour extends Traceable
 
     private String labor;
 
-    private Integer mothersAmount;
+    private Integer birthsAmount;
 
     private Integer bornAlive;
 
@@ -41,12 +41,12 @@ public class Labour extends Traceable
         this.labor = labor;
     }
 
-    public Integer getMothersAmount() {
-        return mothersAmount;
+    public Integer getBirthsAmount() {
+        return birthsAmount;
     }
 
-    public void setMothersAmount(Integer mothersAmount) {
-        this.mothersAmount = mothersAmount;
+    public void setBirthsAmount(Integer birthsAmount) {
+        this.birthsAmount = birthsAmount;
     }
 
     public Integer getBornAlive() {
