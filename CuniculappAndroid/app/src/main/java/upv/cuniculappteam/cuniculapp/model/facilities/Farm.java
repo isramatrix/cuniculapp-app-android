@@ -1,12 +1,15 @@
 package upv.cuniculappteam.cuniculapp.model.facilities;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+
+import java.util.Comparator;
 
 import upv.cuniculappteam.cuniculapp.model.User;
 import upv.cuniculappteam.cuniculapp.model.utils.Traceable;
 import upv.cuniculappteam.cuniculapp.model.utils.TraceableCreator;
 
-public class Farm extends Traceable
+public class Farm extends Traceable implements Comparable<Farm>
 {
     public static final Creator<Farm> CREATOR = new TraceableCreator<>(Farm.class);
 
@@ -80,5 +83,10 @@ public class Farm extends Traceable
 
     public void setUser(String user) {
         this.user = user;
+    }
+
+    @Override
+    public int compareTo(@NonNull Farm farm) {
+        return name != null ? name.compareTo(farm.name != null ? farm.name : "") : 1;
     }
 }

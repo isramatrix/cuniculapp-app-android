@@ -20,6 +20,7 @@ import java.util.List;
 import upv.cuniculappteam.cuniculapp.R;
 import upv.cuniculappteam.cuniculapp.activity.farms.main.FarmActivity;
 import upv.cuniculappteam.cuniculapp.activity.utils.ModelLifecycleFragment;
+import upv.cuniculappteam.cuniculapp.logic.lists.Sorts;
 import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
 import upv.cuniculappteam.cuniculapp.view.farms.adapters.FarmsAdapter;
 import upv.cuniculappteam.cuniculapp.view.farms.dialogs.FarmDialog;
@@ -63,23 +64,7 @@ public class FarmsFragment extends ModelLifecycleFragment<Farm>
         intent.putExtra(FarmActivity.FARM_INTENT_KEY, (Parcelable) farm);
         startActivity(intent);
     }
-
-    /**
-     * Actualiza los datos de las granjas disponibles cuando reaparece en primer
-     * plano el fragmento que muestra las granjas.
-     *
-     * @param hidden El estado de visibilidad del fragmento (<code>false</code> =
-     *               está visible y debe actualizarse).
-     */
-    @Override
-    public void onHiddenChanged(boolean hidden)
-    {
-        super.onHiddenChanged(hidden);
-
-        // Se muestran los datos de las granjas disponibles.
-        if (!hidden) farms.getFarms().addOnSuccessListener(this::updateItems);
-    }
-
+    
     /**
      * Obtiene una instancia concreta del adaptador principal del fragmento que muestra
      * los elementos seleccionables.
@@ -110,7 +95,7 @@ public class FarmsFragment extends ModelLifecycleFragment<Farm>
      */
     @Override
     public Task<List<Farm>> getAdapterData() {
-        return farms.getFarms();
+        return farms.getFarms().continueWith(task -> Sorts.sort(task.getResult()));
     }
 
     /**
