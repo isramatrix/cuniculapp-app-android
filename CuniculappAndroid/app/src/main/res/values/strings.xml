@@ -54,6 +54,9 @@
     <string name="farm_cycles">Nº Ciclos</string>
     <string name="farm_location">Localización</string>
 
+    <!-- Farm Fragment -->
+    <string name="labor_name">Tarea</string>
+
     <!-- Cycle Fragmen t-->
     <string name="cycle_dialog_insemination_day">Día inseminación</string>
 
