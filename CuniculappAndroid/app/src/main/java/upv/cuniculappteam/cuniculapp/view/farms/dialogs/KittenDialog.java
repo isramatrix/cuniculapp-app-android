@@ -1,12 +1,7 @@
 package upv.cuniculappteam.cuniculapp.view.farms.dialogs;
 
 import android.app.AlertDialog;
-import android.os.Bundle;
-import android.view.View;
 import android.widget.EditText;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.google.common.collect.Lists;
 
@@ -55,8 +50,7 @@ public class KittenDialog extends RabbitDialog<Result>
                 Integer.parseInt(maternalBait.getText().toString()),
                 Integer.parseInt(meetNest.getText().toString()),
                 Integer.parseInt(meetBait.getText().toString()),
-                getSelectedReason(),
-                getReasonMessage()
+                getSelectedReason()
         );
     }
 
@@ -73,17 +67,15 @@ public class KittenDialog extends RabbitDialog<Result>
 
         private final int meetBait;
 
-        private final Reason reason;
+        private final String reason
+                ;
 
-        private final String notes;
-
-        private Result(int maternalNest, int maternalBait, int meetNest, int meetBait, Reason reason, String notes) {
+        private Result(int maternalNest, int maternalBait, int meetNest, int meetBait, String reason) {
             this.maternalNest = maternalNest;
             this.maternalBait = maternalBait;
             this.meetNest = meetNest;
             this.meetBait = meetBait;
             this.reason = reason;
-            this.notes = notes;
         }
 
         public int getMaternalNest() {
@@ -102,12 +94,8 @@ public class KittenDialog extends RabbitDialog<Result>
             return meetBait;
         }
 
-        public Reason getReason() {
+        public String getReason() {
             return reason;
-        }
-
-        public String getNotes() {
-            return notes;
         }
     }
 }

@@ -19,12 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.google.android.gms.tasks.Task;
-import com.google.common.collect.Lists;
-
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import upv.cuniculappteam.cuniculapp.R;
 import upv.cuniculappteam.cuniculapp.activity.utils.NamedFragment;
@@ -38,7 +33,7 @@ import upv.cuniculappteam.cuniculapp.view.farms.dialogs.MotherDialog;
 import upv.cuniculappteam.cuniculapp.view.utils.LoadingView;
 import upv.cuniculappteam.cuniculapp.viewmodel.RabbitViewModel;
 
-import static upv.cuniculappteam.cuniculapp.view.utils.dialog.DialogForResult.*;
+import static upv.cuniculappteam.cuniculapp.view.utils.dialog.DialogForResult.Header;
 
 public class RabbitsFragment extends Fragment implements NamedFragment
 {
@@ -122,7 +117,7 @@ public class RabbitsFragment extends Fragment implements NamedFragment
         this.mothers = mothers;
 
         TextView mothersAlive = view.findViewById(R.id.rabbits_mothers_alive_text);
-        mothersAlive.setText(mothers.getAlive().toString());
+        mothersAlive.setText(String.valueOf(mothers.getAlive()));
 
         TableLayout jailsTable = view.findViewById(R.id.rabbits_mother_jails_table);
         // TODO: Inflar los datos de esta vista.
@@ -139,7 +134,7 @@ public class RabbitsFragment extends Fragment implements NamedFragment
         this.kittens = kittens;
 
         TextView kittensAlive = view.findViewById(R.id.rabbits_kittens_alive_text);
-        kittensAlive.setText(kittens.toString()); // TODO: Inflar los datos de esta vista.
+        kittensAlive.setText(String.valueOf(kittens.getMaternal() + kittens.getMeat()));
 
         TableLayout jailsTable = view.findViewById(R.id.rabbits_kitten_jails_table);
         // TODO: Inflar los datos de esta vista.
@@ -216,7 +211,11 @@ public class RabbitsFragment extends Fragment implements NamedFragment
     private void openAddMother(View view)
     {
         MotherDialog dialog = new MotherDialog(Header.ADD, (r) -> {
-            rabbits.addMother(makeMotherChange(r)).continueWith(this::updateView);
+            LoadingView.show(getActivity());
+            rabbits.addMother(makeMotherChange(r))
+                    .addOnCompleteListener(LoadingView::hide)
+                    .addOnSuccessListener(this::updateView)
+                    .addOnFailureListener(LoadingView::hide);
         });
 
         if (getFragmentManager() != null)
@@ -230,7 +229,11 @@ public class RabbitsFragment extends Fragment implements NamedFragment
     private void openRemoveMother(View view)
     {
         MotherDialog dialog = new MotherDialog(Header.REMOVE, (r) -> {
-            rabbits.removeMother(makeMotherChange(r)).continueWith(this::updateView);
+            LoadingView.show(getActivity());
+            rabbits.removeMother(makeMotherChange(r))
+                    .addOnCompleteListener(LoadingView::hide)
+                    .addOnSuccessListener(this::updateView)
+                    .addOnFailureListener(LoadingView::hide);
         });
 
         if (getFragmentManager() != null)
@@ -241,7 +244,7 @@ public class RabbitsFragment extends Fragment implements NamedFragment
     {
         MotherChange change = new MotherChange();
         change.setAmount(change.getAmount());
-        change.setReason(result.getNotes());
+        change.setReason(result.getReason());
         change.setDate(new Date(System.currentTimeMillis()));
         change.setMother(this.mothers.getId());
         return change;
@@ -254,7 +257,11 @@ public class RabbitsFragment extends Fragment implements NamedFragment
     private void openAddKitten(View view)
     {
         KittenDialog dialog = new KittenDialog(Header.ADD, (r) -> {
-            rabbits.addKitten(makeKittenChange(r)).continueWith(this::updateView);
+            LoadingView.show(getActivity());
+            rabbits.addKitten(makeKittenChange(r))
+                    .addOnCompleteListener(LoadingView::hide)
+                    .addOnSuccessListener(this::updateView)
+                    .addOnFailureListener(LoadingView::hide);
         });
 
         if (getFragmentManager() != null)
@@ -268,7 +275,11 @@ public class RabbitsFragment extends Fragment implements NamedFragment
     private void openRemoveKitten(View view)
     {
         KittenDialog dialog = new KittenDialog(Header.REMOVE, (r) -> {
-            rabbits.removeKitten(makeKittenChange(r)).continueWith(this::updateView);
+            LoadingView.show(getActivity());
+            rabbits.addKitten(makeKittenChange(r))
+                    .addOnCompleteListener(LoadingView::hide)
+                    .addOnSuccessListener(this::updateView)
+                    .addOnFailureListener(LoadingView::hide);
         });
 
         if (getFragmentManager() != null)
@@ -278,11 +289,14 @@ public class RabbitsFragment extends Fragment implements NamedFragment
     private KittenChange makeKittenChange(KittenDialog.Result result)
     {
         KittenChange change = new KittenChange();
-        change.setReason(result.getNotes());
+        change.setReason(result.getReason());
+        change.setKittens(kittens.getId());
+        change.setMaternalAmount(result.getMaternalNest() + result.getMaternalBait());
+        change.setMeatAmount(result.getMeetBait() + result.getMeetNest());
         change.setDate(new Date(System.currentTimeMillis()));
         return change;
     }
-    
+
     @Override
     public int getFragmentName() {
         return R.string.main_rabbits;

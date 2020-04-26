@@ -160,7 +160,7 @@ public class CycleViewModel extends ViewModel
         Task<Void> saleEventTask = Firebase.Database.add(Sale.class, newSale);
 
         Task<Void> cycleTask = Firebase.Database.add(Cycle.class, cycle);
-        return Tasks.whenAllSuccess(photoperiodStartTask, photoperiodEndTask, inseminationTask,
+        return Tasks.whenAll(photoperiodStartTask, photoperiodEndTask, inseminationTask,
                 palpableRabbitsStartTask, palpableRabbitsFinishTask, setupNestTask, labourTask,
                 motherFeedTask, fodderFeedTask, retireFeedTask, saleTask, inseminationEventTask,
                 palpationEventTask, labourEventTask, saleEventTask);

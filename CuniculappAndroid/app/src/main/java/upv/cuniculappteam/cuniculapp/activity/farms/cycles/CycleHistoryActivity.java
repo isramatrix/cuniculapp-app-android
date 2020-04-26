@@ -7,12 +7,19 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 import upv.cuniculappteam.cuniculapp.R;
 import upv.cuniculappteam.cuniculapp.model.animals.Kitten;
+import upv.cuniculappteam.cuniculapp.model.animals.KittenChange;
 import upv.cuniculappteam.cuniculapp.model.animals.Mother;
+import upv.cuniculappteam.cuniculapp.model.animals.MotherChange;
+import upv.cuniculappteam.cuniculapp.view.utils.LoadingView;
+import upv.cuniculappteam.cuniculapp.viewmodel.RabbitViewModel;
 
 public class CycleHistoryActivity extends AppCompatActivity
 {
@@ -20,9 +27,13 @@ public class CycleHistoryActivity extends AppCompatActivity
 
     public static final String KITTENS_INTENT_KEY = "kittens_key";
 
-    private List<Mother> mothers;
+    private Mother mother;
 
-    private List<Kitten> kittens;
+    private Kitten kitten;
+
+    private RabbitViewModel rabbits;
+
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
@@ -33,14 +44,23 @@ public class CycleHistoryActivity extends AppCompatActivity
         // Indica el título de la actividad de la conejos que se está gestionando.
         if (getSupportActionBar() != null) getSupportActionBar().setTitle(R.string.rabbits_history);
 
-        this.mothers = getIntent().getParcelableArrayListExtra(MOTHERS_INTENT_KEY);
-        if (this.mothers == null) { finish(); return; }
+        this.mother = getIntent().getParcelableExtra(MOTHERS_INTENT_KEY);
+        if (this.mother == null) { finish(); return; }
 
-        this.kittens = getIntent().getParcelableArrayListExtra(KITTENS_INTENT_KEY);
-        if (this.kittens == null) { finish(); return; }
+        this.kitten = getIntent().getParcelableExtra(KITTENS_INTENT_KEY);
+        if (this.kitten == null) { finish(); return; }
 
-        showMothers(mothers);
-        showKittens(kittens);
+
+        this.rabbits = ViewModelProviders.of(this).get(RabbitViewModel.class);
+
+        LoadingView.show(this);
+        rabbits.getMotherChanges(mother)
+                .addOnCompleteListener(LoadingView::hide)
+                .addOnSuccessListener(this::showMothers);
+
+        rabbits.getKittenChanges(kitten)
+                .addOnCompleteListener(LoadingView::hide)
+                .addOnSuccessListener(this::showKittens);
     }
 
     /**
@@ -49,14 +69,13 @@ public class CycleHistoryActivity extends AppCompatActivity
      *
      * @param mothers La lista de madres del ciclo.
      */
-    private void showMothers(List<Mother> mothers)
+    private void showMothers(List<MotherChange> mothers)
     {
         TextView initialText = findViewById(R.id.rabbit_history_mother_initial_text);
         initialText.setText(""); // TODO: Inflar los datos de esta vista.
 
-        int alive = 0; for (Mother mother : mothers) alive += mother.getAlive();
         TextView aliveText = findViewById(R.id.rabbit_history_mother_alive_text);
-        aliveText.setText(String.valueOf(alive));
+        aliveText.setText(String.valueOf(mother.getAlive()));
 
         TableLayout table = findViewById(R.id.rabbit_history_mother_table);
         inflateMotherRows(table, mothers);
@@ -69,22 +88,22 @@ public class CycleHistoryActivity extends AppCompatActivity
      * @param table La vista de la tabla en la que inflar el contenido.
      * @param mothers La lista de cambios de conejos madre que ha habido.
      */
-    private void inflateMotherRows(TableLayout table, List<Mother> mothers)
+    private void inflateMotherRows(TableLayout table, List<MotherChange> mothers)
     {
-        for (Mother mother : mothers)
+        for (MotherChange mother : mothers)
         {
             TableRow tableRow = new TableRow(this);
 
             TextView changesCell = new TextView(this);
-            changesCell.setText(String.valueOf(mother.getAlive()));
+            changesCell.setText(String.valueOf(mother.getAmount()));
             tableRow.addView(changesCell);
 
             TextView reasonText = new TextView(this);
-            reasonText.setText(mother.getJails().toString());
+            reasonText.setText(mother.getReason());
             tableRow.addView(reasonText);
 
             TextView dateText = new TextView(this);
-            dateText.setText(""); // TODO: Inflar los datos de esta vista.
+            dateText.setText(sdf.format(mother.getDate()));
             tableRow.addView(dateText);
 
             table.addView(tableRow);
@@ -97,7 +116,7 @@ public class CycleHistoryActivity extends AppCompatActivity
      *
      * @param kittens La lista de gazapos del ciclo.
      */
-    private void showKittens(List<Kitten> kittens)
+    private void showKittens(List<KittenChange> kittens)
     {
         TextView maternalInitialText = findViewById(R.id.rabbit_history_kitten_maternal_initial_text);
         maternalInitialText.setText(""); // TODO: Inflar los datos de esta vista.
@@ -106,12 +125,10 @@ public class CycleHistoryActivity extends AppCompatActivity
         meetInitialText.setText(""); // TODO: Inflar los datos de esta vista.
 
         TextView maternalAliveText = findViewById(R.id.rabbit_history_kitten_maternal_alive_text);
-        int maternalAlive = 0; for (Kitten kitten : kittens) maternalAlive += kitten.getMaternalFatten() + kitten.getMaternalNest();
-        maternalAliveText.setText(String.valueOf(maternalAlive));
+        maternalAliveText.setText(String.valueOf(kitten.getMaternal()));
 
         TextView meetAliveText = findViewById(R.id.rabbit_history_kitten_meet_alive_text);
-        int meetAlive = 0; for (Kitten kitten : kittens) meetAlive += kitten.getMeatFatten() + kitten.getMeatNest();
-        meetAliveText.setText(String.valueOf(meetAlive));
+        meetAliveText.setText(String.valueOf(kitten.getMeat()));
 
         TableLayout table = findViewById(R.id.rabbit_history_kitten_table);
         inflateKittenRows(table, kittens);
@@ -124,22 +141,22 @@ public class CycleHistoryActivity extends AppCompatActivity
      * @param table La vista de la tabla en la que inflar el contenido.
      * @param kittens La lista de cambios de conejos gazapos que ha habido.
      */
-    private void inflateKittenRows(TableLayout table, List<Kitten> kittens)
+    private void inflateKittenRows(TableLayout table, List<KittenChange> kittens)
     {
-        for (Kitten kitten : kittens)
+        for (KittenChange kitten : kittens)
         {
             TableRow tableRow = new TableRow(this);
 
             TextView changesCell = new TextView(this);
-            changesCell.setText(String.valueOf("")); // TODO: Inflar los datos de esta vista.
+            changesCell.setText(String.valueOf(kitten.getMaternalAmount() + kitten.getMeatAmount()));
             tableRow.addView(changesCell);
 
             TextView reasonText = new TextView(this);
-            reasonText.setText(""); // TODO: Inflar los datos de esta vista.
+            reasonText.setText(kitten.getReason());
             tableRow.addView(reasonText);
 
             TextView dateText = new TextView(this);
-            dateText.setText(""); // TODO: Inflar los datos de esta vista.
+            dateText.setText(sdf.format(kitten.getDate()));
             tableRow.addView(dateText);
 
             table.addView(tableRow);
