@@ -24,6 +24,8 @@ public class DateEditText extends AppCompatEditText
 
     private OnClickListener listener;
 
+    private boolean cleared = true;
+
     private DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
         myCalendar.set(Calendar.YEAR, year);
         myCalendar.set(Calendar.MONTH, monthOfYear);
@@ -47,11 +49,14 @@ public class DateEditText extends AppCompatEditText
     protected void onFinishInflate()
     {
         super.onFinishInflate();
-        super.setOnClickListener(this::openCalendarDialog);
+        super.setOnFocusChangeListener(this::openCalendarDialog);
+        super.setOnClickListener((v) -> openCalendarDialog(v, true));
     }
 
-    private void openCalendarDialog(View view)
+    private void openCalendarDialog(View view, boolean focused)
     {
+        if (!focused) return;
+
         DatePickerDialog datePickerDialog = new DatePickerDialog(view.getContext(), date,
                 myCalendar.get(Calendar.YEAR),
                 myCalendar.get(Calendar.MONTH),
@@ -65,11 +70,19 @@ public class DateEditText extends AppCompatEditText
 
     public void setDate(Date date)
     {
+        cleared = false;
         myCalendar.setTime(date);
         setText(dateFormat.format(date));
     }
 
-    public Date getDate() { return myCalendar.getTime(); }
+    public void clear()
+    {
+        cleared = true;
+        myCalendar.setTime(new Date(System.currentTimeMillis()));
+        setText("");
+    }
+
+    public Date getDate() { return cleared ? null : myCalendar.getTime(); }
 
     public void setFormat(SimpleDateFormat format) { this.dateFormat = format; }
 
