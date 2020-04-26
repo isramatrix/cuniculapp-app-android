@@ -8,95 +8,55 @@ public class Kitten extends Traceable
 {
     public static final Creator<Kitten> CREATOR = new TraceableCreator<>(Kitten.class);
 
-    private Integer maternalNest;
+    private Integer maternal;
 
-    private Integer maternalFatten;
+    private Integer meat;
 
-    private Integer meatNest;
+    private Integer maternalJails;
 
-    private Integer meatFatten;
+    private Integer meatJails;
 
-    private Integer maternalNestJails;
-
-    private Integer maternalFattenJails;
-
-    private Integer meatNestJails;
-
-    private Integer meatFattenJails;
-
-    private Cycle cycle;
+    private String cycle;
 
     public Kitten() { }
 
-    public Integer getMaternalNest() {
-        return maternalNest;
+    public Integer getMaternal() {
+        return maternal;
     }
 
-    public void setMaternalNest(Integer maternalNest) {
-        this.maternalNest = maternalNest;
+    public void setMaternal(Integer maternalNest) {
+        this.maternal = maternalNest;
     }
 
-    public Integer getMaternalFatten() {
-        return maternalFatten;
+    public Integer getMeat() {
+        return meat;
     }
 
-    public void setMaternalFatten(Integer maternalFatten) {
-        this.maternalFatten = maternalFatten;
+    public void setMeat(Integer meatNest) {
+        this.meat = meatNest;
     }
 
-    public Integer getMeatNest() {
-        return meatNest;
+    public Integer getMaternalJails() {
+        return maternalJails;
     }
 
-    public void setMeatNest(Integer meatNest) {
-        this.meatNest = meatNest;
+    public void setMaternalJails(Integer maternalNestJails) {
+        this.maternalJails = maternalNestJails;
     }
 
-    public Integer getMeatFatten() {
-        return meatFatten;
+    public Integer getMeatJails() {
+        return meatJails;
     }
 
-    public void setMeatFatten(Integer meatFatten) {
-        this.meatFatten = meatFatten;
+    public void setMeatJails(Integer meatJails) {
+        this.meatJails = meatJails;
     }
 
-    public Integer getMaternalNestJails() {
-        return maternalNestJails;
-    }
-
-    public void setMaternalNestJails(Integer maternalNestJails) {
-        this.maternalNestJails = maternalNestJails;
-    }
-
-    public Integer getMaternalFattenJails() {
-        return maternalFattenJails;
-    }
-
-    public void setMaternalFattenJails(Integer maternalFattenJails) {
-        this.maternalFattenJails = maternalFattenJails;
-    }
-
-    public Integer getMeatNestJails() {
-        return meatNestJails;
-    }
-
-    public void setMeatNestJails(Integer meatNestJails) {
-        this.meatNestJails = meatNestJails;
-    }
-
-    public Integer getMeatFattenJails() {
-        return meatFattenJails;
-    }
-
-    public void setMeatFattenJails(Integer meatFattenJails) {
-        this.meatFattenJails = meatFattenJails;
-    }
-
-    public Cycle getCycle() {
+    public String getCycle() {
         return cycle;
     }
 
-    public void setCycle(Cycle cycle) {
+    public void setCycleID(String cycle) {
         this.cycle = cycle;
     }
 }
