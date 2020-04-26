@@ -12,13 +12,14 @@ import java.util.Date;
 import java.util.Locale;
 
 import upv.cuniculappteam.cuniculapp.R;
+import upv.cuniculappteam.cuniculapp.view.utils.DateEditText;
 import upv.cuniculappteam.cuniculapp.view.utils.dialog.DialogForResult;
 
 import static upv.cuniculappteam.cuniculapp.view.farms.dialogs.CycleDialog.*;
 
 public class CycleDialog extends DialogForResult<Result>
 {
-    private EditText inseminationDayEditText;
+    private DateEditText inseminationDayEditText;
 
     public CycleDialog(Header header, OnAcceptClickedListener<Result> result) {
         super(header, result);
@@ -28,15 +29,9 @@ public class CycleDialog extends DialogForResult<Result>
     public void onBindView(AlertDialog view)
     {
         inseminationDayEditText = view.findViewById(R.id.cycle_dialog_insemination_etext);
-        inseminationDayEditText.setText(getCurrentDate());
+        inseminationDayEditText.setDate(new Date(System.currentTimeMillis()));
 
         super.onBindView(view);
-    }
-
-    private String getCurrentDate()
-    {
-        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
-        return df.format(Calendar.getInstance().getTime());
     }
 
     @Override
@@ -48,9 +43,7 @@ public class CycleDialog extends DialogForResult<Result>
     @Override
     public Result getResult()
     {
-        return new Result(
-                new Date(System.currentTimeMillis())
-        );
+        return new Result(inseminationDayEditText.getDate());
     }
 
     @Override

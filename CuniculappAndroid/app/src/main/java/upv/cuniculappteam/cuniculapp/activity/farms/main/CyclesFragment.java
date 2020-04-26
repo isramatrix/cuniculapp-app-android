@@ -11,16 +11,22 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.SortedList;
 
 import com.google.android.gms.tasks.Task;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import upv.cuniculappteam.cuniculapp.R;
 import upv.cuniculappteam.cuniculapp.activity.farms.cycles.CycleActivity;
 import upv.cuniculappteam.cuniculapp.activity.utils.ModelLifecycleFragment;
 import upv.cuniculappteam.cuniculapp.activity.utils.NamedFragment;
+import upv.cuniculappteam.cuniculapp.logic.lists.Sorts;
 import upv.cuniculappteam.cuniculapp.model.Cycle;
 import upv.cuniculappteam.cuniculapp.model.Replacement;
 import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
@@ -92,7 +98,7 @@ public class CyclesFragment extends ModelLifecycleFragment<Cycle> implements
     @Override
     public Task<List<Cycle>> getAdapterData()
     {
-        return cycles.getCycles(farm);
+        return cycles.getCycles(farm).continueWith((task) -> Sorts.sort(task.getResult()));
     }
 
     /**

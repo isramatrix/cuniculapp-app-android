@@ -60,18 +60,19 @@
                         android:text="@string/events_insemination_date"
                         android:textSize="18sp" />
 
-                    <EditText
+                    <upv.cuniculappteam.cuniculapp.view.utils.DateEditText
                         android:id="@+id/insemination_date_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ems="5"
-                        android:inputType="number"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:ems="7"
+                        android:focusable="true"
                         android:padding="8dp"
-                        android:selectAllOnFocus="true"
+                        android:singleLine="true"
                         android:textAlignment="center"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        tools:text="336" />
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -141,18 +142,19 @@
                         android:text="@string/events_palpation_date"
                         android:textSize="18sp" />
 
-                    <EditText
+                    <upv.cuniculappteam.cuniculapp.view.utils.DateEditText
                         android:id="@+id/palpation_date_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ems="5"
-                        android:inputType="number"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:ems="7"
+                        android:focusable="true"
                         android:padding="8dp"
-                        android:selectAllOnFocus="true"
+                        android:singleLine="true"
                         android:textAlignment="center"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        tools:text="336" />
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -282,18 +284,19 @@
                         android:text="@string/events_births_date"
                         android:textSize="18sp" />
 
-                    <EditText
+                    <upv.cuniculappteam.cuniculapp.view.utils.DateEditText
                         android:id="@+id/births_date_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ems="5"
-                        android:inputType="number"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:ems="7"
+                        android:focusable="true"
                         android:padding="8dp"
-                        android:selectAllOnFocus="true"
+                        android:singleLine="true"
                         android:textAlignment="center"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        tools:text="336" />
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -451,18 +454,19 @@
                         android:text="@string/events_sales_date"
                         android:textSize="18sp" />
 
-                    <EditText
+                    <upv.cuniculappteam.cuniculapp.view.utils.DateEditText
                         android:id="@+id/sales_date_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:ems="5"
-                        android:inputType="number"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:ems="7"
+                        android:focusable="true"
                         android:padding="8dp"
-                        android:selectAllOnFocus="true"
+                        android:singleLine="true"
                         android:textAlignment="center"
                         android:textSize="18sp"
-                        android:textStyle="bold"
-                        tools:text="336" />
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 

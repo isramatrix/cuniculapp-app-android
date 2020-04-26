@@ -7,17 +7,17 @@
         <item name="colorPrimaryDark">@color/material_primary_dark</item>
         <item name="colorAccent">@color/material_primary_dark</item>
 
-        <!-- Estilo principal de los textos de la aplicación -->
+        <!-- Estilo principal de los textos de la aplicación. -->
         <item name="fontFamily">@font/roboto_medium</item>
         <item name="android:textColor">@color/material_primary_text</item>
 
-        <!-- Estilo principal de la barra de acciones superior -->
+        <!-- Estilo principal de la barra de acciones superior. -->
         <item name="titleTextColor">@color/material_primary_text</item>
 
-        <!-- Estilo principal de los botones de la aplicación -->
+        <!-- Estilo principal de los botones de la aplicación. -->
         <item name="buttonStyle">@style/AppTheme.Button</item>
 
-        <!-- Permite que la aplicación entre en modo stand-by para evitar pantallas de carga al iniciar -->
+        <!-- Permite que la aplicación entre en modo stand-by para evitar pantallas de carga al iniciar. -->
         <item name="android:windowDisablePreview">true</item>
 
     </style>

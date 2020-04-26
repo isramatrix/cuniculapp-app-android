@@ -61,7 +61,7 @@ public abstract class ModelLifecycleFragment<T extends Traceable> extends Fragme
         // Se inicializa la vista de los elementos creadas.
         RecyclerView replacementRecylcer = view.findViewById(getAdapterId());
         replacementRecylcer.setLayoutManager(new LinearLayoutManager(getContext()));
-        replacementRecylcer.setAdapter(adapter = getAdapter());
+        replacementRecylcer.setAdapter(this.adapter = getAdapter());
 
         // Se muestran los datos de los elementos disponibles.
         if (getActivity() != null) LoadingView.show(getActivity());

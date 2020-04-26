@@ -29,15 +29,15 @@
                 android:text="@string/cycle_dialog_insemination_day"
                 android:textSize="18sp" />
 
-            <EditText
+            <upv.cuniculappteam.cuniculapp.view.utils.DateEditText
                 android:id="@+id/cycle_dialog_insemination_etext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:autofillHints="false"
-                android:ems="10"
-                android:inputType="date"
-                android:selectAllOnFocus="true" />
+                android:clickable="true"
+                android:focusable="true"
+                android:editable="false"
+                android:textAlignment="center" />
 
         </LinearLayout>
 
