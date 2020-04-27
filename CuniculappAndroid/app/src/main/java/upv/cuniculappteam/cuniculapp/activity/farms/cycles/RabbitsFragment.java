@@ -243,7 +243,7 @@ public class RabbitsFragment extends Fragment implements NamedFragment
     private MotherChange makeMotherChange(MotherDialog.Result result)
     {
         MotherChange change = new MotherChange();
-        change.setAmount(change.getAmount());
+        change.setAmount(result.getAmount());
         change.setReason(result.getReason());
         change.setDate(new Date(System.currentTimeMillis()));
         change.setMother(this.mothers.getId());
@@ -276,7 +276,7 @@ public class RabbitsFragment extends Fragment implements NamedFragment
     {
         KittenDialog dialog = new KittenDialog(Header.REMOVE, (r) -> {
             LoadingView.show(getActivity());
-            rabbits.addKitten(makeKittenChange(r))
+            rabbits.removeKitten(makeKittenChange(r))
                     .addOnCompleteListener(LoadingView::hide)
                     .addOnSuccessListener(this::updateView)
                     .addOnFailureListener(LoadingView::hide);

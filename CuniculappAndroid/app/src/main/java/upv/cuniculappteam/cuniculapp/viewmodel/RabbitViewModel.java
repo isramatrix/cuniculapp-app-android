@@ -36,7 +36,7 @@ public class RabbitViewModel extends ViewModel
     public Task<Void> addMother(MotherChange mother)
     {
         return Firebase.Database.add(MotherChange.class, mother)
-                .continueWithTask((t) -> (Task<Mother>) Firebase.Database.fetch(mother.getId(), Mother.class))
+                .continueWithTask((t) -> (Task<Mother>) Firebase.Database.fetch(mother.getMother(), Mother.class))
                 .continueWithTask((t) -> {
                     if (t.getResult() == null) throw new NullPointerException();
                     t.getResult().setAlive(t.getResult().getAlive() + mother.getAmount());
@@ -46,11 +46,13 @@ public class RabbitViewModel extends ViewModel
 
     public Task<Void> removeMother(MotherChange mother)
     {
+        mother.setAmount(-mother.getAmount());
+
         return Firebase.Database.add(MotherChange.class, mother)
-                .continueWithTask((t) -> (Task<Mother>) Firebase.Database.fetch(mother.getId(), Mother.class))
+                .continueWithTask((t) -> (Task<Mother>) Firebase.Database.fetch(mother.getMother(), Mother.class))
                 .continueWithTask((t) -> {
                     if (t.getResult() == null) throw new NullPointerException();
-                    t.getResult().setAlive(t.getResult().getAlive() - mother.getAmount());
+                    t.getResult().setAlive(t.getResult().getAlive() + mother.getAmount());
                     return Firebase.Database.update(t.getResult(), Mother.class);
                 });
     }
@@ -58,7 +60,7 @@ public class RabbitViewModel extends ViewModel
     public Task<Void> addKitten(KittenChange kitten)
     {
         return Firebase.Database.add(KittenChange.class, kitten)
-                .continueWithTask((t) -> (Task<Kitten>) Firebase.Database.fetch(kitten.getId(), Kitten.class))
+                .continueWithTask((t) -> (Task<Kitten>) Firebase.Database.fetch(kitten.getKittens(), Kitten.class))
                 .continueWithTask((t) -> {
                     if (t.getResult() == null) throw new NullPointerException();
                     t.getResult().setMaternal(t.getResult().getMaternal() + kitten.getMaternalAmount());
@@ -69,12 +71,15 @@ public class RabbitViewModel extends ViewModel
 
     public Task<Void> removeKitten(KittenChange kitten)
     {
+        kitten.setMeatAmount(-kitten.getMeatAmount());
+        kitten.setMaternalAmount(-kitten.getMaternalAmount());
+
         return Firebase.Database.add(KittenChange.class, kitten)
-                .continueWithTask((t) -> (Task<Kitten>) Firebase.Database.fetch(kitten.getId(), Kitten.class))
+                .continueWithTask((t) -> (Task<Kitten>) Firebase.Database.fetch(kitten.getKittens(), Kitten.class))
                 .continueWithTask((t) -> {
                     if (t.getResult() == null) throw new NullPointerException();
-                    t.getResult().setMaternal(t.getResult().getMaternal() - kitten.getMaternalAmount());
-                    t.getResult().setMeat(t.getResult().getMeat() - kitten.getMeatAmount());
+                    t.getResult().setMaternal(t.getResult().getMaternal() + kitten.getMaternalAmount());
+                    t.getResult().setMeat(t.getResult().getMeat() + kitten.getMeatAmount());
                     return Firebase.Database.update(t.getResult(), Kitten.class);
                 });
     }
@@ -86,6 +91,6 @@ public class RabbitViewModel extends ViewModel
 
     public Task<List<KittenChange>> getKittenChanges(Kitten kitten)
     {
-        return Firebase.Database.fetchWhere("kitten", kitten.getId(), KittenChange.class);
+        return Firebase.Database.fetchWhere("kittens", kitten.getId(), KittenChange.class);
     }
 }

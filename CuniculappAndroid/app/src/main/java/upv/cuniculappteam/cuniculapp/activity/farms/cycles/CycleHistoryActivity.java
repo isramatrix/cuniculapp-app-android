@@ -1,8 +1,10 @@
 package upv.cuniculappteam.cuniculapp.activity.farms.cycles;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -20,6 +22,10 @@ import upv.cuniculappteam.cuniculapp.model.animals.Mother;
 import upv.cuniculappteam.cuniculapp.model.animals.MotherChange;
 import upv.cuniculappteam.cuniculapp.view.utils.LoadingView;
 import upv.cuniculappteam.cuniculapp.viewmodel.RabbitViewModel;
+
+import static android.view.Gravity.CENTER;
+import static android.widget.TableRow.LayoutParams.MATCH_PARENT;
+import static android.widget.TableRow.LayoutParams.WRAP_CONTENT;
 
 public class CycleHistoryActivity extends AppCompatActivity
 {
@@ -57,6 +63,7 @@ public class CycleHistoryActivity extends AppCompatActivity
                 .addOnCompleteListener(LoadingView::hide)
                 .addOnSuccessListener(this::showMothers);
 
+        LoadingView.show(this);
         rabbits.getKittenChanges(kitten)
                 .addOnCompleteListener(LoadingView::hide)
                 .addOnSuccessListener(this::showKittens);
@@ -95,14 +102,20 @@ public class CycleHistoryActivity extends AppCompatActivity
 
             TextView changesCell = new TextView(this);
             changesCell.setText(String.valueOf(mother.getAmount()));
+            changesCell.setGravity(CENTER);
+            changesCell.setLayoutParams(new LayoutParams(MATCH_PARENT, WRAP_CONTENT, 1f));
             tableRow.addView(changesCell);
 
             TextView reasonText = new TextView(this);
             reasonText.setText(mother.getReason());
+            reasonText.setGravity(CENTER);
+            reasonText.setLayoutParams(new LayoutParams(MATCH_PARENT, WRAP_CONTENT, 4f));
             tableRow.addView(reasonText);
 
             TextView dateText = new TextView(this);
             dateText.setText(sdf.format(mother.getDate()));
+            dateText.setGravity(CENTER);
+            dateText.setLayoutParams(new LayoutParams(MATCH_PARENT, WRAP_CONTENT, 1f));
             tableRow.addView(dateText);
 
             table.addView(tableRow);
@@ -148,14 +161,20 @@ public class CycleHistoryActivity extends AppCompatActivity
 
             TextView changesCell = new TextView(this);
             changesCell.setText(String.valueOf(kitten.getMaternalAmount() + kitten.getMeatAmount()));
+            changesCell.setGravity(CENTER);
+            changesCell.setLayoutParams(new LayoutParams(MATCH_PARENT, WRAP_CONTENT, 1f));
             tableRow.addView(changesCell);
 
             TextView reasonText = new TextView(this);
             reasonText.setText(kitten.getReason());
+            reasonText.setGravity(CENTER);
+            reasonText.setLayoutParams(new LayoutParams(MATCH_PARENT, WRAP_CONTENT, 4f));
             tableRow.addView(reasonText);
 
             TextView dateText = new TextView(this);
             dateText.setText(sdf.format(kitten.getDate()));
+            dateText.setGravity(CENTER);
+            dateText.setLayoutParams(new LayoutParams(MATCH_PARENT, WRAP_CONTENT, 1f));
             tableRow.addView(dateText);
 
             table.addView(tableRow);

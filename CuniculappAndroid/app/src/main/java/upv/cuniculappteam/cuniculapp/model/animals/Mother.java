@@ -13,7 +13,7 @@ Mother extends Traceable
 
     private Integer[] jails;
 
-    private Cycle cycle;
+    private String cycle;
 
     public Mother() { }
 
@@ -33,11 +33,11 @@ Mother extends Traceable
         this.jails = jails;
     }
 
-    public Cycle getCycle() {
+    public String getCycle() {
         return cycle;
     }
 
-    public void setCycle(Cycle cycle) {
+    public void setCycle(String cycle) {
         this.cycle = cycle;
     }
 }

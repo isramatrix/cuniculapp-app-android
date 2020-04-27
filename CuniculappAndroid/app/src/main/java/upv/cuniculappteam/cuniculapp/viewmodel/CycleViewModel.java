@@ -16,6 +16,8 @@ import upv.cuniculappteam.cuniculapp.logic.firebase.Database;
 import upv.cuniculappteam.cuniculapp.logic.firebase.Firebase;
 import upv.cuniculappteam.cuniculapp.model.Cycle;
 import upv.cuniculappteam.cuniculapp.model.Labor;
+import upv.cuniculappteam.cuniculapp.model.animals.Kitten;
+import upv.cuniculappteam.cuniculapp.model.animals.Mother;
 import upv.cuniculappteam.cuniculapp.model.facilities.Farm;
 import upv.cuniculappteam.cuniculapp.model.labors.Insemination;
 import upv.cuniculappteam.cuniculapp.model.labors.Labour;
@@ -175,9 +177,23 @@ public class CycleViewModel extends ViewModel
                                 return Firebase.Database.add(Sale.class, newSale);
                             }
                     );
+
+
+                    Mother mother = new Mother();
+                    mother.setAlive(0);
+                    mother.setCycle(cycleTask.getResult());
+                    Task<String> motherTask = Firebase.Database.add(Mother.class, mother);
+
+                    Kitten kitten = new Kitten();
+                    kitten.setMeat(0);
+                    kitten.setMaternal(0);
+                    kitten.setCycle(cycleTask.getResult());
+                    Task<String> kittenTask = Firebase.Database.add(Kitten.class, kitten);
+
                     return Tasks.whenAll(photoperiodStartTask, photoperiodEndTask, inseminationTask,
                             palpableRabbitsStartTask, setupNestTask, labourTask,
-                            motherFeedTask, fodderFeedTask, retireFeedTask, saleTask);
+                            motherFeedTask, fodderFeedTask, retireFeedTask, saleTask,
+                            motherTask, kittenTask);
                 }
         );
     }
