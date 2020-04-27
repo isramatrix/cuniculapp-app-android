@@ -1,6 +1,7 @@
 package upv.cuniculappteam.cuniculapp.activity.farms.cycles;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,12 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
+
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import upv.cuniculappteam.cuniculapp.R;
 import upv.cuniculappteam.cuniculapp.activity.utils.NamedFragment;
@@ -35,9 +42,13 @@ public class EventsFragment extends Fragment implements NamedFragment
 
     private View view;
 
+    private Insemination insemination;
+
     private DateEditText inseminationDate;
 
     private EditText inseminationAmount;
+
+    private Palpation palpation;
 
     private DateEditText palpationDate;
 
@@ -46,6 +57,8 @@ public class EventsFragment extends Fragment implements NamedFragment
     private EditText palpationFailed;
 
     private EditText palpationFr;
+
+    private Labour birth;
 
     private DateEditText birthDate;
 
@@ -56,6 +69,8 @@ public class EventsFragment extends Fragment implements NamedFragment
     private EditText birthDead;
 
     private EditText birthAverage;
+
+    private Sale sale;
 
     private DateEditText saleDate;
 
@@ -90,6 +105,8 @@ public class EventsFragment extends Fragment implements NamedFragment
         // Se inicializa el comportamiento del botón de guardado de eventos.
         this.saveButton = view.findViewById(R.id.events_save_button);
         saveButton.setOnClickListener(this::saveEvents);
+
+        updateView();
     }
 
     /**
@@ -119,22 +136,26 @@ public class EventsFragment extends Fragment implements NamedFragment
                 .addOnSuccessListener(this::showSalesData);
     }
 
-    private void showInseminationData(Insemination insemination)
+    private void showInseminationData(List<Insemination> inseminations)
     {
+        this.insemination = inseminations.get(0);
+
         inseminationDate = view.findViewById(R.id.insemination_date_text);
         inseminationDate.setDate(insemination.getDate());
 
         inseminationAmount = view.findViewById(R.id.insemination_amount_text);
-        inseminationAmount.setText(insemination.getInseminatedRabbits());
+        inseminationAmount.setText(String.valueOf(insemination.getInseminatedRabbits()));
     }
 
-    private void showPalpationData(Palpation palpation)
+    private void showPalpationData(List<Palpation> palpations)
     {
+        this.palpation = palpations.get(0);
+
         palpationDate = view.findViewById(R.id.palpation_date_text);
-        palpationDate.setDate(palpationDate.getDate());
+        palpationDate.setDate(palpation.getDate());
 
         palpationPregnant = view.findViewById(R.id.palpation_pregnant_text);
-        palpationPregnant.setText(palpation.getPregnantRabbits());
+        palpationPregnant.setText(String.valueOf(palpation.getPregnantRabbits()));
 
         palpationFailed = view.findViewById(R.id.palpation_failed_text);
         palpationFailed.setText(""); // TODO: Inflar el dato correspondiente.
@@ -143,13 +164,15 @@ public class EventsFragment extends Fragment implements NamedFragment
         palpationFr.setText(""); // TODO: Inflar el dato correspondiente.
     }
 
-    private void showLabourData(Labour birth)
+    private void showLabourData(List<Labour> births)
     {
+        this.birth = births.get(0);
+
         birthDate = view.findViewById(R.id.births_date_text);
         birthDate.setDate(birth.getDate());
 
         birthAmount = view.findViewById(R.id.births_amount_text);
-        birthAmount.setText(birth.getMothersAmount());
+        birthAmount.setText(String.valueOf(birth.getBirthsAmount()));
 
         birthAlive = view.findViewById(R.id.births_alive_text);
         birthAlive.setText(String.valueOf(birth.getBornAlive()));
@@ -161,13 +184,15 @@ public class EventsFragment extends Fragment implements NamedFragment
         birthAverage.setText(""); // TODO: Inflar el dato correspondiente.
     }
 
-    private void showSalesData(Sale sale)
+    private void showSalesData(List<Sale> sales)
     {
+        this.sale = sales.get(0);
+
         saleDate = view.findViewById(R.id.sales_date_text);
-        saleDate.setDate(sale.getDate()); // TODO: Inflar el dato correspondiente.
+        saleDate.setDate(sale.getDate());
 
         saleAmount = view.findViewById(R.id.sales_amount_text);
-        saleAmount.setText(String.valueOf("")); // TODO: Inflar el dato correspondiente.
+        saleAmount.setText(String.valueOf(sale.getSold()));
 
         salePrize = view.findViewById(R.id.sales_prize_text);
         salePrize.setText(String.valueOf(sale.getSalePrize()));
@@ -187,7 +212,50 @@ public class EventsFragment extends Fragment implements NamedFragment
 
     private void saveEvents(View view)
     {
-        // TODO: Guardar cambios de eventos
+        List<Task<?>> tasks = new ArrayList<>();
+
+        tasks.add(events.updateInsemination(getAvailableInsemination()));
+        tasks.add(events.updatePalpation(getAvailablePalpation()));
+        tasks.add(events.updateLabour(getAvailableBirth()));
+        tasks.add(events.updateSale(getAvailableSale()));
+
+        LoadingView.show(getActivity());
+        Tasks.whenAll(tasks)
+                .addOnCompleteListener(LoadingView::hide)
+                .addOnSuccessListener(this::updateView);
+    }
+
+    private Insemination getAvailableInsemination()
+    {
+        insemination.setDate(inseminationDate.getDate());
+        insemination.setInseminatedRabbits(Integer.parseInt(inseminationAmount.getText().toString()));
+        return insemination;
+    }
+
+    private Palpation getAvailablePalpation()
+    {
+        palpation.setDate(palpationDate.getDate());
+        palpation.setPregnantRabbits(Integer.parseInt(palpationPregnant.getText().toString()));
+        return palpation;
+    }
+
+    private Labour getAvailableBirth()
+    {
+        birth.setDate(birthDate.getDate());
+        birth.setBirthsAmount(Integer.parseInt(birthAmount.getText().toString()));
+        birth.setBornAlive(Integer.parseInt(birthAlive.getText().toString()));
+        birth.setBornDead(Integer.parseInt(birthDead.getText().toString()));
+        return birth;
+    }
+
+    private Sale getAvailableSale()
+    {
+        sale.setDate(saleDate.getDate());
+        sale.setSold(Integer.valueOf(saleAmount.getText().toString()));
+        sale.setAverageWeight(Integer.parseInt(saleSize.getText().toString()));
+        sale.setFeedCost(Float.parseFloat(saleFeed.getText().toString()));
+        sale.setSalePrize(Float.parseFloat(salePrize.getText().toString()));
+        return sale;
     }
 
     /**
