@@ -56,7 +56,7 @@ public class Kitten extends Traceable
         return cycle;
     }
 
-    public void setCycleID(String cycle) {
+    public void setCycle(String cycle) {
         this.cycle = cycle;
     }
 }

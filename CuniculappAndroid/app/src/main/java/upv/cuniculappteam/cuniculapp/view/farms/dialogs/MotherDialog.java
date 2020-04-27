@@ -1,13 +1,7 @@
 package upv.cuniculappteam.cuniculapp.view.farms.dialogs;
 
 import android.app.AlertDialog;
-import android.os.Bundle;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 import com.google.common.collect.Lists;
 
@@ -45,8 +39,7 @@ public class MotherDialog extends RabbitDialog<Result>
     {
         return new Result(
                 Integer.parseInt(motherAmount.getText().toString()),
-                getSelectedReason(),
-                getReasonMessage()
+                getSelectedReason()
         );
     }
 
@@ -57,27 +50,20 @@ public class MotherDialog extends RabbitDialog<Result>
     {
         private final int amount;
 
-        private final Reason reason;
+        private final String reason;
 
-        private final String notes;
-
-        private Result(int amount, Reason reason, String notes)
+        private Result(int amount, String reason)
         {
             this.amount = amount;
             this.reason = reason;
-            this.notes = notes;
         }
 
         public int getAmount() {
             return amount;
         }
 
-        public Reason getReason() {
+        public String getReason() {
             return reason;
-        }
-
-        public String getNotes() {
-            return notes;
         }
     }
 }

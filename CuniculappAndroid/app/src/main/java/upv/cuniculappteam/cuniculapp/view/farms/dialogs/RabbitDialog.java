@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import androidx.annotation.StringRes;
+
 import upv.cuniculappteam.cuniculapp.R;
 import upv.cuniculappteam.cuniculapp.view.utils.dialog.DialogForResult;
 
@@ -32,22 +34,17 @@ public abstract class RabbitDialog<T> extends DialogForResult<T>
         super.onBindView(view);
     }
 
-    Reason getSelectedReason()
+    String getSelectedReason()
     {
         switch (radioGroup.getCheckedRadioButtonId()) {
             case R.id.rabbits_dialog_transfer_radio:
-                return Reason.TRANSFER;
+                return getString(R.string.rabbits_dialog_reason_transfer);
 
             case R.id.rabbits_dialog_death_radio:
-                return Reason.DEAD;
+                return getString(R.string.rabbits_dialog_reason_death);
 
             case R.id.rabbits_dialog_other_radio: default:
-                return Reason.OTHER;
+                return otherReasonText.getText().toString();
         }
-    }
-
-    String getReasonMessage()
-    {
-        return otherReasonText.getText().toString();
     }
 }
