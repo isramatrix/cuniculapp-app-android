@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.Tasks;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import upv.cuniculappteam.cuniculapp.R;
 import upv.cuniculappteam.cuniculapp.activity.utils.NamedFragment;
@@ -41,6 +42,8 @@ public class EventsFragment extends Fragment implements NamedFragment
     private EventViewModel events;
 
     private View view;
+
+    private AtomicBoolean finished = new AtomicBoolean(false);
 
     private Insemination insemination;
 
@@ -138,6 +141,7 @@ public class EventsFragment extends Fragment implements NamedFragment
 
     private void showInseminationData(List<Insemination> inseminations)
     {
+        if (inseminations == null || inseminations.size() == 0) { finishActivity(); return; }
         this.insemination = inseminations.get(0);
 
         inseminationDate = view.findViewById(R.id.insemination_date_text);
@@ -149,6 +153,7 @@ public class EventsFragment extends Fragment implements NamedFragment
 
     private void showPalpationData(List<Palpation> palpations)
     {
+        if (palpations == null || palpations.size() == 0) { finishActivity(); return; }
         this.palpation = palpations.get(0);
 
         palpationDate = view.findViewById(R.id.palpation_date_text);
@@ -166,6 +171,7 @@ public class EventsFragment extends Fragment implements NamedFragment
 
     private void showLabourData(List<Labour> births)
     {
+        if (births == null || births.size() == 0) { finishActivity(); return; }
         this.birth = births.get(0);
 
         birthDate = view.findViewById(R.id.births_date_text);
@@ -186,6 +192,7 @@ public class EventsFragment extends Fragment implements NamedFragment
 
     private void showSalesData(List<Sale> sales)
     {
+        if (sales == null || sales.size() == 0) { finishActivity(); return; }
         this.sale = sales.get(0);
 
         saleDate = view.findViewById(R.id.sales_date_text);
@@ -276,6 +283,13 @@ public class EventsFragment extends Fragment implements NamedFragment
 
         if (imm == null) return;
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    private void finishActivity()
+    {
+        if (!finished.get() && getActivity() != null) {
+            finished.set(true); getActivity().finish();
+        }
     }
 
     @Override

@@ -32,6 +32,6 @@ public class ReplacementViewModel extends ViewModel
 
     public Task<Void> addReplacement(Replacement replacement)
     {
-        return Firebase.Database.add(Replacement.class, replacement);
+        return Firebase.Database.add(Replacement.class, replacement).continueWith((t) -> null);
     }
 }

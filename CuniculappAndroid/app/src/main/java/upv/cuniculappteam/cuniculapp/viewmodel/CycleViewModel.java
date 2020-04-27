@@ -1,5 +1,7 @@
 package upv.cuniculappteam.cuniculapp.viewmodel;
 
+import android.view.ViewStructure;
+
 import androidx.lifecycle.ViewModel;
 
 import com.google.android.gms.tasks.Task;
@@ -50,7 +52,7 @@ public class CycleViewModel extends ViewModel
         photoperiodStart.setState(Labor.State.TO_DO);
         photoperiodStart.setManual(false);
         photoperiodStart.setTaskType(Labor.TaskType.PHOTOPERIOD_START);
-        Task<Void> photoperiodStartTask = Firebase.Database.add(Labor.class, photoperiodStart);
+        Task<String> photoperiodStartTask = Firebase.Database.add(Labor.class, photoperiodStart);
 
         calendar.add(Calendar.DAY_OF_YEAR, 4);
         Labor photoperiodEnd = new Labor();
@@ -59,7 +61,7 @@ public class CycleViewModel extends ViewModel
         photoperiodEnd.setState(Labor.State.TO_DO);
         photoperiodEnd.setManual(false);
         photoperiodEnd.setTaskType(Labor.TaskType.PHOTOPERIOD_END);
-        Task<Void> photoperiodEndTask = Firebase.Database.add(Labor.class, photoperiodEnd);
+        Task<String> photoperiodEndTask = Firebase.Database.add(Labor.class, photoperiodEnd);
 
         calendar.add(Calendar.DAY_OF_YEAR, 1);
         Labor inseminationLabor = new Labor();
@@ -68,7 +70,7 @@ public class CycleViewModel extends ViewModel
         inseminationLabor.setState(Labor.State.TO_DO);
         inseminationLabor.setManual(false);
         inseminationLabor.setTaskType(Labor.TaskType.INSEMINATION);
-        Task<Void> inseminationTask = Firebase.Database.add(Labor.class, inseminationLabor);
+        Task<String> inseminationTask = Firebase.Database.add(Labor.class, inseminationLabor);
 
         calendar.add(Calendar.DAY_OF_YEAR, 8);
         Labor palpableRabbitsStart = new Labor();
@@ -77,7 +79,7 @@ public class CycleViewModel extends ViewModel
         palpableRabbitsStart.setState(Labor.State.TO_DO);
         palpableRabbitsStart.setManual(false);
         palpableRabbitsStart.setTaskType(Labor.TaskType.PALPABLE_RABBITS_START);
-        Task<Void> palpableRabbitsStartTask = Firebase.Database.add(Labor.class, palpableRabbitsStart);
+        Task<String> palpableRabbitsStartTask = Firebase.Database.add(Labor.class, palpableRabbitsStart);
 
         calendar.add(Calendar.DAY_OF_YEAR, 11);
         Labor palpableRabbitsFinish = new Labor();
@@ -86,7 +88,7 @@ public class CycleViewModel extends ViewModel
         palpableRabbitsFinish.setState(Labor.State.TO_DO);
         palpableRabbitsFinish.setManual(false);
         palpableRabbitsFinish.setTaskType(Labor.TaskType.PALPABLE_RABBITS_FINISH);
-        Task<Void> palpableRabbitsFinishTask = Firebase.Database.add(Labor.class, palpableRabbitsFinish);
+        Task<String> palpableRabbitsFinishTask = Firebase.Database.add(Labor.class, palpableRabbitsFinish);
 
         calendar.add(Calendar.DAY_OF_YEAR, 3);
         Labor setupNestLabor = new Labor();
@@ -95,7 +97,7 @@ public class CycleViewModel extends ViewModel
         setupNestLabor.setState(Labor.State.TO_DO);
         setupNestLabor.setManual(false);
         setupNestLabor.setTaskType(Labor.TaskType.SET_UP_NESTS);
-        Task<Void> setupNestTask = Firebase.Database.add(Labor.class, setupNestLabor);
+        Task<String> setupNestTask = Firebase.Database.add(Labor.class, setupNestLabor);
 
         calendar.add(Calendar.DAY_OF_YEAR, 4);
         Labor labourLabor = new Labor();
@@ -104,7 +106,7 @@ public class CycleViewModel extends ViewModel
         labourLabor.setState(Labor.State.TO_DO);
         labourLabor.setManual(false);
         labourLabor.setTaskType(Labor.TaskType.LABOUR);
-        Task<Void> labourTask = Firebase.Database.add(Labor.class, labourLabor);
+        Task<String> labourTask = Firebase.Database.add(Labor.class, labourLabor);
 
         calendar.add(Calendar.DAY_OF_YEAR, 25);
         Labor motherFeedStart = new Labor();
@@ -113,7 +115,7 @@ public class CycleViewModel extends ViewModel
         motherFeedStart.setState(Labor.State.TO_DO);
         motherFeedStart.setManual(false);
         motherFeedStart.setTaskType(Labor.TaskType.MOTHER_FEED_START);
-        Task<Void> motherFeedTask = Firebase.Database.add(Labor.class, motherFeedStart);
+        Task<String> motherFeedTask = Firebase.Database.add(Labor.class, motherFeedStart);
 
         calendar.add(Calendar.DAY_OF_YEAR, 27);
         Labor fodderFeedStart = new Labor();
@@ -122,7 +124,7 @@ public class CycleViewModel extends ViewModel
         fodderFeedStart.setState(Labor.State.TO_DO);
         fodderFeedStart.setManual(false);
         fodderFeedStart.setTaskType(Labor.TaskType.FODDER_FEED_START);
-        Task<Void> fodderFeedTask = Firebase.Database.add(Labor.class, fodderFeedStart);
+        Task<String> fodderFeedTask = Firebase.Database.add(Labor.class, fodderFeedStart);
 
         calendar.add(Calendar.DAY_OF_YEAR, 10);
         Labor retireFeedStart = new Labor();
@@ -131,7 +133,7 @@ public class CycleViewModel extends ViewModel
         retireFeedStart.setState(Labor.State.TO_DO);
         retireFeedStart.setManual(false);
         retireFeedStart.setTaskType(Labor.TaskType.RETIRE_FEED_START);
-        Task<Void> retireFeedTask = Firebase.Database.add(Labor.class, retireFeedStart);
+        Task<String> retireFeedTask = Firebase.Database.add(Labor.class, retireFeedStart);
 
         calendar.add(Calendar.DAY_OF_YEAR, 12);
         Labor saleLabor = new Labor();
@@ -140,30 +142,30 @@ public class CycleViewModel extends ViewModel
         saleLabor.setState(Labor.State.TO_DO);
         saleLabor.setManual(false);
         saleLabor.setTaskType(Labor.TaskType.SALE);
-        Task<Void> saleTask = Firebase.Database.add(Labor.class, saleLabor);
+        Task<String> saleTask = Firebase.Database.add(Labor.class, saleLabor);
 
         Insemination newInsemination = new Insemination();
         newInsemination.setLabor(inseminationLabor.getId());
         newInsemination.setCycle(cycle.getId());
-        Task<Void> inseminationEventTask = Firebase.Database.add(Insemination.class, newInsemination);
+        Task<String> inseminationEventTask = Firebase.Database.add(Insemination.class, newInsemination);
 
         Palpation newPalpation = new Palpation();
         //newPalpation.setStartLabor(palpableRabbitsStart.getId());
         //newPalpation.setFinishLabor(palpableRabbitsFinish.getId());
         newPalpation.setCycle(cycle.getId());
-        Task<Void> palpationEventTask = Firebase.Database.add(Palpation.class, newPalpation);
+        Task<String> palpationEventTask = Firebase.Database.add(Palpation.class, newPalpation);
 
         Labour newLabour = new Labour();
         newLabour.setLabor(labourLabor.getId());
         newLabour.setCycle(cycle.getId());
-        Task<Void> labourEventTask = Firebase.Database.add(Labour.class, newLabour);
+        Task<String> labourEventTask = Firebase.Database.add(Labour.class, newLabour);
 
         Sale newSale = new Sale();
         newSale.setLabor(saleLabor.getId());
         newSale.setCycle(cycle.getId());
-        Task<Void> saleEventTask = Firebase.Database.add(Sale.class, newSale);
+        Task<String> saleEventTask = Firebase.Database.add(Sale.class, newSale);
 
-        Task<Void> cycleTask = Firebase.Database.add(Cycle.class, cycle);
+        Task<String> cycleTask = Firebase.Database.add(Cycle.class, cycle);
         return Tasks.whenAll(photoperiodStartTask, photoperiodEndTask, inseminationTask,
                 palpableRabbitsStartTask, palpableRabbitsFinishTask, setupNestTask, labourTask,
                 motherFeedTask, fodderFeedTask, retireFeedTask, saleTask, inseminationEventTask,

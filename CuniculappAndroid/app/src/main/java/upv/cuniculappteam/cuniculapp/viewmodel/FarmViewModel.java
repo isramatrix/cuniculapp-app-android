@@ -25,7 +25,7 @@ public class FarmViewModel extends ViewModel
 
     public Task<Void> addFarm(Farm farm)
     {
-        return Firebase.Database.add(Farm.class, farm);
+        return Firebase.Database.add(Farm.class, farm).continueWith((t) -> null);
     }
 
     public Task<Void> updateFarm(Farm farm)
