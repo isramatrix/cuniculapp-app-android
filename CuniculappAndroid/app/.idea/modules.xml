@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../Cuniculapp.iml" filepath="$PROJECT_DIR$/../Cuniculapp.iml" group="Cuniculapp" />
-      <module fileurl="file://$PROJECT_DIR$/../CuniculappAndroid-Cuniculapp.iml" filepath="$PROJECT_DIR$/../CuniculappAndroid-Cuniculapp.iml" group="Cuniculapp" />
-      <module fileurl="file://$PROJECT_DIR$/CuniculappAndroid-app.iml" filepath="$PROJECT_DIR$/CuniculappAndroid-app.iml" group="Cuniculapp/app" />
       <module fileurl="file://$PROJECT_DIR$/app.iml" filepath="$PROJECT_DIR$/app.iml" group="Cuniculapp/app" />
     </modules>
   </component>
