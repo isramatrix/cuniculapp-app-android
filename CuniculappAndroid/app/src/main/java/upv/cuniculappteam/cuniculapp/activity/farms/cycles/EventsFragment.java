@@ -145,10 +145,10 @@ public class EventsFragment extends Fragment implements NamedFragment
         this.insemination = inseminations.get(0);
 
         inseminationDate = view.findViewById(R.id.insemination_date_text);
-        inseminationDate.setDate(insemination.getDate());
+        if (insemination.getDate() != null) inseminationDate.setDate(insemination.getDate());
 
         inseminationAmount = view.findViewById(R.id.insemination_amount_text);
-        inseminationAmount.setText(String.valueOf(insemination.getInseminatedRabbits()));
+        if (insemination.getInseminatedRabbits() != null) inseminationAmount.setText(String.valueOf(insemination.getInseminatedRabbits()));
     }
 
     private void showPalpationData(List<Palpation> palpations)
@@ -157,10 +157,10 @@ public class EventsFragment extends Fragment implements NamedFragment
         this.palpation = palpations.get(0);
 
         palpationDate = view.findViewById(R.id.palpation_date_text);
-        palpationDate.setDate(palpation.getDate());
+        if (palpation.getDate() != null) palpationDate.setDate(palpation.getDate());
 
         palpationPregnant = view.findViewById(R.id.palpation_pregnant_text);
-        palpationPregnant.setText(String.valueOf(palpation.getPregnantRabbits()));
+        if (palpation.getPregnantRabbits() != null) palpationPregnant.setText(String.valueOf(palpation.getPregnantRabbits()));
 
         palpationFailed = view.findViewById(R.id.palpation_failed_text);
         palpationFailed.setText(""); // TODO: Inflar el dato correspondiente.
@@ -175,16 +175,16 @@ public class EventsFragment extends Fragment implements NamedFragment
         this.birth = births.get(0);
 
         birthDate = view.findViewById(R.id.births_date_text);
-        birthDate.setDate(birth.getDate());
+        if (birth.getDate() != null) birthDate.setDate(birth.getDate());
 
         birthAmount = view.findViewById(R.id.births_amount_text);
-        birthAmount.setText(String.valueOf(birth.getBirthsAmount()));
+        if (birth.getBirthsAmount() != null) birthAmount.setText(String.valueOf(birth.getBirthsAmount()));
 
         birthAlive = view.findViewById(R.id.births_alive_text);
-        birthAlive.setText(String.valueOf(birth.getBornAlive()));
+        if (birth.getBornAlive() != null) birthAlive.setText(String.valueOf(birth.getBornAlive()));
 
         birthDead = view.findViewById(R.id.births_dead_text);
-        birthDead.setText(String.valueOf(birth.getBornDead()));
+        if (birth.getBornAlive() != null) birthDead.setText(String.valueOf(birth.getBornDead()));
 
         birthAverage = view.findViewById(R.id.births_average_text);
         birthAverage.setText(""); // TODO: Inflar el dato correspondiente.
@@ -196,10 +196,10 @@ public class EventsFragment extends Fragment implements NamedFragment
         this.sale = sales.get(0);
 
         saleDate = view.findViewById(R.id.sales_date_text);
-        saleDate.setDate(sale.getDate());
+        if (sale.getDate() != null) saleDate.setDate(sale.getDate());
 
         saleAmount = view.findViewById(R.id.sales_amount_text);
-        saleAmount.setText(String.valueOf(sale.getSold()));
+        if (sale.getSold() != null) saleAmount.setText(String.valueOf(sale.getSold()));
 
         salePrize = view.findViewById(R.id.sales_prize_text);
         salePrize.setText(String.valueOf(sale.getSalePrize()));
@@ -234,34 +234,60 @@ public class EventsFragment extends Fragment implements NamedFragment
 
     private Insemination getAvailableInsemination()
     {
-        insemination.setDate(inseminationDate.getDate());
-        insemination.setInseminatedRabbits(Integer.parseInt(inseminationAmount.getText().toString()));
+        if (inseminationDate.getText() != null && inseminationDate.getText().length() > 0)
+            insemination.setDate(inseminationDate.getDate());
+
+        if (inseminationAmount.getText() != null && inseminationAmount.getText().length() > 0)
+            insemination.setInseminatedRabbits(Integer.parseInt(inseminationAmount.getText().toString()));
+
         return insemination;
     }
 
     private Palpation getAvailablePalpation()
     {
-        palpation.setDate(palpationDate.getDate());
-        palpation.setPregnantRabbits(Integer.parseInt(palpationPregnant.getText().toString()));
+        if (palpationDate.getText() != null && palpationDate.getText().length() > 0)
+            palpation.setDate(palpationDate.getDate());
+
+        if (palpationPregnant.getText() != null && palpationPregnant.getText().length() > 0)
+            palpation.setPregnantRabbits(Integer.parseInt(palpationPregnant.getText().toString()));
+
         return palpation;
     }
 
     private Labour getAvailableBirth()
     {
-        birth.setDate(birthDate.getDate());
-        birth.setBirthsAmount(Integer.parseInt(birthAmount.getText().toString()));
-        birth.setBornAlive(Integer.parseInt(birthAlive.getText().toString()));
-        birth.setBornDead(Integer.parseInt(birthDead.getText().toString()));
+        if (birthDate.getText() != null && birthDate.getText().length() > 0)
+            birth.setDate(birthDate.getDate());
+
+        if (birthAmount.getText() != null && birthAmount.getText().length() > 0)
+            birth.setBirthsAmount(Integer.parseInt(birthAmount.getText().toString()));
+
+        if (birthAlive.getText() != null && birthAlive.getText().length() > 0)
+            birth.setBornAlive(Integer.parseInt(birthAlive.getText().toString()));
+
+        if (birthDead.getText() != null && birthDead.getText().length() > 0)
+            birth.setBornDead(Integer.parseInt(birthDead.getText().toString()));
+
         return birth;
     }
 
     private Sale getAvailableSale()
     {
-        sale.setDate(saleDate.getDate());
-        sale.setSold(Integer.valueOf(saleAmount.getText().toString()));
-        sale.setAverageWeight(Integer.parseInt(saleSize.getText().toString()));
-        sale.setFeedCost(Float.parseFloat(saleFeed.getText().toString()));
-        sale.setSalePrize(Float.parseFloat(salePrize.getText().toString()));
+        if (saleDate.getText() != null && saleDate.getText().length() > 0)
+            sale.setDate(saleDate.getDate());
+
+        if (saleAmount.getText() != null && saleAmount.getText().length() > 0)
+            sale.setSold(Integer.valueOf(saleAmount.getText().toString()));
+
+        if (saleSize.getText() != null && saleSize.getText().length() > 0)
+            sale.setAverageWeight(Float.parseFloat(saleSize.getText().toString()));
+
+        if (saleFeed.getText() != null && saleFeed.getText().length() > 0)
+            sale.setFeedCost(Float.parseFloat(saleFeed.getText().toString()));
+
+        if (salePrize.getText() != null && salePrize.getText().length() > 0)
+            sale.setSalePrize(Float.parseFloat(salePrize.getText().toString()));
+
         return sale;
     }
 

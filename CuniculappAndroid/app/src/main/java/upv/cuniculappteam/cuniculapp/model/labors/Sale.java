@@ -55,7 +55,7 @@ public class Sale extends Traceable
         return averageWeight;
     }
 
-    public void setAverageWeight(Integer averageWeight) {
+    public void setAverageWeight(float averageWeight) {
         this.averageWeight = averageWeight;
     }
 

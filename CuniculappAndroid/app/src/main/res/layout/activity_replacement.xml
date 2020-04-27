@@ -82,36 +82,6 @@
             android:layout_marginEnd="16dp"
             android:background="@color/color_accent" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp">
-
-            <TextView
-                android:id="@+id/replacement_jails_text"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/replacement_jails"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/replacement_jails_etext"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/replacement_jails_text"
-                android:autofillHints="" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -183,6 +153,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:background="@color/color_accent"
                 android:minHeight="60dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -102,9 +102,6 @@ public class LaborFragment extends ModelLifecycleFragment<Labor>
 
         switch (item.getItemId())
         {
-            // Si se quiere ordenar las actividades,
-            case R.id.action_sort: return true;
-
             // Si se quiere buscar una tarea específica, cambia a la actividad correspondiente.
             case R.id.action_search: switchToSearch(); return true;
 
