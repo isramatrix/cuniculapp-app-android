@@ -23,6 +23,10 @@ public class SettingsFragment extends Fragment
     }
 
     @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    }
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         tasks = ViewModelProviders.of(this).get(LaborViewModel.class);

@@ -20,6 +20,17 @@
     <string name="menu_item_search">Buscar</string>
     <string name="menu_item_archived">Archivados</string>
 
+    <!-- Settings -->
+    <string name="settings_notifications">Notificaciones</string>
+    <string name="settings_alerts">Alertas</string>
+    <string name="settings_pending_tasks">Tareas pendientes</string>
+    <string name="settings_reminders">Recordatorios</string>
+    <string name="settings_daily_summary">Resumen Diario</string>
+    <string name="settings_profile">Perfil</string>
+    <string name="settings_profile_name">Nombre</string>
+    <string name="settings_username_summary">Nombrre que identifica al usuario</string>
+    <string name="settings_username_hint">Inserta un nombre</string>
+
     <!-- Dialogs -->
     <string name="dialog_header_add">Añadir</string>
     <string name="dialog_header_remove">Quitar</string>
