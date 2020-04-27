@@ -23,7 +23,7 @@ public class FarmViewModel extends ViewModel
         return Firebase.Database.fetchAll(Farm.class);
     }
 
-    public Task<Void> addFarm(Farm farm)
+    public Task<String> addFarm(Farm farm)
     {
         return Firebase.Database.add(Farm.class, farm);
     }

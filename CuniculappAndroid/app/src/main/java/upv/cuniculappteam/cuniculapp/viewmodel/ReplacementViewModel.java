@@ -30,7 +30,7 @@ public class ReplacementViewModel extends ViewModel
         return Tasks.whenAll(tasks);
     }
 
-    public Task<Void> addReplacement(Replacement replacement)
+    public Task<String> addReplacement(Replacement replacement)
     {
         return Firebase.Database.add(Replacement.class, replacement);
     }
