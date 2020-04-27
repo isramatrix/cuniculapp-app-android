@@ -1,6 +1,7 @@
 package upv.cuniculappteam.cuniculapp.activity.settings;
 
 import android.os.Bundle;
+import android.preference.PreferenceFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,9 @@ public class SettingsFragment extends Fragment
         return inflater.inflate(R.layout.fragment_settings, container, false);
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
