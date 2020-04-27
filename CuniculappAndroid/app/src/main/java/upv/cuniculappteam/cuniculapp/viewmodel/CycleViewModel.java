@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 
+import upv.cuniculappteam.cuniculapp.logic.firebase.Database;
 import upv.cuniculappteam.cuniculapp.logic.firebase.Firebase;
 import upv.cuniculappteam.cuniculapp.model.Cycle;
 import upv.cuniculappteam.cuniculapp.model.Labor;
@@ -30,7 +31,10 @@ public class CycleViewModel extends ViewModel
     {
         List<Task<?>> tasks = new ArrayList<>();
         for (Cycle cycle : cycles)
+        {
             tasks.add(Firebase.Database.delete(Cycle.class, cycle));
+            tasks.add(Firebase.Database.delete(Cycle.class, cycle));
+        }
         return Tasks.whenAll(tasks);
     }
 
@@ -164,5 +168,10 @@ public class CycleViewModel extends ViewModel
                 palpableRabbitsStartTask, palpableRabbitsFinishTask, setupNestTask, labourTask,
                 motherFeedTask, fodderFeedTask, retireFeedTask, saleTask, inseminationEventTask,
                 palpationEventTask, labourEventTask, saleEventTask);
+    }
+
+    public Task<Void> updateCycle(Cycle cycle)
+    {
+        return Firebase.Database.update(cycle, Cycle.class);
     }
 }

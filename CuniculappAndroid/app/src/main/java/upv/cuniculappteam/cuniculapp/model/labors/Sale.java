@@ -15,11 +15,13 @@ public class Sale extends Traceable
 
     private String labor;
 
-    private Integer salePrize;
+    private float salePrize;
 
-    private Integer averageWeight;
+    private float averageWeight;
 
-    private Integer feedCost;
+    private float feedCost;
+
+    private Integer sold;
 
     private String cycle;
 
@@ -41,15 +43,15 @@ public class Sale extends Traceable
         this.labor = labor;
     }
 
-    public Integer getSalePrize() {
+    public float getSalePrize() {
         return salePrize;
     }
 
-    public void setSalePrize(Integer salePrize) {
+    public void setSalePrize(float salePrize) {
         this.salePrize = salePrize;
     }
 
-    public Integer getAverageWeight() {
+    public float getAverageWeight() {
         return averageWeight;
     }
 
@@ -57,11 +59,11 @@ public class Sale extends Traceable
         this.averageWeight = averageWeight;
     }
 
-    public Integer getFeedCost() {
+    public float getFeedCost() {
         return feedCost;
     }
 
-    public void setFeedCost(Integer feedCost) {
+    public void setFeedCost(float feedCost) {
         this.feedCost = feedCost;
     }
 
@@ -72,4 +74,8 @@ public class Sale extends Traceable
     public void setCycle(String cycle) {
         this.cycle = cycle;
     }
+
+    public Integer getSold() { return sold; }
+
+    public void setSold(Integer sold) { this.sold = sold; }
 }
