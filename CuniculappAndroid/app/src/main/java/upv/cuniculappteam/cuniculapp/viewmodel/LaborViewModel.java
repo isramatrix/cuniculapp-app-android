@@ -23,7 +23,7 @@ public class LaborViewModel extends ViewModel
         return Database.fetchAll(Labor.class);
     }
 
-    public Task<Void> addLabor(Labor labor)
+    public Task<String> addLabor(Labor labor)
     {
         return Firebase.Database.add(Labor.class, labor).continueWith((t) -> null);
     }

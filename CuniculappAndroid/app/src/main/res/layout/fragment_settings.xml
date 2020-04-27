@@ -1,6 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <PreferenceCategory
+        android:title="@string/settings_profile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditTextPreference
+            android:key="username"
+            android:title="@string/settings_profile_name"
+            android:summary="@string/settings_username_summary"
+            android:hint="@string/settings_username_hint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/settings_notifications"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <CheckBoxReference
+            android:key="alerts"
+            android:defaultValue="true"
+            android:title="@string/settings_alerts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <CheckBoxReference
+            android:key="pendingTasks"
+            android:defaultValue="true"
+            android:title="@string/settings_pending_tasks"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <CheckBoxReference
+            android:key="reminders"
+            android:defaultValue="true"
+            android:title="@string/settings_reminders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <CheckBoxReference
+            android:key="dailysummary"
+            android:defaultValue="true"
+            android:title="@string/settings_daily_summary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
