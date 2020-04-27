@@ -50,7 +50,6 @@ public class CycleHistoryActivity extends AppCompatActivity
         this.kitten = getIntent().getParcelableExtra(KITTENS_INTENT_KEY);
         if (this.kitten == null) { finish(); return; }
 
-
         this.rabbits = ViewModelProviders.of(this).get(RabbitViewModel.class);
 
         LoadingView.show(this);

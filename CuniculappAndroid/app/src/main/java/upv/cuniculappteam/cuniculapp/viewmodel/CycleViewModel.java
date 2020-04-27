@@ -144,8 +144,8 @@ public class CycleViewModel extends ViewModel
         Task<Void> inseminationEventTask = Firebase.Database.add(Insemination.class, newInsemination);
 
         Palpation newPalpation = new Palpation();
-        newPalpation.setStartLabor(palpableRabbitsStart.getId());
-        newPalpation.setFinishLabor(palpableRabbitsFinish.getId());
+        //newPalpation.setStartLabor(palpableRabbitsStart.getId());
+        //newPalpation.setFinishLabor(palpableRabbitsFinish.getId());
         newPalpation.setCycle(cycle.getId());
         Task<Void> palpationEventTask = Firebase.Database.add(Palpation.class, newPalpation);
 

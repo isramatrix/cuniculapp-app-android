@@ -8,16 +8,22 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import upv.cuniculappteam.cuniculapp.R;
 import upv.cuniculappteam.cuniculapp.activity.utils.NamedFragment;
 import upv.cuniculappteam.cuniculapp.model.Cycle;
+import upv.cuniculappteam.cuniculapp.model.labors.Insemination;
+import upv.cuniculappteam.cuniculapp.model.labors.Labour;
+import upv.cuniculappteam.cuniculapp.model.labors.Palpation;
+import upv.cuniculappteam.cuniculapp.model.labors.Sale;
+import upv.cuniculappteam.cuniculapp.view.utils.DateEditText;
+import upv.cuniculappteam.cuniculapp.view.utils.LoadingView;
 import upv.cuniculappteam.cuniculapp.viewmodel.EventViewModel;
 import upv.cuniculappteam.cuniculapp.viewmodel.EventViewModel.Event;
 
@@ -28,6 +34,42 @@ public class EventsFragment extends Fragment implements NamedFragment
     private EventViewModel events;
 
     private View view;
+
+    private DateEditText inseminationDate;
+
+    private EditText inseminationAmount;
+
+    private DateEditText palpationDate;
+
+    private EditText palpationPregnant;
+
+    private EditText palpationFailed;
+
+    private EditText palpationFr;
+
+    private DateEditText birthDate;
+
+    private EditText birthAmount;
+
+    private EditText birthAlive;
+
+    private EditText birthDead;
+
+    private EditText birthAverage;
+
+    private DateEditText saleDate;
+
+    private EditText saleAmount;
+
+    private EditText salePrize;
+
+    private EditText saleSize;
+
+    private EditText saleFeed;
+
+    private EditText saleIc;
+
+    private EditText saleKgIa;
 
     private Button saveButton;
 
@@ -45,86 +87,102 @@ public class EventsFragment extends Fragment implements NamedFragment
 
         this.events = ViewModelProviders.of(this).get(EventViewModel.class);
 
-        // Se muestran los datos de los eventos asociados al ciclo.
-        events.getEvent(cycle).addOnSuccessListener(this::showData);
-
         // Se inicializa el comportamiento del botón de guardado de eventos.
         this.saveButton = view.findViewById(R.id.events_save_button);
         saveButton.setOnClickListener(this::saveEvents);
     }
 
-    private void showData(Event event)
+    /**
+     * Realiza las llamadas al VM de conejos para actualizar la vista de los datos a visualizar en
+     * la actividad actual.
+     */
+    private void updateView(Object... params)
     {
-        showInseminationData(event);
-        showPalpationData(event);
-        showBirthsData(event);
-        showSalesData(event);
+        LoadingView.show(getActivity());
+        events.getInseminations(cycle)
+                .addOnCompleteListener(LoadingView::hide)
+                .addOnSuccessListener(this::showInseminationData);
+
+        LoadingView.show(getActivity());
+        events.getPalpations(cycle)
+                .addOnCompleteListener(LoadingView::hide)
+                .addOnSuccessListener(this::showPalpationData);
+
+        LoadingView.show(getActivity());
+        events.getLabours(cycle)
+                .addOnCompleteListener(LoadingView::hide)
+                .addOnSuccessListener(this::showLabourData);
+
+        LoadingView.show(getActivity());
+        events.getSales(cycle)
+                .addOnCompleteListener(LoadingView::hide)
+                .addOnSuccessListener(this::showSalesData);
     }
 
-    private void showInseminationData(Event event)
+    private void showInseminationData(Insemination insemination)
     {
-        EditText date = view.findViewById(R.id.insemination_date_text);
-        date.setText(""); // TODO: Inflar el dato correspondiente.
+        inseminationDate = view.findViewById(R.id.insemination_date_text);
+        inseminationDate.setDate(insemination.getDate());
 
-        EditText amount = view.findViewById(R.id.insemination_amount_text);
-        amount.setText(""); // TODO: Inflar el dato correspondiente.
+        inseminationAmount = view.findViewById(R.id.insemination_amount_text);
+        inseminationAmount.setText(insemination.getInseminatedRabbits());
     }
 
-    private void showPalpationData(Event event)
+    private void showPalpationData(Palpation palpation)
     {
-        EditText date = view.findViewById(R.id.palpation_date_text);
-        date.setText(""); // TODO: Inflar el dato correspondiente.
+        palpationDate = view.findViewById(R.id.palpation_date_text);
+        palpationDate.setDate(palpationDate.getDate());
 
-        EditText pregnant = view.findViewById(R.id.palpation_pregnant_text);
-        pregnant.setText(""); // TODO: Inflar el dato correspondiente.
+        palpationPregnant = view.findViewById(R.id.palpation_pregnant_text);
+        palpationPregnant.setText(palpation.getPregnantRabbits());
 
-        EditText failed = view.findViewById(R.id.palpation_failed_text);
-        failed.setText(""); // TODO: Inflar el dato correspondiente.
+        palpationFailed = view.findViewById(R.id.palpation_failed_text);
+        palpationFailed.setText(""); // TODO: Inflar el dato correspondiente.
 
-        EditText fr = view.findViewById(R.id.palpation_fr_text);
-        fr.setText(""); // TODO: Inflar el dato correspondiente.
+        palpationFr = view.findViewById(R.id.palpation_fr_text);
+        palpationFr.setText(""); // TODO: Inflar el dato correspondiente.
     }
 
-    private void showBirthsData(Event event)
+    private void showLabourData(Labour birth)
     {
-        EditText date = view.findViewById(R.id.births_date_text);
-        date.setText(""); // TODO: Inflar el dato correspondiente.
+        birthDate = view.findViewById(R.id.births_date_text);
+        birthDate.setDate(birth.getDate());
 
-        EditText amount = view.findViewById(R.id.births_amount_text);
-        amount.setText(""); // TODO: Inflar el dato correspondiente.
+        birthAmount = view.findViewById(R.id.births_amount_text);
+        birthAmount.setText(birth.getMothersAmount());
 
-        EditText alive = view.findViewById(R.id.births_alive_text);
-        alive.setText(""); // TODO: Inflar el dato correspondiente.
+        birthAlive = view.findViewById(R.id.births_alive_text);
+        birthAlive.setText(String.valueOf(birth.getBornAlive()));
 
-        EditText dead = view.findViewById(R.id.births_dead_text);
-        dead.setText(""); // TODO: Inflar el dato correspondiente.
+        birthDead = view.findViewById(R.id.births_dead_text);
+        birthDead.setText(String.valueOf(birth.getBornDead()));
 
-        EditText average = view.findViewById(R.id.births_average_text);
-        average.setText(""); // TODO: Inflar el dato correspondiente.
+        birthAverage = view.findViewById(R.id.births_average_text);
+        birthAverage.setText(""); // TODO: Inflar el dato correspondiente.
     }
 
-    private void showSalesData(Event event)
+    private void showSalesData(Sale sale)
     {
-        EditText date = view.findViewById(R.id.sales_date_text);
-        date.setText(""); // TODO: Inflar el dato correspondiente.
+        saleDate = view.findViewById(R.id.sales_date_text);
+        saleDate.setDate(sale.getDate()); // TODO: Inflar el dato correspondiente.
 
-        EditText amount = view.findViewById(R.id.sales_amount_text);
-        amount.setText(""); // TODO: Inflar el dato correspondiente.
+        saleAmount = view.findViewById(R.id.sales_amount_text);
+        saleAmount.setText(String.valueOf("")); // TODO: Inflar el dato correspondiente.
 
-        EditText prize = view.findViewById(R.id.sales_prize_text);
-        prize.setText(""); // TODO: Inflar el dato correspondiente.
+        salePrize = view.findViewById(R.id.sales_prize_text);
+        salePrize.setText(String.valueOf(sale.getSalePrize()));
 
-        EditText size = view.findViewById(R.id.sales_size_text);
-        size.setText(""); // TODO: Inflar el dato correspondiente.
+        saleSize = view.findViewById(R.id.sales_size_text);
+        saleSize.setText(String.valueOf(sale.getAverageWeight()));
 
-        EditText feed = view.findViewById(R.id.sales_feed_text);
-        feed.setText(""); // TODO: Inflar el dato correspondiente.
+        saleFeed = view.findViewById(R.id.sales_feed_text);
+        saleFeed.setText(String.valueOf(sale.getFeedCost()));
 
-        EditText ic = view.findViewById(R.id.sales_ic_text);
-        ic.setText(""); // TODO: Inflar el dato correspondiente.
+        saleIc = view.findViewById(R.id.sales_ic_text);
+        saleIc.setText(""); // TODO: Inflar el dato correspondiente.
 
-        EditText kgIa = view.findViewById(R.id.sales_kg_ia_text);
-        kgIa.setText(""); // TODO: Inflar el dato correspondiente.
+        saleKgIa = view.findViewById(R.id.sales_kg_ia_text);
+        saleKgIa.setText(""); // TODO: Inflar el dato correspondiente.
     }
 
     private void saveEvents(View view)
