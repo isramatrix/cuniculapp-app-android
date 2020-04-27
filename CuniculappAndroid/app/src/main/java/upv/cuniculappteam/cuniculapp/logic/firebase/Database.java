@@ -77,7 +77,7 @@ public class Database
         return firestore.collection(type.getSimpleName()).document(value.getId()).set(value);
     }
 
-    public <T extends Identifiable & Serializable> Task<Void> add(Class<T> type, T obj)
+    public <T extends Identifiable & Serializable> Task<String> add(Class<T> type, T obj)
     {
         CollectionReference collection = firestore.collection(type.getSimpleName());
         return collection.add(obj).continueWithTask(
@@ -90,7 +90,7 @@ public class Database
 
                     else throw new NullPointerException();
                 }
-        );
+        ).continueWith((t) -> obj.getId());
     }
 
     public <T extends Identifiable & Serializable> Task<Void> delete(Class<T> type, T obj)
