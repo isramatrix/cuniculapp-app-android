@@ -18,7 +18,7 @@ public class DateEditText extends AppCompatEditText
 {
     private static final String format = "dd/MM/yyyy";
 
-    private static final Calendar myCalendar = Calendar.getInstance();
+    private final Calendar myCalendar = Calendar.getInstance();
 
     private SimpleDateFormat dateFormat = new SimpleDateFormat(format, Locale.getDefault());
 

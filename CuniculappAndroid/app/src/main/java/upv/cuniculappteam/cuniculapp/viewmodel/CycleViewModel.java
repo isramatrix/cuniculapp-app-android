@@ -1,5 +1,7 @@
 package upv.cuniculappteam.cuniculapp.viewmodel;
 
+import android.view.ViewStructure;
+
 import androidx.lifecycle.ViewModel;
 
 import com.google.android.gms.tasks.Task;
@@ -178,8 +180,6 @@ public class CycleViewModel extends ViewModel
                             motherFeedTask, fodderFeedTask, retireFeedTask, saleTask);
                 }
         );
-
-
     }
 
     public Task<Void> updateCycle(Cycle cycle)

@@ -36,6 +36,8 @@ public class LaborFragment extends ModelLifecycleFragment<Labor>
 
     private Result filters;
 
+    private List<Labor> labors;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
@@ -157,11 +159,13 @@ public class LaborFragment extends ModelLifecycleFragment<Labor>
     private void applySearchFilters(int resultCode, @Nullable Intent data)
     {
         if (data == null) return;
+
         this.filters = (Result) data.getSerializableExtra(SearchLaborsActivity.FILTER_PARAMS_PARCEL_KEY);
+        if (filters == null) return;
 
         switch (resultCode)
         {
-            case SearchLaborsActivity.RESULT_OK: return;
+            case SearchLaborsActivity.RESULT_OK: super.updateItems(filters.filter(labors)); return;
             case SearchLaborsActivity.RESULT_CANCELED: return;
         }
     }
@@ -199,7 +203,7 @@ public class LaborFragment extends ModelLifecycleFragment<Labor>
     @Override
     public Task<List<Labor>> getAdapterData()
     {
-        return tasks.getLabors();
+        return tasks.getLabors().continueWith(task -> this.labors = task.getResult());
     }
 
     /**

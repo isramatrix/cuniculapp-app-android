@@ -25,7 +25,7 @@ public class LaborViewModel extends ViewModel
 
     public Task<String> addLabor(Labor labor)
     {
-        return Firebase.Database.add(Labor.class, labor);
+        return Firebase.Database.add(Labor.class, labor).continueWith((t) -> null);
     }
 
     public Task<List<Labor>> getArchivedLabors()
