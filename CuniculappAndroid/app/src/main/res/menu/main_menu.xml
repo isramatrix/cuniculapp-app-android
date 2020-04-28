@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/main_labor"
+        android:icon="@drawable/ic_assignment_black_24dp"
+        android:title="@string/main_labors" />
+    <item
+        android:id="@+id/main_calendar"
+        android:icon="@drawable/ic_today_black_24dp"
+        android:title="@string/main_calendar" />
+    <item
+        android:id="@+id/main_cycles"
+        android:icon="@drawable/ic_insert_chart_black_24dp"
+        android:title="@string/main_cycles" />
+    <item
+        android:id="@+id/main_settings"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="@string/main_settings" />
+</menu>

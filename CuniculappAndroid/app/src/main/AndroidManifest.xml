@@ -3,19 +3,49 @@
     package="upv.cuniculappteam.cuniculapp">
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+
+        <!-- Common Activities -->
+        <activity
+            android:name=".activity.SplashActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".activity.MainActivity" />
+
+        <!-- Farm Activities -->
+        <activity android:name=".activity.farms.main.FarmActivity"
+            android:parentActivityName=".activity.MainActivity"/>
+
+        <activity android:name=".activity.farms.cycles.CycleActivity"
+            android:parentActivityName=".activity.farms.main.FarmActivity"/>
+
+        <activity android:name=".activity.farms.replacements.ReplacementActivity"
+            android:parentActivityName=".activity.farms.main.FarmActivity"/>
+
+        <activity android:name=".activity.farms.cycles.CycleHistoryActivity"
+            android:parentActivityName=".activity.farms.cycles.CycleActivity"/>
+
+        <!-- Labor Activities -->
+        <activity android:name=".activity.labors.SearchLaborsActivity"
+            android:parentActivityName=".activity.MainActivity"/>
+
+        <activity android:name=".activity.labors.ArchivedLaborsActivity"
+            android:parentActivityName=".activity.MainActivity" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+
     </application>
 
 </manifest>
